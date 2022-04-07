@@ -1,5 +1,12 @@
 package project_3;
 
-public enum equipe {
+public enum type {
+	Roi,
+	Dame,
+	Fou,
+	Cavalier,
+	Tour,
+	Pion
+	
 
 }
