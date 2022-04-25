@@ -1,0 +1,18 @@
+mardi 26 avril : 1ère itération S3, 20% de la note
+17 mai : 2ème itération, 20% de la note
+13 juin : 3ème itération, 20% de la note
+4 juillet : itération finale, 40% de la note
+
+Attendu 1ère itération :
+- maquette fil de fer des pages/visuels du projet
+- spécifications fonctionnelles (Description exhaustive des fonctionalités du projet, texte ou UML)
+répondre aux questions :
+Quel est l'objectif de mon projet ?
+Quels sont les différents profils de ses utilisateurs ?
+Quelles actions cherchent-ils respectivement à faire sur mon projet ?
+Quelles fonctionnalités vont leur permettre de mener à bien ces actions ?
+- cas d'utilisation (scénario d'utilisation du projet)
+- diagramme de classe (description des objets)
+- git du projet sur gitlab ESIEA pour héberger le projet
+- présentation des éventuelles premiers dévellopement
+- engagement pour la seconde itération
