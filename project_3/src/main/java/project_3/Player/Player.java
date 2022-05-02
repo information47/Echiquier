@@ -1,9 +1,0 @@
-package project_3.Player;
-
-public class Player {
-
-	public Player() {
-		// TODO Auto-generated constructor stub
-	}
-
-}
