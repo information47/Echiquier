@@ -4,8 +4,8 @@ import project_3.Player.Player;
 
 public abstract class Piece {
 	
-	Player Owning_player;
-	String Position;
+	protected Player Owning_player;
+	protected String Position;
 	
 	public Piece( Player owning_player, String position) {
 		this.Owning_player = owning_player;
