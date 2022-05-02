@@ -18,7 +18,7 @@ public class MainEchec extends Application {
 	public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("iChess");
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
         initRootLayout();
         
         showEchiquier();
