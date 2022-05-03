@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="684.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="Acceuil" prefHeight="684.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="775.0" BorderPane.alignment="CENTER">
          <buttons>
@@ -22,7 +22,7 @@
       <ButtonBar prefHeight="404.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </left>
    <top>
-      <AnchorPane fx:id="Acceuil" focusTraversable="true" prefHeight="644.0" prefWidth="863.0" BorderPane.alignment="CENTER">
+      <AnchorPane focusTraversable="true" prefHeight="644.0" prefWidth="863.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="378.0" fitWidth="459.0" layoutX="229.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
                <image>
