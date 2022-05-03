@@ -22,7 +22,7 @@
       <ButtonBar prefHeight="404.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </left>
    <top>
-      <AnchorPane focusTraversable="true" prefHeight="644.0" prefWidth="863.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="Acceuil" focusTraversable="true" prefHeight="644.0" prefWidth="863.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="378.0" fitWidth="459.0" layoutX="229.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
                <image>
