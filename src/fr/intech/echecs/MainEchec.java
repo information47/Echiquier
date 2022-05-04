@@ -2,6 +2,7 @@ package fr.intech.echecs;
 
 import java.io.IOException;
 
+import fr.intech.echecs.view.EchiquierController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -46,6 +47,8 @@ public class MainEchec extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
             AnchorPane echiquier = (AnchorPane) loader.load();
+            
+            EchiquierController ec = loader.getController();
             
             // Set person overview into the center of root layout.
             rootLayout.setCenter(echiquier);
