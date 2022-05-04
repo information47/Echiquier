@@ -1,4 +1,4 @@
-package project_3.Game;
+package main.java.project_3.Game;
 
 public class Game {
 

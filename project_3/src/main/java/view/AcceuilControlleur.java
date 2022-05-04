@@ -1,5 +1,4 @@
-package view;
-import project_3.model.Acceuil;
+package main.java.view;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 

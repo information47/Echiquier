@@ -1,8 +1,8 @@
-package project_3.Piece.type_piece;
+package main.java.project_3.Piece.type_piece;
 
-import project_3.Piece.Piece;
-import project_3.Player.Player;
-import project_3.Piece.type;
+import main.java.project_3.Piece.Piece;
+import main.java.project_3.Player.Player;
+import main.java.project_3.Piece.type;
 
 public class King extends Piece {
 	protected type type;

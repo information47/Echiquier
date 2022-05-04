@@ -1,10 +1,11 @@
-package view;
+package main.java.view;
+//import java.io.IOException;
+
 import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -20,30 +21,32 @@ public class MainAcceuil extends Application {
         primaryStage.setResizable(false);
         initRootLayout();
         
-        showEchiquier();
+//        showEchiquier();
         
 	}
 	public void initRootLayout() { //initialise la fenetre principale
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainEchec.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(MainAcceuil.class.getResource("/main.java.view/Acceuil.fxml"));
             rootLayout = (BorderPane) loader.load();
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+	}
+}
 	
-    public void showEchiquier() { // montre l'echiquier dans la fenetre principale
+/*    public void showEchiquier() { // montre l'echiquier dans la fenetre principale
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
+            loader.setLocation(MainAcceuil.class.getResource("view/Echiquier.fxml"));
             AnchorPane echiquier = (AnchorPane) loader.load();
             
             // Set person overview into the center of root layout.
@@ -61,3 +64,4 @@ public class MainAcceuil extends Application {
 		launch(args);
 	}
 }
+*/
