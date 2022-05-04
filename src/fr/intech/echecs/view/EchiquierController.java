@@ -29,9 +29,37 @@ public class EchiquierController {
 		}
     	addPiece("tour_noir", 0, 0);
     	addPiece("tour_noir", 7, 0);
+    	addPiece("cavalier_noir", 1, 0);
+    	addPiece("cavalier_noir", 6, 0);
+    	addPiece("fou_noir", 5, 0);
+    	addPiece("fou_noir", 2, 0);
+    	addPiece("roi_noir", 3, 0);
+    	addPiece("reine_noir", 4, 0);
+    	addPiece("pion_noir", 0, 1);
+    	addPiece("pion_noir", 1, 1);
+    	addPiece("pion_noir", 2, 1);
+    	addPiece("pion_noir", 3, 1);
+    	addPiece("pion_noir", 4, 1);
+    	addPiece("pion_noir", 5, 1);
+    	addPiece("pion_noir", 6, 1);
+    	addPiece("pion_noir", 7, 1);
+    	
     	addPiece("tour_blanc", 0, 7);
     	addPiece("tour_blanc", 7, 7);
-    	
+    	addPiece("cavalier_blanc", 1, 7);
+    	addPiece("cavalier_blanc", 6, 7);
+    	addPiece("fou_blanc", 5, 7);
+    	addPiece("fou_blanc", 2, 7);
+    	addPiece("roi_blanc", 3, 7);
+    	addPiece("reine_blanc", 4, 7);
+    	addPiece("pion_blanc", 0, 6);
+    	addPiece("pion_blanc", 1, 6);
+    	addPiece("pion_blanc", 2, 6);
+    	addPiece("pion_blanc", 3, 6);
+    	addPiece("pion_blanc", 4, 6);
+    	addPiece("pion_blanc", 5, 6);
+    	addPiece("pion_blanc", 6, 6);
+    	addPiece("pion_blanc", 7, 6);
     }
     public Pane getEchiquier() {
     	return echiquier;
