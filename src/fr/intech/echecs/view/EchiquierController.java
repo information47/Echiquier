@@ -2,8 +2,6 @@ package fr.intech.echecs.view;
 
 
 import fr.intech.echecs.model.Cell;
-import fr.intech.echecs.model.Cell.EmptyCell;
-import fr.intech.echecs.model.Cell.OccupiedCell;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
