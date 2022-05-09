@@ -2,6 +2,8 @@ package fr.intech.echecs.view;
 
 
 import fr.intech.echecs.model.Cell;
+import fr.intech.echecs.model.Cell.EmptyCell;
+import fr.intech.echecs.model.Cell.OccupiedCell;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,10 +14,12 @@ public class EchiquierController {
 	@FXML
 	private GridPane echiquier;
 	private Cell[][] grid;
+	
 	/**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      */
+
     @FXML    
     private void initialize() { // creation et insertion des 64 cellules sur l'echiquier et dans un tableau a deux dimensions
     	grid = new Cell[8][8];
@@ -25,6 +29,7 @@ public class EchiquierController {
 				echiquier.add(cell, i, j);
 				grid[i][j] = cell;
 			}
+
 		}
     	// disposition des pieces sur l'echiquier
     	addPiece("tour_noir", 0, 0);
