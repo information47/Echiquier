@@ -49,7 +49,7 @@ public class Knight extends Pieces {
 					LegalMove.add(new NormalMove(board, this, possible_destination));
 				}
 				else {
-					Pieces PieceOnCell = corresponding_cell.GetPiece();  //quel pièce est dessus
+					Pieces PieceOnCell = corresponding_cell.GetPiece();  //quelle pièce est dessus
 					Team PieceTeam = PieceOnCell.GetTeam();     // est elle amie ou ennemie
 					
 					if (this.team != PieceTeam) {   //  si ennemie on l'ajoute au mouvements possibles

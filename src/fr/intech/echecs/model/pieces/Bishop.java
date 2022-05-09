@@ -8,6 +8,7 @@ import fr.intech.echecs.model.Cell;
 import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
+import fr.intech.echecs.model.chessboard.Move.NormalMove;
 
 public class Bishop extends Pieces {
 	
@@ -29,23 +30,88 @@ public class Bishop extends Pieces {
 		int possibleX = this.x;
 		int possibleY = this.y;
 		int[] PossibleDestination = {possibleX, possibleY};
+		Boolean stuck = false;
 		
-		while (CellExist(PossibleDestination)) {
+		//diagonal haut droit
+		while (CellExist(PossibleDestination ) && stuck == false ) {
 			Cell CorespondantCell = Board.GetCell(PossibleDestination);
 			if (CorespondantCell.IsEmpty() != false) {
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-					return
+					stuck = true;
 				}
 				else if (CorespondantCell.GetPiece().team == this.team) {
-					return FinalListe;
+					stuck = true;
 				}
 				
 			}
+			else {
+				FinalListe.add(new NormalMove(board, this, PossibleDestination));
+				PossibleDestination[0]++;
+				PossibleDestination[1]++;
+			}
 			
 		}
+		//diagonal bas droite
+		while (CellExist(PossibleDestination ) && stuck == false ) {
+			Cell CorespondantCell = Board.GetCell(PossibleDestination);
+			if (CorespondantCell.IsEmpty() != false) {
+				if(CorespondantCell.GetPiece().team != this.team) {
+					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
+					stuck = true;
+				}
+				else if (CorespondantCell.GetPiece().team == this.team) {
+					stuck = true;
+				}
+				
+			}
+			else {
+				FinalListe.add(new NormalMove(board, this, PossibleDestination));
+				PossibleDestination[0]++;
+				PossibleDestination[1]--;
+			}
 			
-		
+		}
+		//diagonal haut gauche
+		while (CellExist(PossibleDestination ) && stuck == false ) {
+			Cell CorespondantCell = Board.GetCell(PossibleDestination);
+			if (CorespondantCell.IsEmpty() != false) {
+				if(CorespondantCell.GetPiece().team != this.team) {
+					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
+					stuck = true;
+				}
+				else if (CorespondantCell.GetPiece().team == this.team) {
+					stuck = true;
+				}
+				
+			}
+			else {
+				FinalListe.add(new NormalMove(board, this, PossibleDestination));
+				PossibleDestination[0]--;
+				PossibleDestination[1]++;
+			}
+			
+		}
+		//diagonal bas gauche
+		while (CellExist(PossibleDestination ) && stuck == false ) {
+			Cell CorespondantCell = Board.GetCell(PossibleDestination);
+			if (CorespondantCell.IsEmpty() != false) {
+				if(CorespondantCell.GetPiece().team != this.team) {
+					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
+					stuck = true;
+				}
+				else if (CorespondantCell.GetPiece().team == this.team) {
+					stuck = true;
+				}
+				
+			}
+			else {
+				FinalListe.add(new NormalMove(board, this, PossibleDestination));
+				PossibleDestination[0]--;
+				PossibleDestination[1]--;
+			}
+			
+		}	
 		return null;
 	}
 

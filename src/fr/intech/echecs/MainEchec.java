@@ -2,6 +2,7 @@ package fr.intech.echecs;
 
 import java.io.IOException;
 
+import fr.intech.echecs.view.EchiquierController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,12 +14,14 @@ public class MainEchec extends Application {
     
 	private Stage primaryStage;
     private BorderPane rootLayout;
+    private EchiquierController echiquier = new EchiquierController();
     
 	@Override
 	public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("iChess");
-        //primaryStage.setResizable(false);
+        // empeche le redimensionnement de la fenetre
+        primaryStage.setResizable(false);
         initRootLayout();
         
         showEchiquier();
@@ -47,6 +50,8 @@ public class MainEchec extends Application {
             loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
             AnchorPane echiquier = (AnchorPane) loader.load();
             
+            EchiquierController ec = loader.getController();
+            
             // Set person overview into the center of root layout.
             rootLayout.setCenter(echiquier);
         } catch (IOException e) {
@@ -60,5 +65,6 @@ public class MainEchec extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 }
