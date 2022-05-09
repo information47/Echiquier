@@ -23,7 +23,7 @@ public class EchiquierController {
     	grid = new Cell[8][8];
     	for (int i = 0; i <= 7; i++) {
 			for (int j = 0; j<= 7; j++) {
-				Cell cell = new Cell(i, j, echiquier);
+				Cell cell = new Cell(i, j, null, echiquier);
 				echiquier.add(cell, i, j);
 				grid[i][j] = cell;
 			}

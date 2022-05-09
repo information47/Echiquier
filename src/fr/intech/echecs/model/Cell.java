@@ -1,8 +1,8 @@
 package fr.intech.echecs.model;
 
 
-import javafx.scene.layout.GridPane;
 import fr.intech.echecs.model.pieces.Pieces;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -10,10 +10,12 @@ import javafx.scene.shape.Rectangle;
 public class Cell extends StackPane {
 	private int x;
 	private int y;
+	private Pieces pieceOnCell;
 	
-	public Cell (int x, int y, GridPane echiquier) {
+	public Cell (int x, int y, Pieces pieceOnCell, GridPane echiquier) {
 		this.x = x;
 		this.y = y;
+		this.pieceOnCell = pieceOnCell;
 		
 		Rectangle couleur = new Rectangle(0, 0, 63, 63);
 		
@@ -35,6 +37,22 @@ public class Cell extends StackPane {
 			}
 		}
 		
+	}
+	
+	public Boolean isEmpty() {
+		if ( this.pieceOnCell == null ) {
+			return true;			
+		} else {
+			return false;
+		}
+	}
+	
+	public Pieces getPiece() {
+		if ( this.isEmpty() == false ) {
+			return this.pieceOnCell;
+		} else {
+			return null;
+		}
 	}
 }
 
