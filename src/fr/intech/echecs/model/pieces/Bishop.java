@@ -7,6 +7,7 @@ import java.util.List;
 import fr.intech.echecs.model.Cell;
 import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
+import fr.intech.echecs.model.chessboard.Move.AttackMove;
 
 public class Bishop extends Pieces {
 	
@@ -32,7 +33,14 @@ public class Bishop extends Pieces {
 		while (CellExist(PossibleDestination)) {
 			Cell CorespondantCell = Board.GetCell(PossibleDestination);
 			if (CorespondantCell.IsEmpty() != false) {
-				if()
+				if(CorespondantCell.GetPiece().team != this.team) {
+					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
+					return
+				}
+				else if (CorespondantCell.GetPiece().team == this.team) {
+					return FinalListe;
+				}
+				
 			}
 			
 		}
