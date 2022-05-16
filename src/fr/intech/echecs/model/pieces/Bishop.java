@@ -33,6 +33,7 @@ public class Bishop extends Pieces {
 		while (CellExist(PossibleDestination)) {
 			Cell CorespondantCell = Board.GetCell(PossibleDestination);
 			if (CorespondantCell.IsEmpty() != false) {
+<<<<<<< Updated upstream
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
 					
@@ -41,6 +42,9 @@ public class Bishop extends Pieces {
 					return FinalListe;
 				}
 				
+=======
+			
+>>>>>>> Stashed changes
 			}
 			
 		}
