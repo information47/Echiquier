@@ -93,4 +93,13 @@ public class EchiquierController {
 		ImageView img = new ImageView();
 		img.setImage(new Image("ressources/"+ piece + ".png"));
 	}
+	
+	public void removePiece (int x, int y) {
+		Cell cell = getCell(x, y);
+		if (cell.getChildren().size() == 2) {
+			int lastElem = cell.getChildren().size()-1;
+			cell.getChildren().remove(lastElem);
+		}
+	}
+	
 }
