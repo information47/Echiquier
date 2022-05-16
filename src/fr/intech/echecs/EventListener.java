@@ -16,7 +16,7 @@ public class EventListener {
 	
 	@Subscribe
 	public void moveEvent (MoveEvent event) {
-		// echiquierController.addPiece("cavalier_noir", 3, 4);
+		echiquierController.addPiece("cavalier_noir", 3, 4);
 		System.out.println("la fonction moveEvent fut lancée.");
 	}
 }
