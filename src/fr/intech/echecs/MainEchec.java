@@ -22,14 +22,14 @@ public class MainEchec extends Application {
         //primaryStage.setResizable(false);
         initRootLayout();
         
-        showEchiquier();
+        //showEchiquier();
         
 	}
 	public void initRootLayout() { //initialise la fenetre principale
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainEchec.class.getResource("view/RootLayout.fxml"));
+            loader.setLocation(MainEchec.class.getResource("view/Acceuil.fxml"));
             rootLayout = (BorderPane) loader.load();
             
             // Show the scene containing the root layout.
@@ -41,7 +41,7 @@ public class MainEchec extends Application {
         }
     }
 	
-    public void showEchiquier() { // montre l'echiquier dans la fenetre principale
+   /* public void showEchiquier() { // montre l'echiquier dans la fenetre principale
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
@@ -55,7 +55,7 @@ public class MainEchec extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } */
 
 	public Stage getPrimaryStage() {
 		return primaryStage;
