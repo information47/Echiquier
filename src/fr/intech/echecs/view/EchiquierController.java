@@ -12,36 +12,21 @@ public class EchiquierController {
 	@FXML
 	private GridPane echiquier;
 	private Cell[][] grid;
-<<<<<<< HEAD
-=======
-	
->>>>>>> origin/paul
 	/**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
-     */
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/paul
-    @FXML    
+     */ 
     private void initialize() {
     	grid = new Cell[8][8];
     	for (int i = 0; i <= 7; i++) {
 			for (int j = 0; j<= 7; j++) {
-<<<<<<< HEAD
-				Cell cell = new Cell(i, j, echiquier);
-				//echiquier.addPiece("cavalier_noir", 0, 0);
-				echiquier.add(cell, i, j);
-				grid[i][j] = cell;
-			}
-=======
+
+
 				Cell cell = new Cell(i, j, null, echiquier);
 				echiquier.add(cell, i, j);
 				grid[i][j] = cell;
 			}
 
->>>>>>> origin/paul
 		}
     	addPiece("tour_noir", 0, 0);
     	addPiece("tour_noir", 7, 0);
