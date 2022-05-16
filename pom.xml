@@ -3,4 +3,11 @@
   <groupId>echiquier</groupId>
   <artifactId>echiquier</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+	<dependencies>
+		<dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>31.0.1-jre</version>
+    </dependency>
+	</dependencies>
 </project>

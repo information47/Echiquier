@@ -2,7 +2,10 @@ package fr.intech.echecs;
 
 import java.io.IOException;
 
+import fr.intech.echecs.model.pieces.Knight;
+import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.view.EchiquierController;
+import fr.intech.echecs.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,6 +18,7 @@ public class MainEchec extends Application {
 	private Stage primaryStage;
     private BorderPane rootLayout;
     private EchiquierController echiquier = new EchiquierController();
+    private RootLayoutController window = new RootLayoutController();
     
 	@Override
 	public void start(Stage primaryStage) {
@@ -25,6 +29,9 @@ public class MainEchec extends Application {
         initRootLayout();
         
         showEchiquier();
+        
+        EventListener eventListener = new EventListener(echiquier, window);
+        ChessEventBus.registerListener(eventListener);
         
 	}
 	public void initRootLayout() { //initialise la fenetre principale
