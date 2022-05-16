@@ -35,7 +35,7 @@ public class Bishop extends Pieces {
 			if (CorespondantCell.IsEmpty() != false) {
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-					return
+					
 				}
 				else if (CorespondantCell.GetPiece().team == this.team) {
 					return FinalListe;

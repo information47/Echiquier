@@ -12,6 +12,7 @@ public class Rook  extends Pieces{
 
 	  private Type type;
 	
+
 	public Rook(int x, int y, Team team) {
 		super(x, y, team);
 		this.type = Type.ROOK;
@@ -22,8 +23,23 @@ public class Rook  extends Pieces{
 	public List<Move> legal_move(Board board) {
 		List<Move> FinalList = new ArrayList<Move>();  // la liste de tout les mouvements possible
 
+		int possibleX = this.x;
+		int possibleY = this.y;
+		int[] PossibleDestination = {possibleX, possibleY};
+  
+			 while(CellExist(PossibleDestination))
+			 {
+				 
+			 }
+
+ 
+		
+	
+
+		
 		return null;
-	}
+		}
+	
  
 
 }
