@@ -68,7 +68,7 @@ public class EchiquierController {
     	addPiece("pion_blanc", 7, 6);
     }
     
-    public Pane getEchiquier() {
+    public GridPane getEchiquier() {
     	return echiquier;
     }
     
@@ -83,10 +83,10 @@ public class EchiquierController {
 		ImageView img = new ImageView();
 		img.setImage(new Image("ressources/"+ piece + ".png"));
 		Cell c = getCell(x, y);
-		if(c != null) {
+		if(c != null && c.getChildren().size() < 2) {
 			c.getChildren().add(img); // ajoute l'image de la piece en premier plan sur la cellule 
 		} else {
-			System.out.println("la case n'existe pas.");
+			System.out.println("impossible d'ajouter une piece sur cette case");
 		}
 	}
 	public void displayPiece (String piece) {

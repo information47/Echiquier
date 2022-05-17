@@ -32,7 +32,7 @@ public class Bishop extends Pieces {
 		while (CellExist(PossibleDestination)) {
 			Cell CorespondantCell = Board.GetCell(PossibleDestination);
 			if (CorespondantCell.IsEmpty() != false) {
-				if()
+				//  if()
 			}
 			
 		}

@@ -18,11 +18,12 @@
    <bottom>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <ButtonBar layoutX="369.0" layoutY="113.0" prefHeight="40.0" prefWidth="514.0">
+            <ButtonBar layoutX="304.0" layoutY="113.0" prefHeight="40.0" prefWidth="579.0">
               <buttons>
                 <Button fx:id="button1" mnemonicParsing="false" onAction="#move" text="déplacer une piece" />
                   <Button fx:id="button" mnemonicParsing="false" onAction="#add" text="ajouter une piece" textAlignment="CENTER" />
                   <Button fx:id="button2" mnemonicParsing="false" onAction="#delete" text="Supprimer une piece" />
+                  <Button fx:id="buttonReset" mnemonicParsing="false" onAction="#reset" text="réinitialiser" />
               </buttons>
             </ButtonBar>
          </children></Pane>
