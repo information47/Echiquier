@@ -10,6 +10,9 @@ import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
 
 public class King extends Pieces {
+	
+	private Type type;
+	private static int[][] possible_move_xy = {{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}}; 
 
 	public King(int x, int y, Team team) {
 		super(x, y, team);
@@ -18,169 +21,39 @@ public class King extends Pieces {
 
 	@Override
 	public List<Move> legal_move(Board board) {
-		List<Move> FinalListe = new ArrayList<Move>();
-		int possibleX = this.x;
-		int possibleY = this.y;
-		int[] PossibleDestination = {possibleX, possibleY};
-		Boolean stuck = false;
-		//droite
-				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
-					if (CorespondantCell.IsEmpty() != false) {
-						if(CorespondantCell.GetPiece().team != this.team) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-							stuck = true;
-						}
-						else if (CorespondantCell.GetPiece().team == this.team) {
-							stuck = true;
-						}
-						
-					}
-					else {
-						FinalListe.add(new NormalMove(board, this, PossibleDestination));
-						PossibleDestination[1]++;
-					}
-					
+		List<Move> FinalList = new ArrayList<Move>();  // la liste de tout les mouvements possible
+		for (int[] coordinate : possible_move_xy) {
+			
+			int new_x;
+			int new_y;
+			List<Move> LegalMove = new ArrayList<Move>();
+			
+			new_x = coordinate[0] + this.x;  
+			new_y = coordinate[1] + this.y;
+			
+			int[] possible_destination = {new_x, new_y}; // on identifie les coordonnées atteignablent
+			
+			if ( CellExist(possible_destination)) {       // est ce que la case existe
+				
+				Cell corresponding_cell = Board.GetCell(possible_destination);
+				
+				if(!corresponding_cell.isEmpty()) { // est ce qu'elle est vide si ou on l'ajoute au mouvements possibles
+					LegalMove.add(new NormalMove(board, this, possible_destination));
 				}
-				// bas
-				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
-					if (CorespondantCell.IsEmpty() != false) {
-						if(CorespondantCell.GetPiece().team != this.team) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-							stuck = true;
-						}
-						else if (CorespondantCell.GetPiece().team == this.team) {
-							stuck = true;
-						}
-						
-					}
-					else {
-						FinalListe.add(new NormalMove(board, this, PossibleDestination));
-						PossibleDestination[1]--;
-					}
+				else {
+
+					Pieces PieceOnCell = corresponding_cell.getPiece();  //quel pièce est dessus
+					Team PieceTeam = PieceOnCell.GetTeam();     // est elle amie ou ennemie
 					
-				}
-				//gauche
-				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
-					if (CorespondantCell.IsEmpty() != false) {
-						if(CorespondantCell.GetPiece().team != this.team) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-							stuck = true;
-						}
-						else if (CorespondantCell.GetPiece().team == this.team) {
-							stuck = true;
-						}
-						
-					}
-					else {
-						FinalListe.add(new NormalMove(board, this, PossibleDestination));
-						PossibleDestination[0]--;
-					}
-					
-				}
-				//haut
-				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
-					if (CorespondantCell.IsEmpty() != false) {
-						if(CorespondantCell.GetPiece().team != this.team) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-							stuck = true;
-						}
-						else if (CorespondantCell.GetPiece().team == this.team) {
-							stuck = true;
-						}
-						
-					}
-					else {
-						FinalListe.add(new NormalMove(board, this, PossibleDestination));
-						PossibleDestination[1]++;
-					}
-					
-				}
-				//diagonal haut droit
-				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
-					if (CorespondantCell.IsEmpty() != false) {
-						if(CorespondantCell.GetPiece().team != this.team) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-							stuck = true;
-						}
-						else if (CorespondantCell.GetPiece().team == this.team) {
-							stuck = true;
-						}
-						
-					}
-					else {
-						FinalListe.add(new NormalMove(board, this, PossibleDestination));
-						PossibleDestination[0]++;
-						PossibleDestination[1]++;
-					}
-					
-				}
-				//diagonal bas droite
-				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
-					if (CorespondantCell.IsEmpty() != false) {
-						if(CorespondantCell.GetPiece().team != this.team) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-							stuck = true;
-						}
-						else if (CorespondantCell.GetPiece().team == this.team) {
-							stuck = true;
-						}
-						
-					}
-					else {
-						FinalListe.add(new NormalMove(board, this, PossibleDestination));
-						PossibleDestination[0]++;
-						PossibleDestination[1]--;
-					}
-					
-				}
-				//diagonal haut gauche
-				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
-					if (CorespondantCell.IsEmpty() != false) {
-						if(CorespondantCell.GetPiece().team != this.team) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-							stuck = true;
-						}
-						else if (CorespondantCell.GetPiece().team == this.team) {
-							stuck = true;
-						}
-						
-					}
-					else {
-						FinalListe.add(new NormalMove(board, this, PossibleDestination));
-						PossibleDestination[0]--;
-						PossibleDestination[1]++;
-					}
-					
-				}
-				//diagonal bas gauche
-				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
-					if (CorespondantCell.IsEmpty() != false) {
-						if(CorespondantCell.GetPiece().team != this.team) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-							stuck = true;
-						}
-						else if (CorespondantCell.GetPiece().team == this.team) {
-							stuck = true;
-						}
-						
-					}
-					else {
-						FinalListe.add(new NormalMove(board, this, PossibleDestination));
-						PossibleDestination[0]--;
-						PossibleDestination[1]--;
-					}
-					
-				}	
-		
-		return FinalListe;
+					if (this.team != PieceTeam) {   //  si ennemie on l'ajoute au mouvements possibles
+						LegalMove.add(new AttackMove(board, this, possible_destination, PieceOnCell));
+					}	
+				}		
+			}
+			
+			FinalList = LegalMove; // finalList prend la valeur de tout les mouvements possibles
+		}	
+		return FinalList; // on retourne la liste de tout les mouvements possible
 	}
 
 }
