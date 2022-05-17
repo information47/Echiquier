@@ -4,12 +4,14 @@ import java.util.List;
 
 import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
+import javafx.scene.image.ImageView;
 
 public abstract class Pieces {
 	
 	protected int x;
 	protected int y;
 	protected Team team;
+	protected ImageView image;
 	
 	public Pieces (int x, int y, Team team) {
 		this.x = x;

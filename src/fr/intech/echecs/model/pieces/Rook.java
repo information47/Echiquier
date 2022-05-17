@@ -27,21 +27,21 @@ public class Rook extends Pieces {
 		Boolean stuck = false;
 		
 		//droite
-		while (CellExist(PossibleDestination ) && stuck == false ) {
+		while (CellExist(PossibleDestination ) && stuck == false ) {     // Tant que la case existe
 			Cell CorespondantCell = Board.GetCell(PossibleDestination);
-			if (CorespondantCell.IsEmpty() != false) {
+			if (CorespondantCell.IsEmpty() != false) {   				// la case est vide ?
 				if(CorespondantCell.GetPiece().team != this.team) {
-					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-					stuck = true;
+					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece())); 
+					stuck = true;             // Team adverse on ajoute une attque
 				}
 				else if (CorespondantCell.GetPiece().team == this.team) {
-					stuck = true;
+					stuck = true;			// même team on est bloqué
 				}
 				
 			}
 			else {
 				FinalListe.add(new NormalMove(board, this, PossibleDestination));
-				PossibleDestination[1]++;
+				PossibleDestination[1]++;       // On ajoute la case au moove possible et on passe à la case suivante
 			}
 			
 		}

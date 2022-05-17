@@ -9,17 +9,26 @@ import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
+import javafx.scene.image.Image;
 
 public class Knight extends Pieces {
 	
 	private Type type;
-	private static int[][] possible_move_xy = {{-1, 2}, {1,2}, {2,-1}, {2,1},{-2,1}, {-2,-1}, {-1,-2}, {1,-2}}; // liste des opérations à faire sur les coordonnée du 
+	private static int[][] possible_move_xy = {{-1, 2}, {1,2},
+											   {2,-1}, {2,1},
+											   {-2,1}, {-2,-1},
+											   {-1,-2}, {1,-2}}; 
+	// liste des opérations à faire sur les coordonnée du 
 	//chevalier pour connaitre les cases atteignables
 	
 
 	public Knight(int x, int y, Team team) {
 		super(x, y, team);
 		this.type = Type.KNIGHT;
+		this.team = team;
+		if (team == Team.BLACK) {
+			image.setImage(new Image("ressource/cavalier_noir.png"));	
+		}
 				
 	}
 	
@@ -45,11 +54,12 @@ public class Knight extends Pieces {
 				
 				Cell corresponding_cell = Board.GetCell(possible_destination);
 				
-				if(!corresponding_cell.IsEmpty()) { // est ce qu'elle est vide si ou on l'ajoute au mouvements possibles
+				if(!corresponding_cell.isEmpty()) { // est ce qu'elle est vide si ou on l'ajoute au mouvements possibles
 					LegalMove.add(new NormalMove(board, this, possible_destination));
 				}
 				else {
-					Pieces PieceOnCell = corresponding_cell.GetPiece();  //quelle pièce est dessus
+
+					Pieces PieceOnCell = corresponding_cell.getPiece();  //quel pièce est dessus
 					Team PieceTeam = PieceOnCell.GetTeam();     // est elle amie ou ennemie
 					
 					if (this.team != PieceTeam) {   //  si ennemie on l'ajoute au mouvements possibles

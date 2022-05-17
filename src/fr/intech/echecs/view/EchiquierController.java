@@ -3,6 +3,7 @@ package fr.intech.echecs.view;
 
 import fr.intech.echecs.model.Cell;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -12,6 +13,9 @@ public class EchiquierController {
 	@FXML
 	private GridPane echiquier;
 	private Cell[][] grid;
+	@FXML
+	private Button button1;
+	
 	/**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -62,6 +66,7 @@ public class EchiquierController {
     	addPiece("pion_blanc", 6, 6);
     	addPiece("pion_blanc", 7, 6);
     }
+    
     public Pane getEchiquier() {
     	return echiquier;
     }
@@ -84,4 +89,13 @@ public class EchiquierController {
 		}
 		
 	}
+	
+	public void removePiece (int x, int y) {
+		Cell cell = getCell(x, y);
+		if (cell.getChildren().size() == 2) {
+			int lastElem = cell.getChildren().size()-1;
+			cell.getChildren().remove(lastElem);
+		}
+	}
+	
 }

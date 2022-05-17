@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<BorderPane prefHeight="900.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17">
+<BorderPane prefHeight="900.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.intech.echecs.view.RootLayoutController">
    <top>
       <Pane prefHeight="200.0" BorderPane.alignment="CENTER" />
    </top>
@@ -15,6 +16,15 @@
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ButtonBar layoutX="369.0" layoutY="113.0" prefHeight="40.0" prefWidth="514.0">
+              <buttons>
+                <Button fx:id="button1" mnemonicParsing="false" onAction="#move" text="déplacer une piece" />
+                  <Button fx:id="button" mnemonicParsing="false" onAction="#add" text="ajouter une piece" textAlignment="CENTER" />
+                  <Button fx:id="button2" mnemonicParsing="false" onAction="#delete" text="Supprimer une piece" />
+              </buttons>
+            </ButtonBar>
+         </children></Pane>
    </bottom>
 </BorderPane>

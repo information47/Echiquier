@@ -2,7 +2,10 @@ package fr.intech.echecs;
 
 import java.io.IOException;
 
+import fr.intech.echecs.model.pieces.Knight;
+import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.view.EchiquierController;
+import fr.intech.echecs.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +17,8 @@ public class MainEchec extends Application {
     
 	private Stage primaryStage;
     private BorderPane rootLayout;
-    private EchiquierController echiquier = new EchiquierController();
+    private EchiquierController echiquier;
+    private RootLayoutController window;
     
 	@Override
 	public void start(Stage primaryStage) {
@@ -26,6 +30,9 @@ public class MainEchec extends Application {
         
         showEchiquier();
         
+        EventListener eventListener = new EventListener(echiquier, window);
+        ChessEventBus.registerListener(eventListener);
+        
 	}
 	public void initRootLayout() { //initialise la fenetre principale
         try {
@@ -34,6 +41,7 @@ public class MainEchec extends Application {
             loader.setLocation(MainEchec.class.getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
             
+            this.window = loader.getController();
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -50,7 +58,7 @@ public class MainEchec extends Application {
             loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
             AnchorPane echiquier = (AnchorPane) loader.load();
             
-            EchiquierController ec = loader.getController();
+            this.echiquier = loader.getController();
             
             // Set person overview into the center of root layout.
             rootLayout.setCenter(echiquier);

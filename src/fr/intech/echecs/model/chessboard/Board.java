@@ -1,18 +1,24 @@
 package fr.intech.echecs.model.chessboard;
 
 import fr.intech.echecs.model.Cell;
+import fr.intech.echecs.model.pieces.Pieces;
 
 public class Board {
-	private Cell Cells;
+
+	private Cell[][] grid;
+
 	
 	
 	public Board () {
-		grid = new Cells[8][8];
+		grid = new Cell[8][8];
 	}
-
-	public static Cell GetCell(int[] CellCoordinates) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public Cell getCell(int x, int y) {
+		return grid[x][y];
 	}
-
+	
+	public void addPiece (int x, int y, Pieces piece) {
+		
+		this.grid[x][y] = ;
+	}
 }
