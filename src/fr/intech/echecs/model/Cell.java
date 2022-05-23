@@ -1,6 +1,5 @@
 package fr.intech.echecs.model;
 
-
 import fr.intech.echecs.model.pieces.Pieces;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -39,7 +38,11 @@ public class Cell extends StackPane {
 		
 	}
 	
-	public Boolean isEmpty() {
+	public Pieces GetPiece() {
+		return this.pieceOnCell;
+	}
+	
+	public Boolean IsEmpty() {
 		if ( this.pieceOnCell == null ) {
 			return true;			
 		} else {
@@ -48,7 +51,7 @@ public class Cell extends StackPane {
 	}
 	
 	public Pieces getPiece() {
-		if ( this.isEmpty() == false ) {
+		if ( this.IsEmpty() == false ) {
 			return this.pieceOnCell;
 		} else {
 			return null;

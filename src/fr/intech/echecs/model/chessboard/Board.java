@@ -4,7 +4,9 @@ import fr.intech.echecs.model.Cell;
 import fr.intech.echecs.model.pieces.Pieces;
 
 public class Board {
+
 	private Cell[][] grid;
+
 	
 	
 	public Board () {

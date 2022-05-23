@@ -20,16 +20,17 @@ public class EchiquierController {
 	@FXML
 	private Button button1;
 	
+	@FXML
 	/**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
-     */
-
-    @FXML    
-    private void initialize() { // creation et insertion des 64 cellules sur l'echiquier et dans un tableau a deux dimensions
+     */ 
+    private void initialize() {
     	grid = new Cell[8][8];
     	for (int i = 0; i <= 7; i++) {
 			for (int j = 0; j<= 7; j++) {
+
+
 				Cell cell = new Cell(i, j, null, echiquier);
 				cell.setOnMouseClicked(new EventHandler<MouseEvent>()
     	        {
@@ -43,7 +44,6 @@ public class EchiquierController {
 			}
 
 		}
-    	// disposition des pieces sur l'echiquier
     	addPiece("tour_noir", 0, 0);
     	addPiece("tour_noir", 7, 0);
     	addPiece("cavalier_noir", 1, 0);
@@ -84,7 +84,7 @@ public class EchiquierController {
     }
     
     public Cell getCell(int x, int y) {
-    	if ((x <= 7) && (x >= 0) && (y <= 7) && (y >= 0)) { // retourne la cellule si ces coordonées sont comprise dans [8, 8]
+    	if ((x <= 7) && (x >= 0) && (y <= 7) && (y >= 0)) {
 			return grid[x][y];
 		}
     	return null;
@@ -94,15 +94,13 @@ public class EchiquierController {
 		ImageView img = new ImageView();
 		img.setImage(new Image("ressources/"+ piece + ".png"));
 		Cell c = getCell(x, y);
+
 		if(c != null && c.getChildren().size() < 2) {
 			c.getChildren().add(img); // ajoute l'image de la piece en premier plan sur la cellule 
 		} else {
 			System.out.println("impossible d'ajouter une piece sur cette case");
 		}
-	}
-	public void displayPiece (String piece) {
-		ImageView img = new ImageView();
-		img.setImage(new Image("ressources/"+ piece + ".png"));
+		
 	}
 	
 	public void removePiece (int x, int y) {

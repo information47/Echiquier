@@ -3,37 +3,20 @@ package fr.intech.echecs.model.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.intech.echecs.model.*;
-
+import fr.intech.echecs.model.Cell;
 import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
-import javafx.scene.image.Image;
 
-public class Knight extends Pieces {
+public class King extends Pieces {
 	
 	private Type type;
-	private static int[][] possible_move_xy = {{-1, 2}, {1,2},
-											   {2,-1}, {2,1},
-											   {-2,1}, {-2,-1},
-											   {-1,-2}, {1,-2}}; 
-	// liste des opérations à faire sur les coordonnée du 
-	//chevalier pour connaitre les cases atteignables
-	
+	private static int[][] possible_move_xy = {{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}}; 
 
-	public Knight(int x, int y, Team team) {
+	public King(int x, int y, Team team) {
 		super(x, y, team);
-		this.type = Type.KNIGHT;
-		this.team = team;
-		if (team == Team.BLACK) {
-			image.setImage(new Image("ressource/cavalier_noir.png"));	
-		}
-				
-	}
-	
-	public Type GetType() {
-		return this.type;
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -52,11 +35,9 @@ public class Knight extends Pieces {
 			
 			if ( CellExist(possible_destination)) {       // est ce que la case existe
 				
-				Cell corresponding_cell = board.getCell(possible_destination[0],possible_destination[1]);
+				Cell corresponding_cell = board.getCell(possible_destination[0], possible_destination[1]);
 				
-
-				if(!corresponding_cell.IsEmpty()) { // est ce qu'elle est vide si oui, on l'ajoute au mouvements possibles
-
+				if(!corresponding_cell.IsEmpty()) { // est ce qu'elle est vide si ou on l'ajoute au mouvements possibles
 					LegalMove.add(new NormalMove(board, this, possible_destination));
 				}
 				else {
@@ -74,9 +55,5 @@ public class Knight extends Pieces {
 		}	
 		return FinalList; // on retourne la liste de tout les mouvements possible
 	}
-
-	
-
-	
 
 }
