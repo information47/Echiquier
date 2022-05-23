@@ -19,6 +19,6 @@ public class Board {
 	
 	public void addPiece (int x, int y, Pieces piece) {
 		
-		this.grid[x][y] = ;
+		// this.grid[x][y] = ;
 	}
 }

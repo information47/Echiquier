@@ -13,6 +13,8 @@ public class Pawn extends Pieces {
 	
 	private int turn;
 	private Type type;
+	private static int[][] possibleMove_1_xy = {{1,2},{0,1},{0,2},{-1,2}};
+	private static int[][] possibleMove_2_xy = {{1,2},{0,1},{-1,2}};
 	
 	public Pawn(int x, int y, Team team) {
 		super(x, y, team);
@@ -28,51 +30,9 @@ public class Pawn extends Pieces {
 		int[] PossibleDestination = {possibleX, possibleY};
 		Boolean stuck = false;
 		int nb_case = 0;
-		
-		if (turn == 0) {
-			while (CellExist(PossibleDestination ) && stuck == false && nb_case <= 2 ) {
-				Cell CorespondantCell = Board.GetCell(PossibleDestination);
-				if (CorespondantCell.IsEmpty() != false) {
-					if(CorespondantCell.GetPiece().team != this.team) {
-						FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-						stuck = true;
-					}
-					else if (CorespondantCell.GetPiece().team == this.team) {
-						stuck = true;
-					}
-					
-				}
-				else {
-					FinalListe.add(new NormalMove(board, this, PossibleDestination));
-					PossibleDestination[1]++;
-					nb_case ++;
-				}
-				
-			}
+		if(turn == 0) {
+			
 		}
-		else {
-			while (CellExist(PossibleDestination ) && stuck == false && nb_case <= 1 ) {
-				Cell CorespondantCell = Board.GetCell(PossibleDestination);
-				if (CorespondantCell.IsEmpty() != false) {
-					if(CorespondantCell.GetPiece().team != this.team) {
-						FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-						stuck = true;
-					}
-					else if (CorespondantCell.GetPiece().team == this.team) {
-						stuck = true;
-					}
-					
-				}
-				else {
-					FinalListe.add(new NormalMove(board, this, PossibleDestination));
-					PossibleDestination[1]++;
-					nb_case ++;
-				}
-				
-			}
-		}
-		
-		
 		return FinalListe;
 	}
 	
