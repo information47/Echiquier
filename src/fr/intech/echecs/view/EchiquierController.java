@@ -4,7 +4,6 @@ package fr.intech.echecs.view;
 
 import fr.intech.echecs.ChessEventBus;
 import fr.intech.echecs.ClickEvent;
-import fr.intech.echecs.MoveEvent;
 import fr.intech.echecs.model.Cell;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
