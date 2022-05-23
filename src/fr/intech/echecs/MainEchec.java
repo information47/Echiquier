@@ -35,7 +35,7 @@ public class MainEchec extends Application {
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
-            primaryStage.show();
+           primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
