@@ -30,8 +30,8 @@ public class Bishop extends Pieces {
 		int[] PossibleDestination = {possibleX, possibleY};
 		
 		while (CellExist(PossibleDestination)) {
-			Cell CorespondantCell = Board.GetCell(PossibleDestination);
-			if (CorespondantCell.IsEmpty() != false) {
+			Cell CorespondantCell = Board.getCell(PossibleDestination);
+			if (CorespondantCell.isEmpty() != false) {
 				//  if()
 			}
 			

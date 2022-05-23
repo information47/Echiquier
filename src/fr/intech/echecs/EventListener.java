@@ -52,7 +52,12 @@ public class EventListener {
 		if (cell.getChildren().size() == 2) {
 			echiquierController.removePiece(4, 2);
 			echiquierController.addPiece("pion_noir", 4, 1);
-		}
-			
+		}		
 	}
+	
+	@Subscribe
+	public void clickEvent (ClickEvent event) {
+		System.out.println("afficher les deplacements possibles");
+	}
+	
 }
