@@ -52,9 +52,9 @@ public class Knight extends Pieces {
 			
 			if ( CellExist(possible_destination)) {       // est ce que la case existe
 				
-				Cell corresponding_cell = Board.GetCell(possible_destination);
+				Cell corresponding_cell = board.getCell(possible_destination[0],possible_destination[1]);
 				
-				if(!corresponding_cell.isEmpty()) { // est ce qu'elle est vide si ou on l'ajoute au mouvements possibles
+				if(!corresponding_cell.IsEmpty()) { // est ce qu'elle est vide si ou on l'ajoute au mouvements possibles
 					LegalMove.add(new NormalMove(board, this, possible_destination));
 				}
 				else {

@@ -27,7 +27,7 @@ public class Queen extends Pieces {
 		Boolean stuck = false;
 		//droite
 				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
+					Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 					if (CorespondantCell.IsEmpty() != false) {
 						if(CorespondantCell.GetPiece().team != this.team) {
 							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
@@ -46,7 +46,7 @@ public class Queen extends Pieces {
 				}
 				// bas
 				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
+					Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 					if (CorespondantCell.IsEmpty() != false) {
 						if(CorespondantCell.GetPiece().team != this.team) {
 							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
@@ -65,7 +65,7 @@ public class Queen extends Pieces {
 				}
 				//gauche
 				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
+					Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 					if (CorespondantCell.IsEmpty() != false) {
 						if(CorespondantCell.GetPiece().team != this.team) {
 							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
@@ -84,7 +84,7 @@ public class Queen extends Pieces {
 				}
 				//haut
 				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
+					Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 					if (CorespondantCell.IsEmpty() != false) {
 						if(CorespondantCell.GetPiece().team != this.team) {
 							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
@@ -103,7 +103,7 @@ public class Queen extends Pieces {
 				}
 				//diagonal haut droit
 				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
+					Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 					if (CorespondantCell.IsEmpty() != false) {
 						if(CorespondantCell.GetPiece().team != this.team) {
 							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
@@ -123,7 +123,7 @@ public class Queen extends Pieces {
 				}
 				//diagonal bas droite
 				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
+					Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 					if (CorespondantCell.IsEmpty() != false) {
 						if(CorespondantCell.GetPiece().team != this.team) {
 							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
@@ -143,7 +143,7 @@ public class Queen extends Pieces {
 				}
 				//diagonal haut gauche
 				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
+					Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 					if (CorespondantCell.IsEmpty() != false) {
 						if(CorespondantCell.GetPiece().team != this.team) {
 							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
@@ -163,7 +163,7 @@ public class Queen extends Pieces {
 				}
 				//diagonal bas gauche
 				while (CellExist(PossibleDestination ) && stuck == false ) {
-					Cell CorespondantCell = Board.GetCell(PossibleDestination);
+					Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 					if (CorespondantCell.IsEmpty() != false) {
 						if(CorespondantCell.GetPiece().team != this.team) {
 							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
