@@ -16,6 +16,7 @@ public class EchiquierController {
 	@FXML
 	private Button button1;
 	
+	@FXML
 	/**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.

@@ -28,7 +28,7 @@ public class Rook extends Pieces {
 		
 		//droite
 		while (CellExist(PossibleDestination ) && stuck == false ) {     // Tant que la case existe
-			Cell CorespondantCell = Board.GetCell(PossibleDestination);
+			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 			if (CorespondantCell.IsEmpty() != false) {   				// la case est vide ?
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece())); 
@@ -47,7 +47,7 @@ public class Rook extends Pieces {
 		}
 		// bas
 		while (CellExist(PossibleDestination ) && stuck == false ) {
-			Cell CorespondantCell = Board.GetCell(PossibleDestination);
+			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 			if (CorespondantCell.IsEmpty() != false) {
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
@@ -66,7 +66,7 @@ public class Rook extends Pieces {
 		}
 		//gauche
 		while (CellExist(PossibleDestination ) && stuck == false ) {
-			Cell CorespondantCell = Board.GetCell(PossibleDestination);
+			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 			if (CorespondantCell.IsEmpty() != false) {
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
@@ -85,7 +85,7 @@ public class Rook extends Pieces {
 		}
 		//haut
 		while (CellExist(PossibleDestination ) && stuck == false ) {
-			Cell CorespondantCell = Board.GetCell(PossibleDestination);
+			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
 			if (CorespondantCell.IsEmpty() != false) {
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));

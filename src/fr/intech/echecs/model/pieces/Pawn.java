@@ -25,13 +25,13 @@ public class Pawn extends Pieces {
 	@Override
 	public List<Move> legal_move(Board board) {
 		List<Move> FinalListe = new ArrayList<Move>();
-		int possibleX = this.x;
-		int possibleY = this.y;
-		int[] PossibleDestination = {possibleX, possibleY};
-		Boolean stuck = false;
-		int nb_case = 0;
 		if(turn == 0) {
-			
+			for (int[] i : possibleMove_1_xy) {
+				int[] PossibleDestination = {i[0]+this.x, i[1]+this.y};
+				if (CellExist(PossibleDestination)) {
+					
+				}
+			}
 		}
 		return FinalListe;
 	}
