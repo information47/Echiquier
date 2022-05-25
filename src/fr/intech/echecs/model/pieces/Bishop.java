@@ -11,12 +11,9 @@ import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
 
 public class Bishop extends Pieces {
-	
-	private Type type;
 
-	public Bishop(int x, int y, Team team) {
-		super(x, y, team);
-		this.type = Type.BISHOP;
+	public Bishop(int x, int y, Team team, Type type) {
+		super(x, y, team, type);
 	}
 	
 	public Type GetType () {

@@ -3,6 +3,9 @@ package fr.intech.echecs;
 import com.google.common.eventbus.Subscribe;
 
 import fr.intech.echecs.model.Cell;
+import fr.intech.echecs.model.pieces.*;
+import fr.intech.echecs.model.pieces.Team;
+import fr.intech.echecs.model.pieces.Type;
 import fr.intech.echecs.view.EchiquierController;
 import fr.intech.echecs.view.RootLayoutController;
 import javafx.scene.layout.GridPane;
@@ -21,7 +24,7 @@ public class EventListener {
 	@Subscribe
 	public void moveEvent (MoveEvent event) {
 		echiquierController.removePiece(4, 1);
-		echiquierController.addPiece("pion_noir", 4, 2);
+		echiquierController.addObject(new Pawn(4,2, Team.BLACK, Type.PAWN));
 
 	}
 	
@@ -32,7 +35,7 @@ public class EventListener {
 	
 	@Subscribe
 	public void addEvent (AddEvent event) {
-		echiquierController.addPiece("cavalier_noir", 3, 4);
+		echiquierController.addObject(new Knight(3,4, Team.BLACK, Type.KNIGHT));
 	}
 	
 	@Subscribe
@@ -40,7 +43,7 @@ public class EventListener {
 		
 		cell = echiquierController.getCell(0, 0);
 		if (cell.getChildren().size() == 1) {
-			echiquierController.addPiece("tour_noir", 0, 0);
+			echiquierController.addObject(new Rook(0,0, Team.BLACK, Type.ROOK));
 		}
 
 		cell = echiquierController.getCell(3, 4);
@@ -51,7 +54,7 @@ public class EventListener {
 		cell = echiquierController.getCell(4, 2);
 		if (cell.getChildren().size() == 2) {
 			echiquierController.removePiece(4, 2);
-			echiquierController.addPiece("pion_noir", 4, 1);
+			echiquierController.addObject(new Pawn(4,1, Team.BLACK, Type.PAWN));
 		}
 			
 	}

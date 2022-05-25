@@ -11,10 +11,9 @@ import fr.intech.echecs.model.chessboard.Move.NormalMove;
 
 public class Rook extends Pieces {
 	
-	private Type type;
-	public Rook(int x, int y, Team team) {
-		super(x, y, team);
-		this.type = Type.ROOK;
+	public Rook(int x, int y, Team team ,Type type) {
+		super(x, y, team, type);
+
 
 	}
 

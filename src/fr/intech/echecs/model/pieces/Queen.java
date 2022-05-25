@@ -11,11 +11,9 @@ import fr.intech.echecs.model.chessboard.Move.NormalMove;
 
 public class Queen extends Pieces {
 	
-	private Type type;
-	
-	public Queen(int x, int y, Team team) {
-		super(x, y, team);
-		this.type = Type.QUEEN;
+	public Queen(int x, int y, Team team, Type type) {
+		super(x, y, team, type);
+		
 	}
 
 	@Override
