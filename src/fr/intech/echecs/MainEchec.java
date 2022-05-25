@@ -41,7 +41,7 @@ public class MainEchec extends Application {
             loader.setLocation(MainEchec.class.getResource("view/Acceuil.fxml"));
             rootLayout = (BorderPane) loader.load();
             
-            this.window = loader.getController();
+            //this.window = loader.getController();
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
