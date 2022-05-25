@@ -2,14 +2,10 @@ package fr.intech.echecs;
 
 import java.io.IOException;
 
-import fr.intech.echecs.model.pieces.Knight;
-import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.view.EchiquierController;
-import fr.intech.echecs.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -27,7 +23,11 @@ public class MainEchec extends Application {
         primaryStage.setResizable(false);
         initRootLayout();
         
-        //showEchiquier();
+        FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
+		echiquier = loader.getController();
+        
+        
         
         EventListener eventListener = new EventListener(echiquier);
         ChessEventBus.registerListener(eventListener);
@@ -52,7 +52,6 @@ public class MainEchec extends Application {
 	
    /* public void showEchiquier() { // montre l'echiquier dans la fenetre principale
         try {
-            // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
             AnchorPane echiquier = (AnchorPane) loader.load();

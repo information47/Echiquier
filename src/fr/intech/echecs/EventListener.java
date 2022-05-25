@@ -3,13 +3,12 @@ package fr.intech.echecs;
 import com.google.common.eventbus.Subscribe;
 
 import fr.intech.echecs.model.Cell;
-import fr.intech.echecs.model.pieces.*;
+import fr.intech.echecs.model.pieces.Knight;
+import fr.intech.echecs.model.pieces.Pawn;
+import fr.intech.echecs.model.pieces.Rook;
 import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.model.pieces.Type;
 import fr.intech.echecs.view.EchiquierController;
-import fr.intech.echecs.view.RootLayoutController;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 public class EventListener {
 	private EchiquierController echiquierController;
