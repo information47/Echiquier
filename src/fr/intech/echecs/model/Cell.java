@@ -16,8 +16,10 @@ public class Cell extends StackPane {
 		this.x = x;
 		this.y = y;
 
-		this.echiquier = echiquier;
-		Rectangle couleur = new Rectangle(0, 0, 80, 80);
+		this.pieceOnCell = pieceOnCell;
+		
+		Rectangle couleur = new Rectangle(0, 0, 74, 74);
+
 		
 		if (x%2 == 1) {
 			if (y%2 == 0) {

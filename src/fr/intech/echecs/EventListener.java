@@ -13,12 +13,10 @@ import javafx.scene.layout.Pane;
 
 public class EventListener {
 	private EchiquierController echiquierController;
-	private RootLayoutController rootLayoutController;
 	private Cell cell;
 	
-	public EventListener (EchiquierController ec, RootLayoutController rc) {
+	public EventListener (EchiquierController ec) {
 		this.echiquierController = ec;
-		this.rootLayoutController = rc;
 	}
 	
 	@Subscribe
@@ -58,4 +56,10 @@ public class EventListener {
 		}
 			
 	}
+	
+	@Subscribe
+	public void clickEvent (ClickEvent event) {
+		System.out.println("afficher les deplacements possibles");
+	}
+	
 }

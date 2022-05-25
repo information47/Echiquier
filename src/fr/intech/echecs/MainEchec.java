@@ -18,7 +18,6 @@ public class MainEchec extends Application {
 	private Stage primaryStage;
     private BorderPane rootLayout;
     private EchiquierController echiquier;
-    private RootLayoutController window;
     
 	@Override
 	public void start(Stage primaryStage) {
@@ -30,9 +29,9 @@ public class MainEchec extends Application {
         
         //showEchiquier();
         
-        EventListener eventListener = new EventListener(echiquier, window);
+        EventListener eventListener = new EventListener(echiquier);
         ChessEventBus.registerListener(eventListener);
-        
+
 	}
 	public void initRootLayout() { //initialise la fenetre principale
         try {
@@ -41,11 +40,11 @@ public class MainEchec extends Application {
             loader.setLocation(MainEchec.class.getResource("view/Acceuil.fxml"));
             rootLayout = (BorderPane) loader.load();
             
-            this.window = loader.getController();
+            //this.window = loader.getController();
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
-            primaryStage.show();
+           primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,7 +57,7 @@ public class MainEchec extends Application {
             loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
             AnchorPane echiquier = (AnchorPane) loader.load();
             
-            this.echiquier = loader.getController();
+            EchiquierController ec = loader.getController();
             
             // Set person overview into the center of root layout.
             rootLayout.setCenter(echiquier);
@@ -73,6 +72,5 @@ public class MainEchec extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-		
 	}
 }

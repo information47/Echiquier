@@ -1,7 +1,11 @@
 package fr.intech.echecs.view;
 
 
+
+import fr.intech.echecs.ChessEventBus;
+import fr.intech.echecs.ClickEvent;
 import fr.intech.echecs.model.Cell;
+import javafx.event.EventHandler;
 import fr.intech.echecs.model.pieces.*;
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.model.pieces.Team;
@@ -9,8 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 public class EchiquierController {
 	@FXML
@@ -31,6 +35,13 @@ public class EchiquierController {
 
 
 				Cell cell = new Cell(i, j, null, echiquier);
+				cell.setOnMouseClicked(new EventHandler<MouseEvent>()
+    	        {
+    	            public void handle(MouseEvent t) {
+    	            	ChessEventBus.emitEvent(new ClickEvent());
+    	            }
+    	        });
+				
 				echiquier.add(cell, i, j);
 				grid[i][j] = cell;
 			}
