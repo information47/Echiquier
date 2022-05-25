@@ -10,13 +10,14 @@ public class Cell extends StackPane {
 	private int x;
 	private int y;
 	private Pieces pieceOnCell;
+	private GridPane echiquier;
 	
 	public Cell (int x, int y, Pieces pieceOnCell, GridPane echiquier) {
 		this.x = x;
 		this.y = y;
-		this.pieceOnCell = pieceOnCell;
-		
-		Rectangle couleur = new Rectangle(0, 0, 63, 63);
+
+		this.echiquier = echiquier;
+		Rectangle couleur = new Rectangle(0, 0, 80, 80);
 		
 		if (x%2 == 1) {
 			if (y%2 == 0) {
