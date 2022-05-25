@@ -1,6 +1,8 @@
 package fr.intech.echecs.model;
 
 import fr.intech.echecs.model.pieces.Pieces;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -9,6 +11,7 @@ import javafx.scene.shape.Rectangle;
 public class Cell extends StackPane {
 	private int x;
 	private int y;
+	private boolean moveDisplayed;
 	private Pieces pieceOnCell;
 	
 	public Cell (int x, int y, Pieces pieceOnCell, GridPane echiquier) {
@@ -35,7 +38,12 @@ public class Cell extends StackPane {
 				this.getChildren().add(couleur);
 			}
 		}
-		
+		this.setOnMouseClicked(new EventHandler<MouseEvent>()
+        {
+            public void handle(MouseEvent t) {
+            		displayMove();
+            	} 
+        });
 	}
 	
 	public Pieces GetPiece() {
@@ -55,6 +63,19 @@ public class Cell extends StackPane {
 			return this.pieceOnCell;
 		} else {
 			return null;
+		}
+	}
+	public void displayMove() {
+		if (this.getChildren().size() == 2) {
+			if(moveDisplayed == true) {
+				//ne plus afficher les déplacement de la premiere piece
+				//afficher les déplacements de la seconde piece
+			} else {
+				// afficher les déplacements possibles
+				moveDisplayed = true;
+			}
+		} else if(moveDisplayed == true) {
+			// ne plus afficher les déplacements
 		}
 	}
 }

@@ -2,9 +2,6 @@ package fr.intech.echecs.view;
 
 
 
-import fr.intech.echecs.ChessEventBus;
-import fr.intech.echecs.ClickEvent;
-import fr.intech.echecs.SupEvent;
 import fr.intech.echecs.model.Cell;
 import fr.intech.echecs.model.pieces.Bishop;
 import fr.intech.echecs.model.pieces.King;
@@ -25,6 +22,7 @@ public class EchiquierController {
 	@FXML
 	private GridPane echiquier;
 	private Cell[][] grid;
+	private boolean moveDisplayed;
 	@FXML
 	private Button button1;
 	
@@ -97,12 +95,6 @@ public class EchiquierController {
 		Cell c = getCell(pieces.GetterX(), pieces.GetterY());
 		if(c != null && c.getChildren().size() < 2) {
 			c.getChildren().add(pieces);// ajoute l'image de la piece en premier plan sur la cellule 
-			c.setOnMouseClicked(new EventHandler<MouseEvent>()
-	        {
-	            public void handle(MouseEvent t) {
-	            	ChessEventBus.emitEvent(new ClickEvent());
-	            }
-	        });
 		} else {
 			System.out.println("impossible d'ajouter une piece sur cette case");
 		}
@@ -119,7 +111,7 @@ public class EchiquierController {
 	
 	@FXML
 	public void delete() {
-		ChessEventBus.emitEvent(new SupEvent());
+		removePiece(0, 0);
 	}
 	
 }
