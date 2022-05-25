@@ -18,7 +18,6 @@ public class MainEchec extends Application {
 	private Stage primaryStage;
     private BorderPane rootLayout;
     private EchiquierController echiquier;
-    private RootLayoutController window;
     
 	@Override
 	public void start(Stage primaryStage) {
@@ -30,7 +29,7 @@ public class MainEchec extends Application {
         
         //showEchiquier();
         
-        EventListener eventListener = new EventListener(echiquier, window);
+        EventListener eventListener = new EventListener(echiquier);
         ChessEventBus.registerListener(eventListener);
 
 	}
