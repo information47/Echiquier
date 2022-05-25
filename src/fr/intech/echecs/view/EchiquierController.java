@@ -6,6 +6,9 @@ import fr.intech.echecs.ChessEventBus;
 import fr.intech.echecs.ClickEvent;
 import fr.intech.echecs.model.Cell;
 import javafx.event.EventHandler;
+import fr.intech.echecs.model.pieces.*;
+import fr.intech.echecs.model.pieces.Pieces;
+import fr.intech.echecs.model.pieces.Team;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -44,39 +47,39 @@ public class EchiquierController {
 			}
 
 		}
-    	addPiece("tour_noir", 0, 0);
-    	addPiece("tour_noir", 7, 0);
-    	addPiece("cavalier_noir", 1, 0);
-    	addPiece("cavalier_noir", 6, 0);
-    	addPiece("fou_noir", 5, 0);
-    	addPiece("fou_noir", 2, 0);
-    	addPiece("roi_noir", 3, 0);
-    	addPiece("reine_noir", 4, 0);
-    	addPiece("pion_noir", 0, 1);
-    	addPiece("pion_noir", 1, 1);
-    	addPiece("pion_noir", 2, 1);
-    	addPiece("pion_noir", 3, 1);
-    	addPiece("pion_noir", 4, 1);
-    	addPiece("pion_noir", 5, 1);
-    	addPiece("pion_noir", 6, 1);
-    	addPiece("pion_noir", 7, 1);
+    	addObject(new Rook(0, 0, Team.BLACK, Type.ROOK));
+    	addObject(new Rook(7,0, Team.BLACK, Type.ROOK));
+    	addObject(new Knight(1,0, Team.BLACK, Type.KNIGHT));
+    	addObject(new Knight(6,0, Team.BLACK, Type.KNIGHT));
+    	addObject(new Bishop(5,0, Team.BLACK, Type.BISHOP));
+    	addObject(new Bishop(2,0, Team.BLACK, Type.BISHOP));
+    	addObject(new King(3,0, Team.BLACK, Type.KING));
+    	addObject(new Queen(4, 0, Team.BLACK, Type.QUEEN));
+    	addObject(new Pawn(0,1, Team.BLACK, Type.PAWN));
+    	addObject(new Pawn(1,1, Team.BLACK, Type.PAWN));
+    	addObject(new Pawn(2,1, Team.BLACK, Type.PAWN));
+    	addObject(new Pawn(3,1, Team.BLACK, Type.PAWN));
+    	addObject(new Pawn(4,1, Team.BLACK, Type.PAWN));
+    	addObject(new Pawn(5,1, Team.BLACK, Type.PAWN));
+    	addObject(new Pawn(6,1, Team.BLACK, Type.PAWN));
+    	addObject(new Pawn(7,1, Team.BLACK, Type.PAWN));
     	
-    	addPiece("tour_blanc", 0, 7);
-    	addPiece("tour_blanc", 7, 7);
-    	addPiece("cavalier_blanc", 1, 7);
-    	addPiece("cavalier_blanc", 6, 7);
-    	addPiece("fou_blanc", 5, 7);
-    	addPiece("fou_blanc", 2, 7);
-    	addPiece("roi_blanc", 3, 7);
-    	addPiece("reine_blanc", 4, 7);
-    	addPiece("pion_blanc", 0, 6);
-    	addPiece("pion_blanc", 1, 6);
-    	addPiece("pion_blanc", 2, 6);
-    	addPiece("pion_blanc", 3, 6);
-    	addPiece("pion_blanc", 4, 6);
-    	addPiece("pion_blanc", 5, 6);
-    	addPiece("pion_blanc", 6, 6);
-    	addPiece("pion_blanc", 7, 6);
+    	addObject(new Rook(0, 7, Team.WHITE, Type.ROOK));
+    	addObject(new Rook(7,7, Team.WHITE, Type.ROOK));
+    	addObject(new Knight(1,7, Team.WHITE, Type.KNIGHT));
+    	addObject(new Knight(6,7, Team.WHITE, Type.KNIGHT));
+    	addObject(new Bishop(5,7, Team.WHITE, Type.BISHOP));
+    	addObject(new Bishop(2,7,Team.WHITE, Type.BISHOP));
+    	addObject(new King(3,7, Team.WHITE, Type.KING));
+    	addObject(new Queen(4, 7,Team.WHITE, Type.QUEEN));
+    	addObject(new Pawn(0,6, Team.WHITE, Type.PAWN));
+    	addObject(new Pawn(1,6, Team.WHITE, Type.PAWN));
+    	addObject(new Pawn(2,6,Team.WHITE, Type.PAWN));
+    	addObject(new Pawn(3,6, Team.WHITE, Type.PAWN));
+    	addObject(new Pawn(4,6, Team.WHITE, Type.PAWN));
+    	addObject(new Pawn(5,6,Team.WHITE, Type.PAWN));
+    	addObject(new Pawn(6,6,Team.WHITE, Type.PAWN));
+    	addObject(new Pawn(7,6,Team.WHITE, Type.PAWN));
     }
     
     public GridPane getEchiquier() {
@@ -89,18 +92,14 @@ public class EchiquierController {
 		}
     	return null;
     }
-    
-	public void addPiece (String piece, int x, int y) {
-		ImageView img = new ImageView();
-		img.setImage(new Image("ressources/"+ piece + ".png"));
-		Cell c = getCell(x, y);
-
+	
+	public void addObject (Pieces pieces) {
+		Cell c = getCell(pieces.GetterX(), pieces.GetterY());
 		if(c != null && c.getChildren().size() < 2) {
-			c.getChildren().add(img); // ajoute l'image de la piece en premier plan sur la cellule 
+			c.getChildren().add(pieces);// ajoute l'image de la piece en premier plan sur la cellule 
 		} else {
 			System.out.println("impossible d'ajouter une piece sur cette case");
 		}
-		
 	}
 	
 	public void removePiece (int x, int y) {

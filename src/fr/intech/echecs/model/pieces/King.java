@@ -11,11 +11,10 @@ import fr.intech.echecs.model.chessboard.Move.NormalMove;
 
 public class King extends Pieces {
 	
-	private Type type;
 	private static int[][] possible_move_xy = {{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}}; 
 
-	public King(int x, int y, Team team) {
-		super(x, y, team);
+	public King(int x, int y, Team team, Type type) {
+		super(x, y, team, type);
 		// TODO Auto-generated constructor stub
 	}
 

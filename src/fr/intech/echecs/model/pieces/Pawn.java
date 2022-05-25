@@ -9,17 +9,29 @@ import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
 
+
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
+
+
 public class Pawn extends Pieces {
 	
 	private int turn;
-	private Type type;
 	private static int[][] possibleMove_1_xy = {{1,2},{0,1},{0,2},{-1,2}};
 	private static int[][] possibleMove_2_xy = {{1,2},{0,1},{-1,2}};
 	
-	public Pawn(int x, int y, Team team) {
-		super(x, y, team);
-		this.type = Type.PAWN;
+	public Pawn(int x, int y, Team team, Type type) {
+		super(x, y, team, type);
+
 		this.turn = 0;
+		
+		
+		
 	}
 
 	@Override
@@ -29,9 +41,32 @@ public class Pawn extends Pieces {
 			for (int[] i : possibleMove_1_xy) {
 				int[] PossibleDestination = {i[0]+this.x, i[1]+this.y};
 				if (CellExist(PossibleDestination)) {
-					
+					Cell CorrespondingCell = board.getCell(PossibleDestination[0], PossibleDestination[1]);
+					if (CorrespondingCell.IsEmpty() && i[0] == 0) {
+						FinalListe.add(new NormalMove(board, this, PossibleDestination));
+						
+					}
+					if (!CorrespondingCell.IsEmpty() && i[0] != 0) {
+						FinalListe.add(new AttackMove(board, this, PossibleDestination,CorrespondingCell.GetPiece()));
+					}
 				}
 			}
+		}
+		else {
+			for (int[] i : possibleMove_2_xy) {
+				int[] PossibleDestination = {i[0]+this.x, i[1]+this.y};
+				if (CellExist(PossibleDestination)) {
+					Cell CorrespondingCell = board.getCell(PossibleDestination[0], PossibleDestination[1]);
+					if (CorrespondingCell.IsEmpty() && i[0] == 0) {
+						FinalListe.add(new NormalMove(board, this, PossibleDestination));
+						
+					}
+					if (!CorrespondingCell.IsEmpty() && i[0] != 0) {
+						FinalListe.add(new AttackMove(board, this, PossibleDestination,CorrespondingCell.GetPiece()));
+					}
+				}
+			}
+			
 		}
 		return FinalListe;
 	}

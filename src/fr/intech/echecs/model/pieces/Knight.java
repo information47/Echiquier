@@ -13,7 +13,6 @@ import javafx.scene.image.Image;
 
 public class Knight extends Pieces {
 	
-	private Type type;
 	private static int[][] possible_move_xy = {{-1, 2}, {1,2},
 											   {2,-1}, {2,1},
 											   {-2,1}, {-2,-1},
@@ -22,12 +21,10 @@ public class Knight extends Pieces {
 	//chevalier pour connaitre les cases atteignables
 	
 
-	public Knight(int x, int y, Team team) {
-		super(x, y, team);
-		this.type = Type.KNIGHT;
+	public Knight(int x, int y, Team team, Type type) {
+		super(x, y, team, type);
 		this.team = team;
-		if (team == Team.BLACK) {
-			image.setImage(new Image("ressource/cavalier_noir.png"));	
+		if (team == Team.BLACK) {	
 		}
 				
 	}
