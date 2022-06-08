@@ -35,6 +35,7 @@
         <buttons>
           <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="button2" mnemonicParsing="false" onAction="#delete" text="Supprimer une piece" />
             <Button mnemonicParsing="false" text="Button" />
         </buttons>
       </ButtonBar>
