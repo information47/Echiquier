@@ -47,7 +47,7 @@ public class Cell extends StackPane {
 	
 	public Boolean IsEmpty() {
 		if ( this.pieceOnCell == null ) {
-			return true;			
+			return true;			                                                       
 		} else {
 			return false;
 		}
@@ -59,6 +59,10 @@ public class Cell extends StackPane {
 		} else {
 			return null;
 		}
+	}	
+	public void ChangeColor() {
+		Rectangle couleur = new Rectangle(0, 0, 74, 74);
+		couleur.setFill(Color.GREEN);
 	}
 }
 
