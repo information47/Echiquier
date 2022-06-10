@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="Acceuil" prefHeight="684.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.intech.echecs.view.AcceuilController">
+<BorderPane fx:id="Acceuil" prefHeight="684.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="fr.intech.echecs.view.AcceuilController">
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="775.0" BorderPane.alignment="CENTER">
          <buttons>
@@ -26,7 +26,7 @@
          <children>
             <ImageView fitHeight="378.0" fitWidth="459.0" layoutX="229.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../Downloads/logo_iChess-removebg-preview.png" />
+                  <Image url="@../../../../ressources/logo_iChess.png" />
                </image>
             </ImageView>
             <Button layoutX="347.0" layoutY="542.0" mnemonicParsing="false" onAction="#play" prefHeight="67.0" prefWidth="205.0" text="Jouer" />

@@ -58,7 +58,8 @@ public class EventListener {
 	
 	@Subscribe
 	public void clickEvent (ClickEvent event) {
-		System.out.println("afficher les deplacements possibles");
+		System.out.println("methode clickEvent");
+		
 	}
 	
 }
