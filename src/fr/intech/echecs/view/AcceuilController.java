@@ -27,7 +27,6 @@ public class AcceuilController {
     	 window.setScene(tableViewScene);
     	 window.show();
      }   
-	
    
 }
 

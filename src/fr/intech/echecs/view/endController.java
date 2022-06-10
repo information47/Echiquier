@@ -18,10 +18,4 @@ public class endController {
 		this.gagnant = winner;
 		this.winner.setText(this.gagnant);
 	}
-	
-	private void texter() {
-		winner.setText("gagnante");
-		// System.out.println(echiquier.getGagnant()); 
-		
-	}
 }
