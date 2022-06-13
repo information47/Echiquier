@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="Règles" prefHeight="685.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ScrollBar layoutX="897.0" orientation="VERTICAL" prefHeight="685.0" prefWidth="14.0" />
+            <ButtonBar layoutX="23.0" layoutY="632.0" prefHeight="40.0" prefWidth="854.0">
+              <buttons>
+                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" text="Quitter" />
+              </buttons>
+            </ButtonBar>
+            <ImageView fitHeight="176.0" fitWidth="202.0" layoutX="654.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../Downloads/logo_iChess-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="42.0" layoutY="65.0" text="Règles des échecs :">
+               <font>
+                  <Font name="System Bold" size="46.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="181.0" text="La promotion :">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label layoutX="35.0" layoutY="253.0" prefHeight="70.0" prefWidth="696.0" text="Lorsqu’un joueur avance un pion sur la dernière rangée, ou s’il prend avec un pion une pièce qui se trouve sur la dernière rangée, il doit le remplacer par une pièce de son choix (Dame, Tour, Fou ou Cavalier), de la même couleur (il est interdit de promouvoir un pion dans une pièce adverse !) quelles que soient les pièces restantes sur l’échiquier. Il peut ainsi se retrouver avec deux Dames, ou 3 Fous, etc" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true" />
+            <Label layoutX="35.0" layoutY="343.0" text="Le roque : ">
+               <font>
+                  <Font name="System Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label layoutX="35.0" layoutY="416.0" prefHeight="66.0" prefWidth="747.0" text="Le roque est un coup spécial qui concerne le Roi et l’une des deux Tours. Lorsque le Roi et cette Tour sont encore sur leurs cases initiales et qu’il n’y a plus de pièces entre eux, le joueur peut déplacer de deux cases le Roi vers la Tour, puis placer cette Tour sur la case juste à côté du Roi, de l’autre côté. Le roque peut être effectué sur l’aile roi (on parle alors de petit roque) ou sur l’aile dame (on parle alors de grand roque)." textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" wrapText="true" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

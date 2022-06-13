@@ -131,8 +131,8 @@ public class EchiquierController {
 		
 			BorderPane tableViewParent = loader.load();
 			
-			endController end = loader.getController();
-			end.setFields("moi"); // donne le nom du gagnant a endController
+			EndController end = loader.getController();
+			end.setFields("blanc"); // donne le nom du gagnant a endController
 			
 			Scene scene = new Scene(tableViewParent);
 
