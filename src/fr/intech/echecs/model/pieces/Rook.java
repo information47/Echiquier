@@ -8,6 +8,7 @@ import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
+import fr.intech.echecs.view.EchiquierController;
 
 public class Rook extends Pieces {
 	
@@ -18,7 +19,7 @@ public class Rook extends Pieces {
 	}
 
 	@Override
-	public List<Move> legal_move(Board board) {
+	public List<Move> legal_move(EchiquierController board) {
 		List<Move> FinalListe = new ArrayList<Move>();
 		int possibleX = this.x;
 		int possibleY = this.y;

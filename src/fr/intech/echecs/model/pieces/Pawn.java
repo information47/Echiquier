@@ -8,8 +8,7 @@ import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
-
-
+import fr.intech.echecs.view.EchiquierController;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,7 +34,7 @@ public class Pawn extends Pieces {
 	}
 
 	@Override
-	public List<Move> legal_move(Board board) {
+	public List<Move> legal_move(EchiquierController board) {
 		List<Move> FinalListe = new ArrayList<Move>();
 		if(turn == 0) {
 			for (int[] i : possibleMove_1_xy) {

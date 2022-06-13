@@ -1,24 +1,29 @@
 package fr.intech.echecs.model.chessboard;
 
 import fr.intech.echecs.model.pieces.Pieces;
+import fr.intech.echecs.view.EchiquierController;
 import javafx.scene.layout.Border;
 
 public abstract class Move {
 	
-	private Board board;
+	private EchiquierController board;
 	private Pieces MovedPiece;
 	private int[] destinationCoordonate;
 	
-	public Move (Board board, Pieces MovedPiece, int[] destinationCoordonate) {
+	public Move (EchiquierController board2, Pieces MovedPiece, int[] destinationCoordonate) {
 		
-		this.board = board;
+		this.board = board2;
 		this.MovedPiece = MovedPiece;
 		this.destinationCoordonate = destinationCoordonate;
+	}
+	
+	public int[] getDestinationCoordonate() {
+		return this.destinationCoordonate;
 	}
 
 	public static class NormalMove extends Move{
 
-		public NormalMove(Board board, Pieces MovedPiece, int[] destinationCoordonate) {
+		public NormalMove(EchiquierController board, Pieces MovedPiece, int[] destinationCoordonate) {
 			super(board, MovedPiece, destinationCoordonate);
 		}
 		
@@ -28,7 +33,7 @@ public abstract class Move {
 		
 		private Pieces AttackedPiece;
 
-		public AttackMove(Board board, Pieces MovedPiece, int[] destinationCoordonate, Pieces AttackedPieces) {
+		public AttackMove(EchiquierController board, Pieces MovedPiece, int[] destinationCoordonate, Pieces AttackedPieces) {
 			super(board, MovedPiece, destinationCoordonate);
 			this.AttackedPiece = AttackedPieces;
 		}

@@ -8,6 +8,7 @@ import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
+import fr.intech.echecs.view.EchiquierController;
 
 public class King extends Pieces {
 	
@@ -19,7 +20,7 @@ public class King extends Pieces {
 	}
 
 	@Override
-	public List<Move> legal_move(Board board) {
+	public List<Move> legal_move(EchiquierController board) {
 		List<Move> FinalList = new ArrayList<Move>();  // la liste de tout les mouvements possible
 		for (int[] coordinate : possible_move_xy) {
 			
@@ -36,7 +37,7 @@ public class King extends Pieces {
 				
 				Cell corresponding_cell = board.getCell(possible_destination[0], possible_destination[1]);
 				
-				if(!corresponding_cell.IsEmpty()) { // est ce qu'elle est vide si ou on l'ajoute au mouvements possibles
+				if(corresponding_cell.IsEmpty()) { // est ce qu'elle est vide si ou on l'ajoute au mouvements possibles
 					LegalMove.add(new NormalMove(board, this, possible_destination));
 				}
 				else {
