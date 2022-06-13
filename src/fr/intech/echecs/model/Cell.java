@@ -111,6 +111,8 @@ public class Cell extends StackPane {
 				//ne plus afficher les déplacement de la premiere piece
 				System.out.println("test1");
 				this.echiquier.erase();
+				moveDisplayed = false;
+				
 				//afficher les déplacements de la seconde piece
 			} else {
 				System.out.println(this.x + " "+ this.y);
@@ -129,6 +131,7 @@ public class Cell extends StackPane {
 			// ne plus afficher les déplacements
 			System.out.println("test2");
 			this.echiquier.erase();
+			
 		}
 	}
 }

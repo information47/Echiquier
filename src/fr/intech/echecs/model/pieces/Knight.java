@@ -68,7 +68,7 @@ public class Knight extends Pieces {
 				}		
 			}
 			
-			FinalList = LegalMove; // finalList prend la valeur de tout les mouvements possibles
+			FinalList.addAll (LegalMove); // finalList prend la valeur de tout les mouvements possibles
 		}	
 		return FinalList; // on retourne la liste de tout les mouvements possible
 	}

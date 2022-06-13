@@ -95,13 +95,14 @@ public class EchiquierController {
     	Cell cell = new Cell(x, y, piece, this, selected);
 		echiquier.add(cell, x, y);
 		grid[x][y] = cell;
-		addObject(piece);
+		if (piece != null) {
+			addObject(piece);
+		}
     }
 	public void erase() {
 		for (Cell[] Tablecell : grid) {
 			for (Cell cell : Tablecell) {
-				addCell(cell.GetX(), cell.GetY(), false, cell.GetPiece());
-				System.out.println("test");
+				addCell(cell.GetX(), cell.GetY(), false, cell.getPiece());
 			}
 		}
 	}
