@@ -11,14 +11,14 @@ import javafx.stage.Stage;
 
 public class MainEchec extends Application {
     
-	private Stage primaryStage;
+	private static Stage primaryStage;
     private BorderPane rootLayout;
     private EchiquierController echiquier;
     
 	@Override
 	public void start(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("iChess");
+		MainEchec.primaryStage = primaryStage;
+		MainEchec.primaryStage.setTitle("iChess");
         // empeche le redimensionnement de la fenetre
         primaryStage.setResizable(false);
         initRootLayout();
@@ -26,7 +26,6 @@ public class MainEchec extends Application {
         FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
 		echiquier = loader.getController();
-        
         
         
         EventListener eventListener = new EventListener(echiquier);
@@ -65,8 +64,8 @@ public class MainEchec extends Application {
         }
     } */
 
-	public Stage getPrimaryStage() {
-		return primaryStage;
+	public static Stage getPrimaryStage() {
+		return MainEchec.primaryStage;
 	}
 	
 
