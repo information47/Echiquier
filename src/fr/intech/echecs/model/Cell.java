@@ -110,15 +110,14 @@ public class Cell extends StackPane {
 			if(moveDisplayed == true) {
 				//ne plus afficher les déplacement de la premiere piece
 				System.out.println("test1");
+				System.out.println(this.getPiece());
 				this.echiquier.erase();
+				System.out.println("--------");
+				System.out.println(this.getPiece());
 				moveDisplayed = false;
 				
 				//afficher les déplacements de la seconde piece
 			} else {
-				System.out.println(this.x + " "+ this.y);
-				System.out.println("--------");
-				System.out.println(this.getPiece());
-				System.out.println(this.getPiece().legal_move(echiquier));
 				for (Move Move : this.getPiece().legal_move(echiquier)) {
 					int [] coordonnee = Move.getDestinationCoordonate();
 					this.echiquier.addCell(coordonnee[0], coordonnee[1], true, this.pieceOnCell);
@@ -132,10 +131,12 @@ public class Cell extends StackPane {
 			System.out.println("test2");
 			System.out.println(this.x + " "+ this.y);
 			System.out.println("--------");
+			System.out.println(this.getPiece());
 			Pieces test = this.pieceOnCell;
 			test.setX(x);
 			test.setY(y);
 			echiquier.addObject(test);
+			this.echiquier.erase();
 		}
 	}
 }
