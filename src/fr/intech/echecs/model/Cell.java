@@ -1,13 +1,10 @@
 package fr.intech.echecs.model;
 
-import java.util.List;
-
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.view.EchiquierController;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -119,8 +116,8 @@ public class Cell extends StackPane {
 				System.out.println("--------");
 				System.out.println(this.getPiece());
 				System.out.println(this.getPiece().legal_move(echiquier));
-				for (Move Move : this.getPiece().legal_move(echiquier)) {
-					int [] coordonnee = Move.getDestinationCoordonate();
+				for (Move move : this.getPiece().legal_move(echiquier)) {
+					int [] coordonnee = move.getDestinationCoordonate();
 					this.echiquier.addCell(coordonnee[0], coordonnee[1], true, this.pieceOnCell);
 				}
 	
