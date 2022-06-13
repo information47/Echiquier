@@ -2,17 +2,19 @@ package fr.intech.echecs.view;
 
 
 
-import fr.intech.echecs.ChessEventBus;
-import fr.intech.echecs.ClickEvent;
 import fr.intech.echecs.model.Cell;
-import javafx.event.EventHandler;
-import fr.intech.echecs.model.pieces.*;
+import fr.intech.echecs.model.pieces.Bishop;
+import fr.intech.echecs.model.pieces.King;
+import fr.intech.echecs.model.pieces.Knight;
+import fr.intech.echecs.model.pieces.Pawn;
 import fr.intech.echecs.model.pieces.Pieces;
+import fr.intech.echecs.model.pieces.Queen;
+import fr.intech.echecs.model.pieces.Rook;
 import fr.intech.echecs.model.pieces.Team;
+import fr.intech.echecs.model.pieces.Type;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
@@ -20,6 +22,7 @@ public class EchiquierController {
 	@FXML
 	private GridPane echiquier;
 	private Cell[][] grid;
+	private boolean moveDisplayed;
 	@FXML
 	private Button button1;
 	
@@ -35,12 +38,7 @@ public class EchiquierController {
 
 
 				Cell cell = new Cell(i, j, null, echiquier);
-				cell.setOnMouseClicked(new EventHandler<MouseEvent>()
-    	        {
-    	            public void handle(MouseEvent t) {
-    	            	ChessEventBus.emitEvent(new ClickEvent());
-    	            }
-    	        });
+
 				
 				echiquier.add(cell, i, j);
 				grid[i][j] = cell;
@@ -107,7 +105,13 @@ public class EchiquierController {
 		if (cell.getChildren().size() == 2) {
 			int lastElem = cell.getChildren().size()-1;
 			cell.getChildren().remove(lastElem);
+			cell.setOnMouseClicked(null);
 		}
+	}
+	
+	@FXML
+	public void delete() {
+		removePiece(0, 0);
 	}
 	
 }
