@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="fr.intech.echecs.view.EndController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.intech.echecs.view.EndController">
    <top>
       <AnchorPane prefHeight="644.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <children>
@@ -28,8 +28,8 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <buttons>
-          <Button mnemonicParsing="false" text="Accueil" onAction="#displayAccueil" />
-            <Button mnemonicParsing="false" text="Quitter" />
+          <Button mnemonicParsing="false" onAction="#displayAccueil" text="Accueil" />
+            <Button mnemonicParsing="false" onAction="#quitter" text="Quitter" />
         </buttons>
       </ButtonBar>
    </bottom>

@@ -13,8 +13,8 @@
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="775.0" BorderPane.alignment="CENTER">
          <buttons>
-            <Button mnemonicParsing="false" text="Règles" />
-            <Button mnemonicParsing="false" text="Quitter" />
+            <Button mnemonicParsing="false" onAction="#regles" text="Règles" />
+            <Button mnemonicParsing="false" onAction="#quitter" text="Quitter" />
          </buttons>
       </ButtonBar>
    </bottom>
