@@ -2,7 +2,6 @@ package fr.intech.echecs.model.chessboard;
 
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.view.EchiquierController;
-import javafx.scene.layout.Border;
 
 public abstract class Move {
 	

@@ -24,6 +24,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class EchiquierController {
@@ -179,5 +181,13 @@ public class EchiquierController {
     	 window.setResizable(false);
     	 window.setScene(tableViewScene);
     	 window.show();
+	}
+	
+	public void displayGreen(int x, int y) {
+		Rectangle couleur = new Rectangle(0, 0, 74, 74);
+		couleur.setFill(Color.GREEN);
+		Cell cell = grid[x][y];
+			cell.getChildren().remove(0);
+			cell.getChildren().add(0, couleur);
 	}
 }

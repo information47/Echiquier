@@ -2,18 +2,10 @@ package fr.intech.echecs.model.pieces;
 
 import java.util.List;
 
-import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.view.EchiquierController;
-import javafx.scene.image.ImageView;
-
-import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
 
 
 public abstract class Pieces extends ImageView {
