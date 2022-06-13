@@ -41,4 +41,8 @@ public class EndController {
    	 window.setScene(tableViewScene);
    	 window.show();
     }
+    
+    public void quitter(ActionEvent event) throws IOException {
+        System.exit(0); 
+     }
 }

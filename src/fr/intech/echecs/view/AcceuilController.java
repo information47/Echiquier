@@ -26,7 +26,25 @@ public class AcceuilController {
     	 window.setResizable(false);
     	 window.setScene(tableViewScene);
     	 window.show();
-     }   
-   
+     } 
+     
+     public void regles(ActionEvent event) throws IOException { //affiche les régles.
+
+         Parent tableViewParent = FXMLLoader.load(getClass().getResource("Regles.fxml"));
+
+         Scene tableViewScene = new Scene(tableViewParent);
+
+         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
+
+         window.setResizable(false);
+         window.setScene(tableViewScene);
+         window.show();
+
+     }
+     
+     public void quitter(ActionEvent event) throws IOException {
+         System.exit(0); 
+      }  
 }
+
 
