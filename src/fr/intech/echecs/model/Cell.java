@@ -118,7 +118,7 @@ public class Cell extends StackPane {
 				System.out.println(this.getPiece().legal_move(echiquier));
 				for (Move move : this.getPiece().legal_move(echiquier)) {
 					int [] coordonnee = move.getDestinationCoordonate();
-					this.echiquier.addCell(coordonnee[0], coordonnee[1], true, this.pieceOnCell);
+					this.echiquier.displayGreen(coordonnee[0], coordonnee[1]);
 				}
 	
 				// afficher les déplacements possibles
