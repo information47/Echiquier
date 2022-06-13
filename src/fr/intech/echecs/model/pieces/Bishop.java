@@ -9,6 +9,8 @@ import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
+import fr.intech.echecs.view.EchiquierController;
+import javafx.scene.layout.GridPane;
 
 public class Bishop extends Pieces {
 
@@ -22,7 +24,7 @@ public class Bishop extends Pieces {
 	}
 
 	@Override
-	public List<Move> legal_move(Board board) {
+	public List<Move> legal_move(EchiquierController board) {
 		List<Move> FinalListe = new ArrayList<Move>();
 		int possibleX = this.x;
 		int possibleY = this.y;
@@ -32,7 +34,7 @@ public class Bishop extends Pieces {
 		//diagonal haut droit
 		while (CellExist(PossibleDestination ) && stuck == false ) {
 			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
-			if (CorespondantCell.IsEmpty() != false) {
+			if (CorespondantCell.IsEmpty() == false) {
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
 					stuck = true;
@@ -52,7 +54,7 @@ public class Bishop extends Pieces {
 		//diagonal bas droite
 		while (CellExist(PossibleDestination ) && stuck == false ) {
 			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
-			if (CorespondantCell.IsEmpty() != false) {
+			if (CorespondantCell.IsEmpty() == false) {
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
 					stuck = true;
@@ -72,7 +74,7 @@ public class Bishop extends Pieces {
 		//diagonal haut gauche
 		while (CellExist(PossibleDestination ) && stuck == false ) {
 			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
-			if (CorespondantCell.IsEmpty() != false) {
+			if (CorespondantCell.IsEmpty() == false) {
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
 					stuck = true;
@@ -92,7 +94,7 @@ public class Bishop extends Pieces {
 		//diagonal bas gauche
 		while (CellExist(PossibleDestination ) && stuck == false ) {
 			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
-			if (CorespondantCell.IsEmpty() != false) {
+			if (CorespondantCell.IsEmpty() == false) {
 				if(CorespondantCell.GetPiece().team != this.team) {
 					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
 					stuck = true;

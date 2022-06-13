@@ -22,9 +22,9 @@ public class EchiquierController {
 	@FXML
 	private GridPane echiquier;
 	private Cell[][] grid;
-	private boolean moveDisplayed;
 	@FXML
 	private Button button1;
+	
 	
 	@FXML
 	/**
@@ -37,7 +37,7 @@ public class EchiquierController {
 			for (int j = 0; j<= 7; j++) {
 
 
-				Cell cell = new Cell(i, j, null, echiquier);
+				Cell cell = new Cell(i, j, null, this, false);
 
 				
 				echiquier.add(cell, i, j);
@@ -90,11 +90,28 @@ public class EchiquierController {
 		}
     	return null;
     }
+    
+    public void addCell(int x, int y, boolean selected, Pieces piece) {
+    	Cell cell = new Cell(x, y, piece, this, selected);
+		echiquier.add(cell, x, y);
+		grid[x][y] = cell;
+		if (piece != null) {
+			addObject(piece);
+		}
+    }
+	public void erase() {
+		for (Cell[] Tablecell : grid) {
+			for (Cell cell : Tablecell) {
+				addCell(cell.GetX(), cell.GetY(), false, cell.getPiece());
+			}
+		}
+	}
 	
 	public void addObject (Pieces pieces) {
 		Cell c = getCell(pieces.GetterX(), pieces.GetterY());
 		if(c != null && c.getChildren().size() < 2) {
 			c.getChildren().add(pieces);// ajoute l'image de la piece en premier plan sur la cellule 
+			c.SetpieceOnCell(pieces); // ajoute une pièce sur la cell
 		} else {
 			System.out.println("impossible d'ajouter une piece sur cette case");
 		}
@@ -108,6 +125,11 @@ public class EchiquierController {
 			cell.setOnMouseClicked(null);
 		}
 	}
+	
+	public Cell[][] GetGrid() {
+		return this.grid;
+	}
+	
 	
 	@FXML
 	public void delete() {

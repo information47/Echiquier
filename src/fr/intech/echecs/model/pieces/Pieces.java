@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
+import fr.intech.echecs.view.EchiquierController;
 import javafx.scene.image.ImageView;
 
 import javafx.animation.TranslateTransition;
@@ -32,7 +33,7 @@ public abstract class Pieces extends ImageView {
 		
 	}
 	
-	public abstract List<Move> legal_move (Board board);
+	public abstract List<Move> legal_move (EchiquierController board);
 	
 	public Team GetTeam() {
 		return this.team;

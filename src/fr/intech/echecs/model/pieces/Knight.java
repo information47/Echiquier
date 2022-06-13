@@ -9,6 +9,7 @@ import fr.intech.echecs.model.chessboard.Board;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
+import fr.intech.echecs.view.EchiquierController;
 import javafx.scene.image.Image;
 
 public class Knight extends Pieces {
@@ -34,7 +35,7 @@ public class Knight extends Pieces {
 	}
 
 	@Override
-	public List<Move> legal_move(Board board) {
+	public List<Move> legal_move(EchiquierController board) {
 		List<Move> FinalList = new ArrayList<Move>();  // la liste de tout les mouvements possible
 		for (int[] coordinate : possible_move_xy) {
 			
@@ -52,7 +53,7 @@ public class Knight extends Pieces {
 				Cell corresponding_cell = board.getCell(possible_destination[0],possible_destination[1]);
 				
 
-				if(!corresponding_cell.IsEmpty()) { // est ce qu'elle est vide si oui, on l'ajoute au mouvements possibles
+				if(corresponding_cell.IsEmpty()) { // est ce qu'elle est vide si oui, on l'ajoute au mouvements possibles
 
 					LegalMove.add(new NormalMove(board, this, possible_destination));
 				}
@@ -67,7 +68,7 @@ public class Knight extends Pieces {
 				}		
 			}
 			
-			FinalList = LegalMove; // finalList prend la valeur de tout les mouvements possibles
+			FinalList.addAll (LegalMove); // finalList prend la valeur de tout les mouvements possibles
 		}	
 		return FinalList; // on retourne la liste de tout les mouvements possible
 	}
