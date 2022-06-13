@@ -186,15 +186,8 @@ public class EchiquierController {
 	public void displayGreen(int x, int y) {
 		Rectangle couleur = new Rectangle(0, 0, 74, 74);
 		couleur.setFill(Color.GREEN);
-		
-		
 		Cell cell = grid[x][y];
-		int lastElem = cell.getChildren().size()-1;
-		if (cell.getChildren().size() == 2) {
-			cell.getChildren().remove(0);
-		} else if(cell.getChildren().size() == 1) {
 			cell.getChildren().remove(0);
 			cell.getChildren().add(0, couleur);
-		}
 	}
 }
