@@ -44,8 +44,21 @@ public abstract class Pieces extends ImageView {
 		return this.x;
 	}
 	
+	public void setX(int x) {
+		this.x = x ;
+	}
+	public void setY(int y) {
+		this.y = y ;
+	}
+	
+	
+	
 	public int GetterY() {
 		return this.y;
+	}
+	
+	public Type getType() {
+		return this.type;
 	}
 	
 	

@@ -130,8 +130,12 @@ public class Cell extends StackPane {
 		} else if(moveDisplayed == true) {
 			// ne plus afficher les déplacements
 			System.out.println("test2");
-			this.echiquier.erase();
-			
+			System.out.println(this.x + " "+ this.y);
+			System.out.println("--------");
+			Pieces test = this.pieceOnCell;
+			test.setX(x);
+			test.setY(y);
+			echiquier.addObject(test);
 		}
 	}
 }

@@ -20,7 +20,7 @@ import javafx.util.Duration;
 
 public class Pawn extends Pieces {
 	
-	private int turn;
+	private  int turn;
 	private static int[][] possibleMove_1_xy = {{1,2},{0,1},{0,2},{-1,2}};
 	private static int[][] possibleMove_2_xy = {{1,2},{0,1},{-1,2}};
 	private static int[][] possibleMove_1_xy_B = {{1,-2},{0,-1},{0,-2},{-1,-2}};
