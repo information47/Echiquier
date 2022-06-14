@@ -47,7 +47,7 @@ public class EchiquierController {
 			for (int j = 0; j<= 7; j++) {
 
 
-				Cell cell = new Cell(i, j, null, this, false);
+				Cell cell = new Cell(i, j, null, this, null);
 
 
 				echiquier.add(cell, i, j);
@@ -101,23 +101,6 @@ public class EchiquierController {
 		return null;
     }
     
-    public void addCell(int x, int y, boolean selected, Pieces piece) {
-    	Cell cell = new Cell(x, y, piece, this, selected);
-		echiquier.add(cell, x, y);
-		grid[x][y] = cell;
-		if (piece != null) {
-			addObject(piece);
-		}
-    }
-	public void erase() {
-		for (Cell[] Tablecell : grid) {
-			for (Cell cell : Tablecell) {
-				addCell(cell.GetX(), cell.GetY(), false, cell.getPiece());
-			}
-		}
-	}
-
-
 
 	public void addObject (Pieces pieces) {
 		Cell c = getCell(pieces.GetterX(), pieces.GetterY());
@@ -183,11 +166,44 @@ public class EchiquierController {
     	 window.show();
 	}
 	
-	public void displayGreen(int x, int y) {
+	public void displayGreen(int x, int y, int[] selectedby) {
 		Rectangle couleur = new Rectangle(0, 0, 74, 74);
 		couleur.setFill(Color.GREEN);
 		Cell cell = grid[x][y];
 			cell.getChildren().remove(0);
 			cell.getChildren().add(0, couleur);
+			cell.setSelected(selectedby);
+	}
+	
+	public void displayBack(Cell[][] grid) {
+		for (Cell[] cellTab : grid) {
+			for (Cell cell : cellTab) {
+				Rectangle couleur = new Rectangle(0, 0, 74, 74);
+				if (cell.GetX()%2 == 1) {
+					 if (cell.GetY() %2 == 0) {
+						couleur.setFill(Color.BROWN);		
+					} else {
+						couleur.setFill(Color.BEIGE);
+					}
+				}  else {
+					 if (cell.GetY() %2 == 1) {
+						couleur.setFill(Color.BROWN);
+						
+					}
+					else {
+						couleur.setFill(Color.BEIGE);
+					}
+				}
+				cell.getChildren().remove(0);
+				cell.getChildren().add(0, couleur);
+			}
+		}
+	}
+	
+	public void Move(Pieces piece, Cell originalCell, Cell newCell) {
+		piece.setX(newCell.GetX());
+		piece.setY(newCell.GetY());
+		addObject(piece);
+		originalCell.SetpieceOnCell(null);
 	}
 }

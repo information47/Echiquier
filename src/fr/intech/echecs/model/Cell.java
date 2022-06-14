@@ -15,13 +15,13 @@ public class Cell extends StackPane {
 	private static boolean moveDisplayed;
 	private Pieces pieceOnCell;
 	private EchiquierController echiquier;
-	private boolean selected;
+	private int[] selectedby;
 	
-	public Cell (int x, int y, Pieces pieceOnCell, EchiquierController echiquier, Boolean selected) {
+	public Cell (int x, int y, Pieces pieceOnCell, EchiquierController echiquier, int[] selectedby) {
 		this.x = x;
 		this.y = y;
 		this.echiquier = echiquier;
-		this.selected = selected;
+		this.selectedby = selectedby;
 
 		this.pieceOnCell = pieceOnCell;
 		
@@ -29,11 +29,7 @@ public class Cell extends StackPane {
 
 		
 		if (x%2 == 1) {
-			if(this.selected == true) {
-				couleur.setFill(Color.GREEN);
-				this.getChildren().add(couleur);
-			}
-			else if (y%2 == 0) {
+			 if (y%2 == 0) {
 				couleur.setFill(Color.BROWN);
 				this.getChildren().add(couleur);				
 			} else {
@@ -41,11 +37,7 @@ public class Cell extends StackPane {
 				this.getChildren().add(couleur);
 			}
 		}  else {
-			if(this.selected == true) {
-				couleur.setFill(Color.GREEN);
-				this.getChildren().add(couleur);
-			}
-			else if (y%2 == 1) {
+			 if (y%2 == 1) {
 				couleur.setFill(Color.BROWN);
 				this.getChildren().add(couleur);
 			}
@@ -95,50 +87,51 @@ public class Cell extends StackPane {
 		}
 	}
 	
-	public void setSelected(boolean selected) {
-		this.selected = selected;
+	public void setSelected(int[] selected) {
+		this.selectedby = selected;
 	}
 	
 
 	public void displayMove() {
 		Pieces piece = this.getPiece();
-
+		int[] selectTab = {this.x, this.y};
 		if (this.getChildren().size() == 2) {
 			if(moveDisplayed == true) {
-				//ne plus afficher les déplacement de la premiere piece
-				System.out.println("test1");
-				System.out.println(this.getPiece());
-				this.echiquier.erase();
-				System.out.println("--------");
-				System.out.println(this.getPiece());
-				moveDisplayed = false;
-				
-				//afficher les déplacements de la seconde piece
-			} else {
-
-				System.out.println(this.x + " "+ this.y);
-				System.out.println("--------");
-				System.out.println(this.getPiece());
-				System.out.println(this.getPiece().legal_move(echiquier));
+				// affiche les mouvements de la deuxieme piece
 				for (Move move : this.getPiece().legal_move(echiquier)) {
 					int [] coordonnee = move.getDestinationCoordonate();
-					this.echiquier.displayGreen(coordonnee[0], coordonnee[1]);
+					int[] select = {this.x, this.y};
+					this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select);
 				}
-	
+				//ne plus afficher les déplacement de la premiere piece
+				this.echiquier.displayBack(this.echiquier.GetGrid());
+				moveDisplayed = false;
+			} else {
 				// afficher les déplacements possibles
+				for (Move move : this.getPiece().legal_move(echiquier)) {
+					int [] coordonnee = move.getDestinationCoordonate();
+					int[] select = {this.x, this.y};
+					this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select);
+				}
 				moveDisplayed = true;
 			}
 		} else if(moveDisplayed == true) {
-			// ne plus afficher les déplacements
-			System.out.println("test2");
-			System.out.println(this.x + " "+ this.y);
-			System.out.println("--------");
-			System.out.println(this.getPiece());
-			Pieces test = this.pieceOnCell;
-			test.setX(x);
-			test.setY(y);
-			echiquier.addObject(test);
-			this.echiquier.erase();
+			// déplace la pièce lorsque l'on clique sur les cases vertes
+			Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
+			Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
+			Pieces originalPiece = originalCell.getPiece();
+			System.out.println(originalPiece.getType()+" "+ originalPiece.GetTeam());
+			System.out.println(selectTab[0]+" "+selectTab[1]);
+			System.out.println("------------");
+			System.out.println(this.selectedby[0]+" "+this.selectedby[1]);
+			this.echiquier.Move(originalPiece, originalCell, newCell);
+			// efface les déplacements possibles
+			this.echiquier.displayBack(this.echiquier.GetGrid());
+
+			
+			// passe au tour suivant
+
+			
 		}
 	}
 }
