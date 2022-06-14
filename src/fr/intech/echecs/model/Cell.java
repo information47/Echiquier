@@ -115,6 +115,7 @@ public class Cell extends StackPane {
 					this.echiquier.AttackMove(originalPiece, originalCell, newCell);
 					this.Attacked = false;
 					this.selectedby = null;
+					echiquier.incrementTours();
 				}
 				
 				//ne plus afficher les déplacement de la premiere piece
