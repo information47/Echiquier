@@ -100,6 +100,7 @@ public class Cell extends StackPane {
 	
 
 	public void displayMove() {
+		System.out.println(this.echiquier.getCell(2, 1).pieceOnCell +" "+this.echiquier.getCell(2, 1).getChildren().size());
 		int[] selectTab = {this.x, this.y};
 		if (this.getChildren().size() == 2) {
 			if(moveDisplayed == true) {

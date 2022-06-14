@@ -106,7 +106,7 @@ public class EchiquierController {
 
 	public void addObject (Pieces pieces) {
 		Cell c = getCell(pieces.GetterX(), pieces.GetterY());
-		if(c != null && c.getChildren().size() < 2) {
+		if(c != null ) {
 			c.getChildren().add(pieces);// ajoute l'image de la piece en premier plan sur la cellule 
 			c.SetpieceOnCell(pieces); // ajoute une pièce sur la cell
 		} else {
