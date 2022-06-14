@@ -1,8 +1,8 @@
 package fr.intech.echecs.model;
 
 import fr.intech.echecs.model.chessboard.Move;
-import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.pieces.Pieces;
+import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.view.EchiquierController;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -48,10 +48,8 @@ public class Cell extends StackPane {
 				this.getChildren().add(couleur);
 			}
 		}
-		this.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
+		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent t) {
-            	
             		displayMove();
             	} 
         });
@@ -99,7 +97,10 @@ public class Cell extends StackPane {
 	}
 	
 
-	public void displayMove() {
+	public boolean displayMove() {
+		//if(this.getPiece().GetTeam() == Team.BLACK && echiquier.getTours()%2 == 1) {
+			//return false;
+		//}
 		int[] selectTab = {this.x, this.y};
 		if (this.getChildren().size() == 2) {
 			if(moveDisplayed == true) {
@@ -144,9 +145,12 @@ public class Cell extends StackPane {
 
 			
 			// passe au tour suivant
+			echiquier.incrementTours();
+			System.out.println(echiquier.getTours());
 
 			
 		}
+		return true;
 	}
 }
 
