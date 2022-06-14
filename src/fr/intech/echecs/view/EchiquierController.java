@@ -110,7 +110,9 @@ public class EchiquierController {
 			c.getChildren().add(pieces);// ajoute l'image de la piece en premier plan sur la cellule 
 			c.SetpieceOnCell(pieces); // ajoute une pièce sur la cell
 		} else {
-			System.out.println("");
+			System.out.println("addOject impossible");
+			c.getChildren().remove(1);
+			c.getChildren().add(pieces);
 		}
 	}
 

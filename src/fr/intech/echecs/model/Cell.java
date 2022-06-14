@@ -133,7 +133,11 @@ public class Cell extends StackPane {
 			Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
 			Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 			Pieces originalPiece = originalCell.getPiece();
-			this.echiquier.NormalMove(originalPiece, originalCell, newCell);
+			if(newCell.getChildren().size()<2) {
+				this.echiquier.NormalMove(originalPiece, originalCell, newCell);
+			} else {
+				this.echiquier.AttackMove(originalPiece, originalCell, newCell);
+			}
 			// efface les déplacements possibles
 			this.echiquier.displayBack(this.echiquier.GetGrid());
 			this.selectedby= null;
