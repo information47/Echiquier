@@ -1,6 +1,7 @@
 package fr.intech.echecs.model;
 
 import fr.intech.echecs.model.chessboard.Move;
+import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.view.EchiquierController;
 import javafx.event.EventHandler;
@@ -16,13 +17,14 @@ public class Cell extends StackPane {
 	private Pieces pieceOnCell;
 	private EchiquierController echiquier;
 	private int[] selectedby;
+	private Boolean Attacked;
 	
 	public Cell (int x, int y, Pieces pieceOnCell, EchiquierController echiquier, int[] selectedby) {
 		this.x = x;
 		this.y = y;
 		this.echiquier = echiquier;
 		this.selectedby = selectedby;
-
+		this.Attacked = false;
 		this.pieceOnCell = pieceOnCell;
 		
 		Rectangle couleur = new Rectangle(0, 0, 74, 74);
@@ -49,6 +51,7 @@ public class Cell extends StackPane {
 		this.setOnMouseClicked(new EventHandler<MouseEvent>()
         {
             public void handle(MouseEvent t) {
+            	
             		displayMove();
             	} 
         });
@@ -91,18 +94,28 @@ public class Cell extends StackPane {
 		this.selectedby = selected;
 	}
 	
+	public void setAttacked(boolean attacked) {
+		this.Attacked = attacked;
+	}
+	
 
 	public void displayMove() {
-		Pieces piece = this.getPiece();
 		int[] selectTab = {this.x, this.y};
 		if (this.getChildren().size() == 2) {
 			if(moveDisplayed == true) {
 				// affiche les mouvements de la deuxieme piece
-				for (Move move : this.getPiece().legal_move(echiquier)) {
-					int [] coordonnee = move.getDestinationCoordonate();
-					int[] select = {this.x, this.y};
-					this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select);
+				if (this.Attacked == true) {
+					Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
+					Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
+					Pieces originalPiece = originalCell.getPiece();
+					System.out.println(newCell.getPiece());
+					System.out.println("---------------");
+					System.out.println(originalPiece);
+					this.echiquier.AttackMove(originalPiece, originalCell, newCell);
+					this.Attacked = false;
+					this.selectedby = null;
 				}
+				
 				//ne plus afficher les déplacement de la premiere piece
 				this.echiquier.displayBack(this.echiquier.GetGrid());
 				moveDisplayed = false;
@@ -111,7 +124,7 @@ public class Cell extends StackPane {
 				for (Move move : this.getPiece().legal_move(echiquier)) {
 					int [] coordonnee = move.getDestinationCoordonate();
 					int[] select = {this.x, this.y};
-					this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select);
+					this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
 				}
 				moveDisplayed = true;
 			}
@@ -120,13 +133,10 @@ public class Cell extends StackPane {
 			Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
 			Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 			Pieces originalPiece = originalCell.getPiece();
-			System.out.println(originalPiece.getType()+" "+ originalPiece.GetTeam());
-			System.out.println(selectTab[0]+" "+selectTab[1]);
-			System.out.println("------------");
-			System.out.println(this.selectedby[0]+" "+this.selectedby[1]);
-			this.echiquier.Move(originalPiece, originalCell, newCell);
+			this.echiquier.NormalMove(originalPiece, originalCell, newCell);
 			// efface les déplacements possibles
 			this.echiquier.displayBack(this.echiquier.GetGrid());
+			this.selectedby= null;
 
 			
 			// passe au tour suivant

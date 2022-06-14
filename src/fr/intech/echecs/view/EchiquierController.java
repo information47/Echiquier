@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import fr.intech.echecs.MainEchec;
 import fr.intech.echecs.model.Cell;
+import fr.intech.echecs.model.chessboard.Move;
+import fr.intech.echecs.model.chessboard.Move.*;
 import fr.intech.echecs.model.pieces.Bishop;
 import fr.intech.echecs.model.pieces.King;
 import fr.intech.echecs.model.pieces.Knight;
@@ -166,10 +168,17 @@ public class EchiquierController {
     	 window.show();
 	}
 	
-	public void displayGreen(int x, int y, int[] selectedby) {
+	public void displayGreen(int x, int y, int[] selectedby, Move move) {
 		Rectangle couleur = new Rectangle(0, 0, 74, 74);
-		couleur.setFill(Color.GREEN);
 		Cell cell = grid[x][y];
+		if (move instanceof NormalMove) {
+			couleur.setFill(Color.GREEN);
+			cell.setAttacked(false);
+		}
+		else {
+			couleur.setFill(Color.RED);
+			cell.setAttacked(true);
+		}
 			cell.getChildren().remove(0);
 			cell.getChildren().add(0, couleur);
 			cell.setSelected(selectedby);
@@ -200,9 +209,17 @@ public class EchiquierController {
 		}
 	}
 	
-	public void Move(Pieces piece, Cell originalCell, Cell newCell) {
+	public void NormalMove(Pieces piece, Cell originalCell, Cell newCell) {
 		piece.setX(newCell.GetX());
 		piece.setY(newCell.GetY());
+		addObject(piece);
+		originalCell.SetpieceOnCell(null);
+	}
+	
+	public void AttackMove(Pieces piece, Cell originalCell, Cell newCell) {
+		piece.setX(newCell.GetX());
+		piece.setY(newCell.GetY());
+		newCell.SetpieceOnCell(piece);
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
 	}
