@@ -174,13 +174,14 @@ public class EchiquierController {
 		Rectangle couleur = new Rectangle(0, 0, 74, 74);
 		Cell cell = grid[x][y];
 		if (move instanceof NormalMove) {
-			couleur.setFill(Color.GREEN);
+			couleur.setFill(Color.LIMEGREEN);
 			cell.setAttacked(false);
 		}
 		else {
 			couleur.setFill(Color.RED);
 			cell.setAttacked(true);
 		}
+			couleur.setOpacity(0.5);
 			cell.getChildren().remove(0);
 			cell.getChildren().add(0, couleur);
 			cell.setSelected(selectedby);
