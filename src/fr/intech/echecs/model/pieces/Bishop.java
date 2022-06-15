@@ -26,92 +26,140 @@ public class Bishop extends Pieces {
 	@Override
 	public List<Move> legal_move(EchiquierController board) {
 		List<Move> FinalListe = new ArrayList<Move>();
-		int possibleX = this.x;
-		int possibleY = this.y;
-		int[] PossibleDestination = {possibleX, possibleY};
-		Boolean stuck = false;
 		
-		//diagonal haut droit
-		while (CellExist(PossibleDestination ) && stuck == false ) {
-			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
-			if (CorespondantCell.IsEmpty() == false) {
-				if(CorespondantCell.GetPiece().team != this.team) {
-					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-					stuck = true;
+		int Xpossible;
+		int Ypossible;
+		boolean stuck; 
+		// diagonal haut gauche
+		stuck = false;
+		Xpossible = this.x -1;
+		Ypossible = this.y -1;
+		// verifier que la case existe
+		while (Xpossible >= 0 && Ypossible >= 0 && stuck == false) {
+			if (board.getCell(Xpossible, Ypossible) != null) {
+				int [] possibleDestination = {Xpossible,Ypossible};
+				Cell possibleCell = board.getCell(Xpossible, Ypossible);
+				// verifier que la case est vide
+				if (possibleCell.getPiece() != null) {
+					// verifie si la piece est alliée ou ennemie
+					if (this.team != possibleCell.getPiece().team) {
+						FinalListe.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+						stuck = true;
+						
+					}
+					else {
+						stuck = true;
+					}
 				}
-				else if (CorespondantCell.GetPiece().team == this.team) {
-					stuck = true;
+				else {
+					FinalListe.add(new NormalMove(board, this, possibleDestination));
+					Xpossible --;
+					Ypossible --;
+					
 				}
-				
-			}
-			else {
-				FinalListe.add(new NormalMove(board, this, PossibleDestination));
-				PossibleDestination[0]++;
-				PossibleDestination[1]++;
-			}
-			
-		}
-		//diagonal bas droite
-		while (CellExist(PossibleDestination ) && stuck == false ) {
-			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
-			if (CorespondantCell.IsEmpty() == false) {
-				if(CorespondantCell.GetPiece().team != this.team) {
-					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-					stuck = true;
-				}
-				else if (CorespondantCell.GetPiece().team == this.team) {
-					stuck = true;
-				}
-				
-			}
-			else {
-				FinalListe.add(new NormalMove(board, this, PossibleDestination));
-				PossibleDestination[0]++;
-				PossibleDestination[1]--;
 			}
 			
 		}
-		//diagonal haut gauche
-		while (CellExist(PossibleDestination ) && stuck == false ) {
-			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
-			if (CorespondantCell.IsEmpty() == false) {
-				if(CorespondantCell.GetPiece().team != this.team) {
-					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-					stuck = true;
+		
+		// diagonal haut droit
+		stuck = false;
+		Xpossible = this.x +1;
+		Ypossible = this.y -1;
+		// verifier que la case existe
+		while (Xpossible <= 7 && Ypossible >= 0 && stuck == false) {
+			if (board.getCell(Xpossible, Ypossible) != null) {
+				int [] possibleDestination = {Xpossible,Ypossible};
+				Cell possibleCell = board.getCell(Xpossible, Ypossible);
+				// verifier que la case est vide
+				if (possibleCell.getPiece() != null) {
+					// verifie si la piece est alliée ou ennemie
+					if (this.team != possibleCell.getPiece().team) {
+						FinalListe.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+						stuck = true;
+						
+					}
+					else {
+						stuck = true;
+					}
 				}
-				else if (CorespondantCell.GetPiece().team == this.team) {
-					stuck = true;
+				else {
+					FinalListe.add(new NormalMove(board, this, possibleDestination));
+					Xpossible ++;
+					Ypossible --;
+					
 				}
-				
-			}
-			else {
-				FinalListe.add(new NormalMove(board, this, PossibleDestination));
-				PossibleDestination[0]--;
-				PossibleDestination[1]++;
 			}
 			
 		}
-		//diagonal bas gauche
-		while (CellExist(PossibleDestination ) && stuck == false ) {
-			Cell CorespondantCell = board.getCell(PossibleDestination[0],PossibleDestination[1]);
-			if (CorespondantCell.IsEmpty() == false) {
-				if(CorespondantCell.GetPiece().team != this.team) {
-					FinalListe.add(new AttackMove(board, this, PossibleDestination,CorespondantCell.GetPiece()));
-					stuck = true;
+		
+		// diagonal bas gauche
+		stuck = false;
+		Xpossible = this.x -1;
+		Ypossible = this.y +1;
+		// verifier que la case existe
+		while (Xpossible >= 0 && Ypossible <= 7 && stuck == false) {
+			if (board.getCell(Xpossible, Ypossible) != null) {
+				int [] possibleDestination = {Xpossible,Ypossible};
+				Cell possibleCell = board.getCell(Xpossible, Ypossible);
+				// verifier que la case est vide
+				if (possibleCell.getPiece() != null) {
+					// verifie si la piece est alliée ou ennemie
+					if (this.team != possibleCell.getPiece().team) {
+						FinalListe.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+						stuck = true;
+						
+					}
+					else {
+						stuck = true;
+					}
 				}
-				else if (CorespondantCell.GetPiece().team == this.team) {
-					stuck = true;
+				else {
+					FinalListe.add(new NormalMove(board, this, possibleDestination));
+					Xpossible --;
+					Ypossible ++;
+					
 				}
-				
-			}
-			else {
-				FinalListe.add(new NormalMove(board, this, PossibleDestination));
-				PossibleDestination[0]--;
-				PossibleDestination[1]--;
 			}
 			
-		}	
+		}
+		// diagonal bas droit
+		stuck = false;
+		Xpossible = this.x +1;
+		Ypossible = this.y +1;
+		// verifier que la case existe
+		while (Xpossible <= 7 && Ypossible <= 7 && stuck == false) {
+			if (board.getCell(Xpossible, Ypossible) != null) {
+				int [] possibleDestination = {Xpossible,Ypossible};
+				Cell possibleCell = board.getCell(Xpossible, Ypossible);
+				// verifier que la case est vide
+				if (possibleCell.getPiece() != null) {
+					// verifie si la piece est alliée ou ennemie
+					if (this.team != possibleCell.getPiece().team) {
+						FinalListe.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+						stuck = true;
+						
+					}
+					else {
+						stuck = true;
+					}
+				}
+				else {
+					FinalListe.add(new NormalMove(board, this, possibleDestination));
+					Xpossible ++;
+					Ypossible ++;
+					
+				}
+			}
+			
+		}
+		
 		return FinalListe;
+	}
+
+	@Override
+	public void SetMoved(boolean moved) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

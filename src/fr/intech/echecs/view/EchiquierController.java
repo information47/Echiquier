@@ -106,7 +106,7 @@ public class EchiquierController {
 
 	public void addObject (Pieces pieces) {
 		Cell c = getCell(pieces.GetterX(), pieces.GetterY());
-		if(c != null ) {
+		if(c != null && c.getChildren().size() < 2) {
 			c.getChildren().add(pieces);// ajoute l'image de la piece en premier plan sur la cellule 
 			c.SetpieceOnCell(pieces); // ajoute une pièce sur la cell
 		} else {
@@ -184,7 +184,22 @@ public class EchiquierController {
 			cell.getChildren().remove(0);
 			cell.getChildren().add(0, couleur);
 			cell.setSelected(selectedby);
+		// color la case sous la pièce d'origine
+		Rectangle couleur2 = new Rectangle(0, 0, 74, 74);
+		Cell originalCell = grid[selectedby[0]][selectedby[1]];
+		couleur2.setFill(Color.LIGHTSEAGREEN);
+		originalCell.getChildren().remove(0);
+		originalCell.getChildren().add(0, couleur2);
 	}
+	
+	public void displayOrange(int x, int y) {
+		Rectangle couleur = new Rectangle(0, 0, 74, 74);
+		Cell cell = grid[x][y];
+		couleur.setFill(Color.ORANGE);
+		cell.getChildren().remove(0);
+		cell.getChildren().add(0, couleur);
+	}
+	
 	
 	public void displayBack(Cell[][] grid) {
 		for (Cell[] cellTab : grid) {
@@ -205,6 +220,7 @@ public class EchiquierController {
 						couleur.setFill(Color.BEIGE);
 					}
 				}
+				cell.setSelected(null);
 				cell.getChildren().remove(0);
 				cell.getChildren().add(0, couleur);
 			}
@@ -214,6 +230,9 @@ public class EchiquierController {
 	public void NormalMove(Pieces piece, Cell originalCell, Cell newCell) {
 		piece.setX(newCell.GetX());
 		piece.setY(newCell.GetY());
+		if (piece.getType() == Type.PAWN) {
+			piece.SetMoved(true);
+		}
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
 	}

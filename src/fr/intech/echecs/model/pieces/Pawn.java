@@ -20,99 +20,162 @@ import javafx.util.Duration;
 
 public class Pawn extends Pieces {
 	
-	private  int turn;
-	private static int[][] possibleMove_1_xy = {{1,2},{0,1},{0,2},{-1,2}};
-	private static int[][] possibleMove_2_xy = {{1,2},{0,1},{-1,2}};
-	private static int[][] possibleMove_1_xy_B = {{1,-2},{0,-1},{0,-2},{-1,-2}};
-	private static int[][] possibleMove_2_xy_B = {{1,-2},{0,-1},{-1,-2}};
+	private  boolean moved ;
 	
 	public Pawn(int x, int y, Team team, Type type) {
 		super(x, y, team, type);
 
-		this.turn = 0;
+		this.moved = false;
 		
 		
 		
+	}
+	@Override
+	public void SetMoved(boolean moved) {
+		this.moved = moved;
 	}
 
 	@Override
 	public List<Move> legal_move(EchiquierController board) {
+		int[] originalCoord = {this.x, this.y};
 		List<Move> FinalListe = new ArrayList<Move>();
-		if(this.team == team.BLACK) {
-			if(turn == 0) {
-				for (int[] i : possibleMove_1_xy) {
-					int[] PossibleDestination = {i[0]+this.x, i[1]+this.y};
-					if (CellExist(PossibleDestination)) {
-						Cell CorrespondingCell = board.getCell(PossibleDestination[0], PossibleDestination[1]);
-						if (CorrespondingCell.IsEmpty() && i[0] == 0) {
-							FinalListe.add(new NormalMove(board, this, PossibleDestination));
-							
+		if (this.moved == false) { // premier mouvement du pion
+			if (this.team == Team.BLACK) {
+				// Normal move
+					// vérifie que la case juste devant le pion existe
+				if (board.getCell(originalCoord[0], originalCoord[1]+1) != null) {
+					// on vérifie que la case juste devant le pion est libre
+					int[] PossibleDestination = {originalCoord[0], originalCoord[1]+1};
+					Cell PossibleCell = board.getCell(originalCoord[0], originalCoord[1]+1);
+					if (PossibleCell.getPiece() == null) {
+						FinalListe.add(new NormalMove(board, this, PossibleDestination));
+						// vérifie si la case d'après existe
+						int[] PossibleDestionation2 = {PossibleDestination[0], PossibleDestination[1]+1};
+						if (board.getCell(PossibleDestionation2[0], PossibleDestionation2[1]) != null) {
+							Cell PossibleCell2 = board.getCell(PossibleDestination[0], PossibleDestination[1]+1);
+							//vérifie si la case est vide
+							if (PossibleCell2.getPiece() == null) {
+								FinalListe.add(new NormalMove(board, this, PossibleDestionation2));
+							}
 						}
-						if (!CorrespondingCell.IsEmpty() && i[0] != 0) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorrespondingCell.GetPiece()));
+						
+					}
+				}
+				// Attack Move
+				int [] PossibleAttack = {this.x-1, this.y+1};
+				// vérifie que la cases existent
+				if (board.getCell(PossibleAttack[0], PossibleAttack[1]) != null) {
+					Cell AttackCell = board.getCell(PossibleAttack[0], PossibleAttack[1]);
+					if (AttackCell.getPiece() != null && AttackCell.getPiece().team != this.team) {
+						FinalListe.add(new AttackMove(board, this, PossibleAttack, AttackCell.getPiece()));
+					}
+				}
+				int [] PossibleAttack2 = {this.x+1, this.y+1};
+				if (board.getCell(PossibleAttack2[0], PossibleAttack2[1]) != null) {
+					Cell AttackCell = board.getCell(PossibleAttack2[0], PossibleAttack2[1]);
+					if (AttackCell.getPiece() != null && AttackCell.getPiece().team != this.team) {
+						FinalListe.add(new AttackMove(board, this, PossibleAttack2, AttackCell.getPiece()));
+					}
+				}		
+			}else {
+				// Normal move
+				// vérifie que la case juste devant le pion existe
+			if (board.getCell(originalCoord[0], originalCoord[1]-1) != null) {
+				// on vérifie que la case juste devant le pion est libre
+				int[] PossibleDestination = {originalCoord[0], originalCoord[1]-1};
+				Cell PossibleCell = board.getCell(originalCoord[0], originalCoord[1]-1);
+				if (PossibleCell.getPiece() == null) {
+					FinalListe.add(new NormalMove(board, this, PossibleDestination));
+					// vérifie si la case d'après existe
+					int[] PossibleDestionation2 = {PossibleDestination[0], PossibleDestination[1]-1};
+					if (board.getCell(PossibleDestionation2[0], PossibleDestionation2[1]) != null) {
+						Cell PossibleCell2 = board.getCell(PossibleDestination[0], PossibleDestination[1]-1);
+						//vérifie si la case est vide
+						if (PossibleCell2.getPiece() == null) {
+							FinalListe.add(new NormalMove(board, this, PossibleDestionation2));
+							}
 						}
 					}
 				}
-			}
-			else {
-				for (int[] i : possibleMove_2_xy) {
-					int[] PossibleDestination = {i[0]+this.x, i[1]+this.y};
-					if (CellExist(PossibleDestination)) {
-						Cell CorrespondingCell = board.getCell(PossibleDestination[0], PossibleDestination[1]);
-						if (CorrespondingCell.IsEmpty() && i[0] == 0) {
-							FinalListe.add(new NormalMove(board, this, PossibleDestination));
-							
-						}
-						if (!CorrespondingCell.IsEmpty() && i[0] != 0) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorrespondingCell.GetPiece()));
-						}
-					}
+			// Attack Move
+			int [] PossibleAttack = {this.x-1, this.y-1};
+			// vérifie que la cases existent
+			if (board.getCell(PossibleAttack[0], PossibleAttack[1]) != null) {
+				Cell AttackCell = board.getCell(PossibleAttack[0], PossibleAttack[1]);
+				if (AttackCell.getPiece() != null && AttackCell.getPiece().team != this.team) {
+					FinalListe.add(new AttackMove(board, this, PossibleAttack, AttackCell.getPiece()));
 				}
-				
 			}
-			return FinalListe;
+			int [] PossibleAttack2 = {this.x+1, this.y-1};
+			if (board.getCell(PossibleAttack2[0], PossibleAttack2[1]) != null) {
+				Cell AttackCell = board.getCell(PossibleAttack2[0], PossibleAttack2[1]);
+				if (AttackCell.getPiece() != null && AttackCell.getPiece().team != this.team) {
+					FinalListe.add(new AttackMove(board, this, PossibleAttack2, AttackCell.getPiece()));
+				}
+			}
+			}
 		}else {
-			if(turn == 0) {
-				for (int[] i : possibleMove_1_xy_B) {
-					int[] PossibleDestination = {i[0]+this.x, i[1]+this.y};
-					if (CellExist(PossibleDestination)) {
-						Cell CorrespondingCell = board.getCell(PossibleDestination[0], PossibleDestination[1]);
-						if (CorrespondingCell.IsEmpty() && i[0] == 0) {
-							FinalListe.add(new NormalMove(board, this, PossibleDestination));
-							
-						}
-						if (!CorrespondingCell.IsEmpty() && i[0] != 0) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorrespondingCell.GetPiece()));
-						}
-					}
-				}
-			}
-			else {
-				for (int[] i : possibleMove_2_xy_B) {
-					int[] PossibleDestination = {i[0]+this.x, i[1]+this.y};
-					if (CellExist(PossibleDestination)) {
-						Cell CorrespondingCell = board.getCell(PossibleDestination[0], PossibleDestination[1]);
-						if (CorrespondingCell.IsEmpty() && i[0] == 0) {
-							FinalListe.add(new NormalMove(board, this, PossibleDestination));
-							
-						}
-						if (!CorrespondingCell.IsEmpty() && i[0] != 0) {
-							FinalListe.add(new AttackMove(board, this, PossibleDestination,CorrespondingCell.GetPiece()));
-						}
+			if (this.team == Team.BLACK) {
+				// Normal move
+					// vérifie que la case juste devant le pion existe
+				if (board.getCell(originalCoord[0], originalCoord[1]+1) != null) {
+					// on vérifie que la case juste devant le pion est libre
+					int[] PossibleDestination = {originalCoord[0], originalCoord[1]+1};
+					Cell PossibleCell = board.getCell(originalCoord[0], originalCoord[1]+1);
+					if (PossibleCell.getPiece() == null) {
+						FinalListe.add(new NormalMove(board, this, PossibleDestination));
 					}
 				}
 				
+				// Attack Move
+				int [] PossibleAttack = {this.x-1, this.y+1};
+				// vérifie que la cases existent
+				if (board.getCell(PossibleAttack[0], PossibleAttack[1]) != null) {
+					Cell AttackCell = board.getCell(PossibleAttack[0], PossibleAttack[1]);
+					if (AttackCell.getPiece() != null && AttackCell.getPiece().team != this.team) {
+						FinalListe.add(new AttackMove(board, this, PossibleAttack, AttackCell.getPiece()));
+					}
+				}
+				int [] PossibleAttack2 = {this.x+1, this.y+1};
+				if (board.getCell(PossibleAttack2[0], PossibleAttack2[1]) != null) {
+					Cell AttackCell = board.getCell(PossibleAttack2[0], PossibleAttack2[1]);
+					if (AttackCell.getPiece() != null && AttackCell.getPiece().team != this.team) {
+						FinalListe.add(new AttackMove(board, this, PossibleAttack2, AttackCell.getPiece()));
+					}
+				}
+				
+			}else {
+				// Normal move
+				// vérifie que la case juste devant le pion existe
+				if (board.getCell(originalCoord[0], originalCoord[1]-1) != null) {
+					// on vérifie que la case juste devant le pion est libre
+					int[] PossibleDestination = {originalCoord[0], originalCoord[1]-1};
+					Cell PossibleCell = board.getCell(originalCoord[0], originalCoord[1]-1);
+					if (PossibleCell.getPiece() == null) {
+						FinalListe.add(new NormalMove(board, this, PossibleDestination));
+						}
+					}
+				
+				// Attack Move
+				int [] PossibleAttack = {this.x-1, this.y-1};
+				// vérifie que la cases existent
+				if (board.getCell(PossibleAttack[0], PossibleAttack[1]) != null) {
+					Cell AttackCell = board.getCell(PossibleAttack[0], PossibleAttack[1]);
+					if (AttackCell.getPiece() != null && AttackCell.getPiece().team != this.team) {
+						FinalListe.add(new AttackMove(board, this, PossibleAttack, AttackCell.getPiece()));
+					}
+				}
+				int [] PossibleAttack2 = {this.x+1, this.y-1};
+				if (board.getCell(PossibleAttack2[0], PossibleAttack2[1]) != null) {
+					Cell AttackCell = board.getCell(PossibleAttack2[0], PossibleAttack2[1]);
+					if (AttackCell.getPiece() != null && AttackCell.getPiece().team != this.team) {
+						FinalListe.add(new AttackMove(board, this, PossibleAttack2, AttackCell.getPiece()));
+					}
+				}
+				}
 			}
-			return FinalListe;
-		}
+		return FinalListe;
 	}
 	
-	public int GetTurn() {
-		return turn;
-	}
-	
-	public void SetTurn(int n) {
-		this.turn = this.turn + n;
-	}
 
 }

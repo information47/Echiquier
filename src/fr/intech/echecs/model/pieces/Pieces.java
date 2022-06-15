@@ -24,6 +24,7 @@ public abstract class Pieces extends ImageView {
 		this.setImage(new Image("ressources/"+this.type+ this.team +".png"));
 		
 	}
+	public abstract void SetMoved(boolean moved) ;
 	
 	public abstract List<Move> legal_move (EchiquierController board);
 	

@@ -11,8 +11,7 @@ import fr.intech.echecs.model.chessboard.Move.NormalMove;
 import fr.intech.echecs.view.EchiquierController;
 
 public class King extends Pieces {
-	
-	private static int[][] possible_move_xy = {{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1},{-1,-1}}; 
+	 
 
 	public King(int x, int y, Team team, Type type) {
 		super(x, y, team, type);
@@ -22,38 +21,159 @@ public class King extends Pieces {
 	@Override
 	public List<Move> legal_move(EchiquierController board) {
 		List<Move> FinalList = new ArrayList<Move>();  // la liste de tout les mouvements possible
-		for (int[] coordinate : possible_move_xy) {
-			
-			int new_x;
-			int new_y;
-			List<Move> LegalMove = new ArrayList<Move>();
-			
-			new_x = coordinate[0] + this.x;  
-			new_y = coordinate[1] + this.y;
-			
-			int[] possible_destination = {new_x, new_y}; // on identifie les coordonnées atteignablent
-			
-			if ( CellExist(possible_destination)) {       // est ce que la case existe
-				
-				Cell corresponding_cell = board.getCell(possible_destination[0], possible_destination[1]);
-				
-				if(corresponding_cell.IsEmpty()) { // est ce qu'elle est vide si ou on l'ajoute au mouvements possibles
-					LegalMove.add(new NormalMove(board, this, possible_destination));
+		int Xpossible;
+		int Ypossible;
+		// diagonal haut
+		Xpossible = this.x-1;
+		Ypossible = this.y-1;
+		// vérifie que la case existe
+		if (board.getCell(Xpossible, Ypossible) != null) {
+			int[] possibleDestination = {Xpossible, Ypossible};
+			Cell possibleCell = board.getCell(Xpossible, Ypossible);
+			// vérifie qu'elle est vide
+			if (possibleCell.getPiece() != null) {
+				// vérifie si elle a la même équipe
+				if (possibleCell.getPiece().team != this.team) {
+					FinalList.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
 				}
-				else {
-
-					Pieces PieceOnCell = corresponding_cell.getPiece();  //quel pièce est dessus
-					Team PieceTeam = PieceOnCell.GetTeam();     // est elle amie ou ennemie
-					
-					if (this.team != PieceTeam) {   //  si ennemie on l'ajoute au mouvements possibles
-						LegalMove.add(new AttackMove(board, this, possible_destination, PieceOnCell));
-					}	
-				}		
 			}
-			
-			FinalList = LegalMove; // finalList prend la valeur de tout les mouvements possibles
-		}	
+			else {
+				FinalList.add(new NormalMove(board, this, possibleDestination));
+			}
+		}
+		// haut
+		Xpossible = this.x;
+		Ypossible = this.y-1;
+		if (board.getCell(Xpossible, Ypossible) != null) {
+			int[] possibleDestination = {Xpossible, Ypossible};
+			Cell possibleCell = board.getCell(Xpossible, Ypossible);
+			// vérifie qu'elle est vide
+			if (possibleCell.getPiece() != null) {
+				// vérifie si elle a la même équipe
+				if (possibleCell.getPiece().team != this.team) {
+					FinalList.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+				}
+			}
+			else {
+				FinalList.add(new NormalMove(board, this, possibleDestination));
+			}
+		}
+		
+		// diagonal haut droit
+		Xpossible = this.x+1;
+		Ypossible = this.y-1;
+		if (board.getCell(Xpossible, Ypossible) != null) {
+			int[] possibleDestination = {Xpossible, Ypossible};
+			Cell possibleCell = board.getCell(Xpossible, Ypossible);
+			// vérifie qu'elle est vide
+			if (possibleCell.getPiece() != null) {
+				// vérifie si elle a la même équipe
+				if (possibleCell.getPiece().team != this.team) {
+					FinalList.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+				}
+			}
+			else {
+				FinalList.add(new NormalMove(board, this, possibleDestination));
+			}
+		}
+		// droit
+		Xpossible = this.x+1;
+		Ypossible = this.y;
+		if (board.getCell(Xpossible, Ypossible) != null) {
+			int[] possibleDestination = {Xpossible, Ypossible};
+			Cell possibleCell = board.getCell(Xpossible, Ypossible);
+			// vérifie qu'elle est vide
+			if (possibleCell.getPiece() != null) {
+				// vérifie si elle a la même équipe
+				if (possibleCell.getPiece().team != this.team) {
+					FinalList.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+				}
+			}
+			else {
+				FinalList.add(new NormalMove(board, this, possibleDestination));
+			}
+		}
+		
+		// diagonal bas droit
+		Xpossible = this.x+1;
+		Ypossible = this.y+1;
+		if (board.getCell(Xpossible, Ypossible) != null) {
+			int[] possibleDestination = {Xpossible, Ypossible};
+			Cell possibleCell = board.getCell(Xpossible, Ypossible);
+			// vérifie qu'elle est vide
+			if (possibleCell.getPiece() != null) {
+				// vérifie si elle a la même équipe
+				if (possibleCell.getPiece().team != this.team) {
+					FinalList.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+				}
+			}
+			else {
+				FinalList.add(new NormalMove(board, this, possibleDestination));
+			}
+		}
+		
+		// diagonal bas
+		Xpossible = this.x;
+		Ypossible = this.y+1;
+		if (board.getCell(Xpossible, Ypossible) != null) {
+			int[] possibleDestination = {Xpossible, Ypossible};
+			Cell possibleCell = board.getCell(Xpossible, Ypossible);
+			// vérifie qu'elle est vide
+			if (possibleCell.getPiece() != null) {
+				// vérifie si elle a la même équipe
+				if (possibleCell.getPiece().team != this.team) {
+					FinalList.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+				}
+			}
+			else {
+				FinalList.add(new NormalMove(board, this, possibleDestination));
+			}
+		}
+		
+		// diagonal bas gauche
+		Xpossible = this.x-1;
+		Ypossible = this.y+1;
+		if (board.getCell(Xpossible, Ypossible) != null) {
+			int[] possibleDestination = {Xpossible, Ypossible};
+			Cell possibleCell = board.getCell(Xpossible, Ypossible);
+			// vérifie qu'elle est vide
+			if (possibleCell.getPiece() != null) {
+				// vérifie si elle a la même équipe
+				if (possibleCell.getPiece().team != this.team) {
+					FinalList.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+				}
+			}
+			else {
+				FinalList.add(new NormalMove(board, this, possibleDestination));
+			}
+		}
+		
+		// diagonal gauche
+		Xpossible = this.x-1;
+		Ypossible = this.y;
+		if (board.getCell(Xpossible, Ypossible) != null) {
+			int[] possibleDestination = {Xpossible, Ypossible};
+			Cell possibleCell = board.getCell(Xpossible, Ypossible);
+			// vérifie qu'elle est vide
+			if (possibleCell.getPiece() != null) {
+				// vérifie si elle a la même équipe
+				if (possibleCell.getPiece().team != this.team) {
+					FinalList.add(new AttackMove(board, this, possibleDestination, possibleCell.getPiece()));
+				}
+			}
+			else {
+				FinalList.add(new NormalMove(board, this, possibleDestination));
+			}
+		}
+		
 		return FinalList; // on retourne la liste de tout les mouvements possible
+	}
+	
+
+	@Override
+	public void SetMoved(boolean moved) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
