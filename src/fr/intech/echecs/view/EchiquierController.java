@@ -37,6 +37,7 @@ public class EchiquierController {
 	private Cell[][] grid;
 	@FXML
 	private Button button1;
+	private int tours;
 
 	@FXML
 	/**
@@ -44,6 +45,7 @@ public class EchiquierController {
 	 * after the fxml file has been loaded.
 	 */ 
 	private void initialize() {
+		tours = 1;
 		grid = new Cell[8][8];
 		for (int i = 0; i <= 7; i++) {
 			for (int j = 0; j<= 7; j++) {
@@ -102,6 +104,14 @@ public class EchiquierController {
 		}
 		return null;
     }
+	
+	public int getTours(){
+		return tours;
+	}
+	
+	public void incrementTours(){
+		tours++;
+	}
     
 
 	public void addObject (Pieces pieces) {
@@ -110,7 +120,6 @@ public class EchiquierController {
 			c.getChildren().add(pieces);// ajoute l'image de la piece en premier plan sur la cellule 
 			c.SetpieceOnCell(pieces); // ajoute une pièce sur la cell
 		} else {
-			System.out.println("addOject impossible");
 			c.getChildren().remove(1);
 			c.getChildren().add(pieces);
 		}
@@ -171,6 +180,13 @@ public class EchiquierController {
 	}
 	
 	public void displayGreen(int x, int y, int[] selectedby, Move move) {
+		if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
+			System.out.println("okkkk");
+		} else if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
+			System.out.println("okkkk");
+		} else {
+			
+		
 		Rectangle couleur = new Rectangle(0, 0, 74, 74);
 		Cell cell = grid[x][y];
 		if (move instanceof NormalMove) {
@@ -191,6 +207,7 @@ public class EchiquierController {
 		couleur2.setFill(Color.LIGHTSEAGREEN);
 		originalCell.getChildren().remove(0);
 		originalCell.getChildren().add(0, couleur2);
+		}
 	}
 	
 	public void displayOrange(int x, int y) {
