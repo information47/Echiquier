@@ -180,15 +180,21 @@ public class EchiquierController {
 	}
 	
 	public void displayGreen(int x, int y, int[] selectedby, Move move) {
-		if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
-			System.out.println("okkkk");
-		} else if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
-			System.out.println("okkkk");
-		} else {
-			
-		
 		Rectangle couleur = new Rectangle(0, 0, 74, 74);
 		Cell cell = grid[x][y];
+		Rectangle couleur2 = new Rectangle(0, 0, 74, 74);
+		Cell originalCell = grid[selectedby[0]][selectedby[1]];
+		if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
+			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
+			couleurbloque.setFill(Color.RED);
+			originalCell.getChildren().remove(0);
+			originalCell.getChildren().add(0, couleurbloque);
+		} else if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
+			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
+			couleurbloque.setFill(Color.RED);
+			originalCell.getChildren().remove(0);
+			originalCell.getChildren().add(0, couleurbloque);
+		} else {
 		if (move instanceof NormalMove) {
 			couleur.setFill(Color.LIMEGREEN);
 			cell.setAttacked(false);
@@ -202,8 +208,6 @@ public class EchiquierController {
 			cell.getChildren().add(0, couleur);
 			cell.setSelected(selectedby);
 		// color la case sous la pièce d'origine
-		Rectangle couleur2 = new Rectangle(0, 0, 74, 74);
-		Cell originalCell = grid[selectedby[0]][selectedby[1]];
 		couleur2.setFill(Color.LIGHTSEAGREEN);
 		originalCell.getChildren().remove(0);
 		originalCell.getChildren().add(0, couleur2);
@@ -211,11 +215,25 @@ public class EchiquierController {
 	}
 	
 	public void displayOrange(int x, int y) {
-		Rectangle couleur = new Rectangle(0, 0, 74, 74);
-		Cell cell = grid[x][y];
-		couleur.setFill(Color.ORANGE);
-		cell.getChildren().remove(0);
-		cell.getChildren().add(0, couleur);
+		Cell originalCell = grid[x][y];
+		if(grid[x][y].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
+			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
+			couleurbloque.setFill(Color.RED);
+			originalCell.getChildren().remove(0);
+			originalCell.getChildren().add(0, couleurbloque);
+		} else if(grid[x][y].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
+			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
+			couleurbloque.setFill(Color.RED);
+			originalCell.getChildren().remove(0);
+			originalCell.getChildren().add(0, couleurbloque);
+		}else {
+			Rectangle couleur = new Rectangle(0, 0, 74, 74);
+			Cell cell = grid[x][y];
+			couleur.setFill(Color.ORANGE);
+			cell.getChildren().remove(0);
+			cell.getChildren().add(0, couleur);
+		}
+		
 	}
 	
 	
