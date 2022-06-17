@@ -123,7 +123,7 @@ public class Cell extends StackPane {
 				moveDisplayed = false;
 			} else {
 				// afficher les déplacements possibles
-				
+				System.out.println(this.echiquier.echec(this.echiquier.allMove())[0]+" "+this.echiquier.echec(this.echiquier.allMove())[1]);
 				if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
 					this.echiquier.displayOrange(this.x, this.y);
 				}
@@ -153,8 +153,6 @@ public class Cell extends StackPane {
 			
 			// passe au tour suivant
 			echiquier.incrementTours();
-			System.out.println(echiquier.getTours());
-
 			
 		}
 		return true;

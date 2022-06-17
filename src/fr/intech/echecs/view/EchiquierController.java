@@ -3,6 +3,10 @@ package fr.intech.echecs.view;
 
 
 import java.io.IOException;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import fr.intech.echecs.MainEchec;
 import fr.intech.echecs.model.Cell;
@@ -280,4 +284,104 @@ public class EchiquierController {
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
 	}
+	
+	// ---------------------- detection echec -----------------------//
+	
+	// trouve les roi
+	public ArrayList<int[]> FindTheKings() {
+		ArrayList<int[]> FinalCoord = new ArrayList<int[]>();
+		for (Cell[] cellTab : this.grid) {
+			for (Cell cell : cellTab) {
+				if (cell.getPiece() != null) {
+					if (cell.getPiece().getType() == Type.KING && cell.getPiece().GetTeam() == Team.WHITE) {
+						Pieces possiblePiece = cell.getPiece();
+						int[] WhiteCoord = {possiblePiece.GetterX(), possiblePiece.GetterY()};
+						FinalCoord.add(WhiteCoord);
+					}
+					if (cell.getPiece().getType() == Type.KING && cell.getPiece().GetTeam() == Team.BLACK) {
+						Pieces possiblePiece = cell.getPiece();
+						int[] BlackCoord = {possiblePiece.GetterX(), possiblePiece.GetterY()};
+						FinalCoord.add(BlackCoord);
+					}
+				}
+			}
+		}
+		// retourne coordonnée des rois
+		// roi blanc index 1
+		// roi noir index 0
+		return FinalCoord; 
+	}
+	
+	
+	// verifie tout les mouvements de chaque piece sur le plateau
+	public List<Move> allMove() {
+		List<Move> MoveList = new ArrayList<Move>();
+		for (Cell[] cellTab : this.grid) {
+			for (Cell cell : cellTab) {
+				if(cell.getPiece() != null) {
+					Pieces piece = cell.getPiece();
+					for (Move move : piece.legal_move(this)) {
+						MoveList.add(move);
+					}
+				}
+			}
+		}
+		return MoveList;
+	}
+	
+	// verifie si il y a echec
+	public Object[] echec(List<Move> allMove) {
+		int[] BlackKingCoord = {this.FindTheKings().get(0)[0], this.FindTheKings().get(0)[1]};
+		int[] WhiteKingCoord = {this.FindTheKings().get(1)[0], this.FindTheKings().get(1)[1]};
+		for (Move move : allMove) {
+			Team MoveTeam = move.getTeam();
+			if (MoveTeam == Team.BLACK) {
+				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == WhiteKingCoord[0] && move.getDestinationCoordonate()[1] == WhiteKingCoord[1]) {
+					this.DisplayRed(move);
+					Object[] result = {true, Team.WHITE, move};
+					return result;
+				}
+			}
+			if (MoveTeam == Team.WHITE) {
+				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
+					this.DisplayRed(move);
+					Object[] result = {true, Team.BLACK, move};
+					return result;
+				}
+			}
+		}
+		Object[] result = {false, null};
+		return result;
+	}
+	
+	// met la case du roi et la piece qui le met en echecs en rouge
+	public void DisplayRed(Move move) {
+		int[] coordKing = move.getDestinationCoordonate();
+		int[] coordPiece = {move.getPiece().GetterX(), move.getPiece().GetterY()};
+		Rectangle couleurKing = new Rectangle(0, 0, 74, 74);
+		Cell cellKing = grid[coordKing[0]][coordKing[1]];
+		couleurKing.setFill(Color.RED);
+		cellKing.getChildren().remove(0);
+		cellKing.getChildren().add(0, couleurKing);
+		Rectangle couleurPiece = new Rectangle(0, 0, 74, 74);
+		Cell cellPiece = grid[coordPiece[0]][coordPiece[1]];
+		couleurPiece.setFill(Color.RED);
+		cellPiece.getChildren().remove(0);
+		cellPiece.getChildren().add(0, couleurPiece);
+		
+	}
+	
+	/*// en cas d'echecs trouve les moves legal
+	public List<Move> EchecMove(List<Move> ListMove, Move move){
+		List<Move> LegalMove = new ArrayList<Move>();
+		Type AttackingPiece = move.getType();
+		int[] CoordAttackingPiece = {move.getPiece().GetterX(),move.getPiece().GetterY()};
+		int[] CoordKing = move.getDestinationCoordonate();
+		
+		
+		
+		
+		return LegalMove;
+		
+	}*/
 }

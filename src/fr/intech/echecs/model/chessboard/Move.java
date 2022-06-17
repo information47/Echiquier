@@ -1,6 +1,8 @@
 package fr.intech.echecs.model.chessboard;
 
 import fr.intech.echecs.model.pieces.Pieces;
+import fr.intech.echecs.model.pieces.Team;
+import fr.intech.echecs.model.pieces.Type;
 import fr.intech.echecs.view.EchiquierController;
 
 public abstract class Move {
@@ -18,6 +20,18 @@ public abstract class Move {
 	
 	public int[] getDestinationCoordonate() {
 		return this.destinationCoordonate;
+	}
+	
+	public Team getTeam(){
+		return this.MovedPiece.GetTeam();
+	}
+	
+	public Type getType() {
+		return this.MovedPiece.getType();
+	}
+	
+	public Pieces getPiece() {
+		return this.MovedPiece;
 	}
 
 	public static class NormalMove extends Move{
