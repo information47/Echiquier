@@ -330,7 +330,7 @@ public class EchiquierController {
 	}
 	
 	// verifie si il y a echec
-	public Object[] echec(List<Move> allMove) {
+	public Move echec(List<Move> allMove) {
 		int[] BlackKingCoord = {this.FindTheKings().get(0)[0], this.FindTheKings().get(0)[1]};
 		int[] WhiteKingCoord = {this.FindTheKings().get(1)[0], this.FindTheKings().get(1)[1]};
 		for (Move move : allMove) {
@@ -338,20 +338,17 @@ public class EchiquierController {
 			if (MoveTeam == Team.BLACK) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == WhiteKingCoord[0] && move.getDestinationCoordonate()[1] == WhiteKingCoord[1]) {
 					this.DisplayRed(move);
-					Object[] result = {true, Team.WHITE, move};
-					return result;
+					return move;
 				}
 			}
 			if (MoveTeam == Team.WHITE) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
 					this.DisplayRed(move);
-					Object[] result = {true, Team.BLACK, move};
-					return result;
+					return move;
 				}
 			}
 		}
-		Object[] result = {false, null};
-		return result;
+		return null;
 	}
 	
 	// met la case du roi et la piece qui le met en echecs en rouge
@@ -371,17 +368,23 @@ public class EchiquierController {
 		
 	}
 	
-	/*// en cas d'echecs trouve les moves legal
+	// en cas d'echecs trouve les moves legal
 	public List<Move> EchecMove(List<Move> ListMove, Move move){
 		List<Move> LegalMove = new ArrayList<Move>();
 		Type AttackingPiece = move.getType();
 		int[] CoordAttackingPiece = {move.getPiece().GetterX(),move.getPiece().GetterY()};
 		int[] CoordKing = move.getDestinationCoordonate();
-		
-		
+		// ajoute tout les moves qui élimine l'attaquant
+		for (Move testedMove : ListMove) {
+			if (testedMove instanceof Move.AttackMove && testedMove.getDestinationCoordonate()[0] == CoordAttackingPiece[0] 
+					&& testedMove.getDestinationCoordonate()[1] == CoordAttackingPiece[1]) {
+				LegalMove.add(testedMove);
+			}
+			
+		}
 		
 		
 		return LegalMove;
 		
-	}*/
+	}
 }
