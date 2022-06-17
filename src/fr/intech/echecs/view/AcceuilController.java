@@ -23,9 +23,10 @@ public class AcceuilController {
     	 
     	 Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
     	 
-    	 window.setResizable(false);
+    	 window.setResizable(true);
     	 window.setScene(tableViewScene);
     	 window.show();
+    	 window.setMaximized(true);
      } 
      
      public void regles(ActionEvent event) throws IOException { //affiche les régles.
