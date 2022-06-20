@@ -1,8 +1,12 @@
 package fr.intech.echecs.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.model.pieces.Team;
+import fr.intech.echecs.model.pieces.Type;
 import fr.intech.echecs.view.EchiquierController;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -109,9 +113,6 @@ public class Cell extends StackPane {
 					Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
 					Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 					Pieces originalPiece = originalCell.getPiece();
-					System.out.println(newCell.getPiece());
-					System.out.println("---------------");
-					System.out.println(originalPiece);
 					this.echiquier.AttackMove(originalPiece, originalCell, newCell);
 					this.Attacked = false;
 					this.selectedby = null;
@@ -123,10 +124,20 @@ public class Cell extends StackPane {
 				moveDisplayed = false;
 			} else {
 				// afficher les déplacements possibles
-				for (Move move : this.getPiece().legal_move(echiquier)) {
-					int [] coordonnee = move.getDestinationCoordonate();
-					int[] select = {this.x, this.y};
-					this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+				if (this.getPiece().getType() == Type.KING) {
+					
+				}
+				else {
+					if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
+						this.echiquier.displayOrange(this.x, this.y);
+					}
+					else {
+						for (Move move : this.getPiece().legal_move(echiquier)) {
+							int [] coordonnee = move.getDestinationCoordonate();
+							int[] select = {this.x, this.y};
+							this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+						}
+					}
 				}
 				moveDisplayed = true;
 			}
@@ -147,8 +158,6 @@ public class Cell extends StackPane {
 			
 			// passe au tour suivant
 			echiquier.incrementTours();
-			System.out.println(echiquier.getTours());
-
 			
 		}
 		return true;

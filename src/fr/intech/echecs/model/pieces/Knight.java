@@ -73,6 +73,18 @@ public class Knight extends Pieces {
 		return FinalList; // on retourne la liste de tout les mouvements possible
 	}
 
+	@Override
+	public void SetMoved(boolean moved) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMove) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 	

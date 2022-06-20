@@ -3,11 +3,13 @@ package fr.intech.echecs.view;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.intech.echecs.MainEchec;
 import fr.intech.echecs.model.Cell;
 import fr.intech.echecs.model.chessboard.Move;
-import fr.intech.echecs.model.chessboard.Move.*;
+import fr.intech.echecs.model.chessboard.Move.NormalMove;
 import fr.intech.echecs.model.pieces.Bishop;
 import fr.intech.echecs.model.pieces.King;
 import fr.intech.echecs.model.pieces.Knight;
@@ -24,7 +26,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -181,28 +182,62 @@ public class EchiquierController {
 	}
 	
 	public void displayGreen(int x, int y, int[] selectedby, Move move) {
-		if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
-			System.out.println("okkkk");
-		} else if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
-			System.out.println();
-		} else {
-			
-		
 		Rectangle couleur = new Rectangle(0, 0, 74, 74);
 		Cell cell = grid[x][y];
+		Rectangle couleur2 = new Rectangle(0, 0, 74, 74);
+		Cell originalCell = grid[selectedby[0]][selectedby[1]];
+		if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
+			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
+			couleurbloque.setFill(Color.RED);
+			originalCell.getChildren().remove(0);
+			originalCell.getChildren().add(0, couleurbloque);
+		} else if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
+			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
+			couleurbloque.setFill(Color.RED);
+			originalCell.getChildren().remove(0);
+			originalCell.getChildren().add(0, couleurbloque);
+		} else {
 		if (move instanceof NormalMove) {
-			couleur.setFill(Color.GREEN);
+			couleur.setFill(Color.LIMEGREEN);
 			cell.setAttacked(false);
 		}
 		else {
 			couleur.setFill(Color.RED);
 			cell.setAttacked(true);
 		}
+			couleur.setOpacity(0.5);
 			cell.getChildren().remove(0);
 			cell.getChildren().add(0, couleur);
 			cell.setSelected(selectedby);
+		// color la case sous la pièce d'origine
+		couleur2.setFill(Color.LIGHTSEAGREEN);
+		originalCell.getChildren().remove(0);
+		originalCell.getChildren().add(0, couleur2);
 		}
 	}
+	
+	public void displayOrange(int x, int y) {
+		Cell originalCell = grid[x][y];
+		if(grid[x][y].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
+			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
+			couleurbloque.setFill(Color.RED);
+			originalCell.getChildren().remove(0);
+			originalCell.getChildren().add(0, couleurbloque);
+		} else if(grid[x][y].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
+			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
+			couleurbloque.setFill(Color.RED);
+			originalCell.getChildren().remove(0);
+			originalCell.getChildren().add(0, couleurbloque);
+		}else {
+			Rectangle couleur = new Rectangle(0, 0, 74, 74);
+			Cell cell = grid[x][y];
+			couleur.setFill(Color.ORANGE);
+			cell.getChildren().remove(0);
+			cell.getChildren().add(0, couleur);
+		}
+		
+	}
+	
 	
 	public void displayBack(Cell[][] grid) {
 		for (Cell[] cellTab : grid) {
@@ -223,6 +258,7 @@ public class EchiquierController {
 						couleur.setFill(Color.BEIGE);
 					}
 				}
+				cell.setSelected(null);
 				cell.getChildren().remove(0);
 				cell.getChildren().add(0, couleur);
 			}
@@ -232,6 +268,9 @@ public class EchiquierController {
 	public void NormalMove(Pieces piece, Cell originalCell, Cell newCell) {
 		piece.setX(newCell.GetX());
 		piece.setY(newCell.GetY());
+		if (piece.getType() == Type.PAWN) {
+			piece.SetMoved(true);
+		}
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
 	}
@@ -242,5 +281,108 @@ public class EchiquierController {
 		newCell.SetpieceOnCell(piece);
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
+	}
+	
+	// ---------------------- detection echec -----------------------//
+	
+	// trouve les roi
+	public ArrayList<int[]> FindTheKings() {
+		ArrayList<int[]> FinalCoord = new ArrayList<int[]>();
+		for (Cell[] cellTab : this.grid) {
+			for (Cell cell : cellTab) {
+				if (cell.getPiece() != null) {
+					if (cell.getPiece().getType() == Type.KING && cell.getPiece().GetTeam() == Team.WHITE) {
+						Pieces possiblePiece = cell.getPiece();
+						int[] WhiteCoord = {possiblePiece.GetterX(), possiblePiece.GetterY()};
+						FinalCoord.add(WhiteCoord);
+					}
+					if (cell.getPiece().getType() == Type.KING && cell.getPiece().GetTeam() == Team.BLACK) {
+						Pieces possiblePiece = cell.getPiece();
+						int[] BlackCoord = {possiblePiece.GetterX(), possiblePiece.GetterY()};
+						FinalCoord.add(BlackCoord);
+					}
+				}
+			}
+		}
+		// retourne coordonnée des rois
+		// roi blanc index 1
+		// roi noir index 0
+		return FinalCoord; 
+	}
+	
+	
+	// verifie tout les mouvements de chaque piece sur le plateau
+	public List<Move> allMove() {
+		List<Move> MoveList = new ArrayList<Move>();
+		for (Cell[] cellTab : this.grid) {
+			for (Cell cell : cellTab) {
+				if(cell.getPiece() != null) {
+					Pieces piece = cell.getPiece();
+					for (Move move : piece.legal_move(this)) {
+						MoveList.add(move);
+					}
+				}
+			}
+		}
+		return MoveList;
+	}
+	
+	// verifie si il y a echec
+	public Move echec(List<Move> allMove) {
+		int[] BlackKingCoord = {this.FindTheKings().get(0)[0], this.FindTheKings().get(0)[1]};
+		int[] WhiteKingCoord = {this.FindTheKings().get(1)[0], this.FindTheKings().get(1)[1]};
+		for (Move move : allMove) {
+			Team MoveTeam = move.getTeam();
+			if (MoveTeam == Team.BLACK) {
+				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == WhiteKingCoord[0] && move.getDestinationCoordonate()[1] == WhiteKingCoord[1]) {
+					this.DisplayRed(move);
+					return move;
+				}
+			}
+			if (MoveTeam == Team.WHITE) {
+				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
+					this.DisplayRed(move);
+					return move;
+				}
+			}
+		}
+		return null;
+	}
+	
+	// met la case du roi et la piece qui le met en echecs en rouge
+	public void DisplayRed(Move move) {
+		int[] coordKing = move.getDestinationCoordonate();
+		int[] coordPiece = {move.getPiece().GetterX(), move.getPiece().GetterY()};
+		Rectangle couleurKing = new Rectangle(0, 0, 74, 74);
+		Cell cellKing = grid[coordKing[0]][coordKing[1]];
+		couleurKing.setFill(Color.RED);
+		cellKing.getChildren().remove(0);
+		cellKing.getChildren().add(0, couleurKing);
+		Rectangle couleurPiece = new Rectangle(0, 0, 74, 74);
+		Cell cellPiece = grid[coordPiece[0]][coordPiece[1]];
+		couleurPiece.setFill(Color.RED);
+		cellPiece.getChildren().remove(0);
+		cellPiece.getChildren().add(0, couleurPiece);
+		
+	}
+	
+	// en cas d'echecs trouve les moves legal
+	public List<Move> EchecMove(List<Move> ListMove, Move move){
+		List<Move> LegalMove = new ArrayList<Move>();
+		Type AttackingPiece = move.getType();
+		int[] CoordAttackingPiece = {move.getPiece().GetterX(),move.getPiece().GetterY()};
+		int[] CoordKing = move.getDestinationCoordonate();
+		// ajoute tout les moves qui élimine l'attaquant
+		for (Move testedMove : ListMove) {
+			if (testedMove instanceof Move.AttackMove && testedMove.getDestinationCoordonate()[0] == CoordAttackingPiece[0] 
+					&& testedMove.getDestinationCoordonate()[1] == CoordAttackingPiece[1]) {
+				LegalMove.add(testedMove);
+			}
+			
+		}
+		
+		
+		return LegalMove;
+		
 	}
 }
