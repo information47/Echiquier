@@ -337,12 +337,14 @@ public class EchiquierController {
 			Team MoveTeam = move.getTeam();
 			if (MoveTeam == Team.BLACK) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == WhiteKingCoord[0] && move.getDestinationCoordonate()[1] == WhiteKingCoord[1]) {
+					System.out.println("true black");
 					this.DisplayRed(move);
 					return move;
 				}
 			}
 			if (MoveTeam == Team.WHITE) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
+					System.out.println("true white");
 					this.DisplayRed(move);
 					return move;
 				}
