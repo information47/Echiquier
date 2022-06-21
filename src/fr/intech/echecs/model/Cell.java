@@ -6,7 +6,6 @@ import java.util.List;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.model.pieces.Team;
-import fr.intech.echecs.model.pieces.Type;
 import fr.intech.echecs.view.EchiquierController;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -124,19 +123,16 @@ public class Cell extends StackPane {
 				moveDisplayed = false;
 			} else {
 				// afficher les déplacements possibles
-				if (this.getPiece().getType() == Type.KING) {
-					
+				System.out.println(this.echiquier.echec(this.echiquier.allMove())+" "+this.echiquier.echec(this.echiquier.allMove()));
+
+				if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
+					this.echiquier.displayOrange(this.x, this.y);
 				}
 				else {
-					if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
-						this.echiquier.displayOrange(this.x, this.y);
-					}
-					else {
-						for (Move move : this.getPiece().legal_move(echiquier)) {
-							int [] coordonnee = move.getDestinationCoordonate();
-							int[] select = {this.x, this.y};
-							this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
-						}
+					for (Move move : this.getPiece().legal_move(echiquier)) {
+						int [] coordonnee = move.getDestinationCoordonate();
+						int[] select = {this.x, this.y};
+						this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
 					}
 				}
 				moveDisplayed = true;
