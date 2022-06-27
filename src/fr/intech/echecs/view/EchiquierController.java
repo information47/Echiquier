@@ -40,6 +40,10 @@ public class EchiquierController {
 	@FXML
 	private Button button1;
 	private int tours;
+	@FXML
+	private GridPane gridPriseHaut;
+	@FXML
+	private GridPane gridPriseBas;
 
 	@FXML
 	/**
@@ -61,6 +65,9 @@ public class EchiquierController {
 			}
 
 		}
+		addObject(new Queen(4, 5, Team.BLACK, Type.QUEEN));
+		addObject(new Queen(3, 2,Team.WHITE, Type.QUEEN));
+		
 		addObject(new Rook(0, 0, Team.BLACK, Type.ROOK));
 		addObject(new Rook(7,0, Team.BLACK, Type.ROOK));
 		addObject(new Knight(1,0, Team.BLACK, Type.KNIGHT));
@@ -278,6 +285,7 @@ public class EchiquierController {
 	public void AttackMove(Pieces piece, Cell originalCell, Cell newCell) {
 		piece.setX(newCell.GetX());
 		piece.setY(newCell.GetY());
+		eaten(newCell.getPiece());
 		newCell.SetpieceOnCell(piece);
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
@@ -384,5 +392,24 @@ public class EchiquierController {
 		
 		return LegalMove;
 		
+	}
+	public void eaten(Pieces piece) {
+		if (piece.GetTeam() == Team.BLACK) {
+			List<Node> childrensBlack = gridPriseBas.getChildren();
+			int length = childrensBlack.size();
+			if (length < 8) {
+				gridPriseBas.add(piece, length, 0);
+			} else {
+				gridPriseBas.add(piece, length-8, 1);
+			}
+		} else {
+			List<Node> childrensWhite = gridPriseHaut.getChildren();
+			int length = childrensWhite.size();
+			if (length < 8) {
+				gridPriseHaut.add(piece, length, 0);
+			} else {
+				gridPriseHaut.add(piece, length-8, 1);
+			}
+		}
 	}
 }

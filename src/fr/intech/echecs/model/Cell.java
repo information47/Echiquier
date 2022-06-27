@@ -111,7 +111,7 @@ public class Cell extends StackPane {
 				// affiche les mouvements de la deuxieme piece
 				if (this.Attacked == true) {
 					Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
-					Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
+					Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]); // erreur a cette ligne lors de deplacement avec la dame noir
 					Pieces originalPiece = originalCell.getPiece();
 					this.echiquier.AttackMove(originalPiece, originalCell, newCell);
 					this.Attacked = false;
