@@ -39,7 +39,7 @@
          </children>
       </HBox>
       <Button mnemonicParsing="false" onAction="#afficherEnd" text="Fin" />
-      <TitledPane animated="false" layoutX="32.0" layoutY="332.0" prefWidth="312.0" styleClass="table-view" stylesheets="@echiquier.css" text="pièces prises">
+      <TitledPane animated="false" layoutX="48.0" layoutY="133.0" prefWidth="312.0" styleClass="table-view" stylesheets="@echiquier.css" text="pièces prises">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="240.0" prefWidth="300.0">
                <children>
