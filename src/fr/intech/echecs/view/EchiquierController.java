@@ -329,8 +329,19 @@ public class EchiquierController {
 		return MoveList;
 	}
 	
+	// recolte tout les attacks Moves sur le plateau
+	public List<Move> allAttackMove(List<Move> allMove) {
+		List<Move> MoveList = new ArrayList<Move>();
+		for (Move move : allMove) {
+			if (move instanceof Move.AttackMove) {
+				MoveList.add(move);
+			}
+		}
+		return MoveList;
+	}
+	
 	// verifie si il y a echec
-	public Object[] echec(List<Move> allMove) {
+	public Boolean echecBool(List<Move> allMove) {
 		int[] BlackKingCoord = {this.FindTheKings().get(0)[0], this.FindTheKings().get(0)[1]};
 		int[] WhiteKingCoord = {this.FindTheKings().get(1)[0], this.FindTheKings().get(1)[1]};
 		for (Move move : allMove) {
@@ -338,19 +349,43 @@ public class EchiquierController {
 			if (MoveTeam == Team.BLACK) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == WhiteKingCoord[0] && move.getDestinationCoordonate()[1] == WhiteKingCoord[1]) {
 					this.DisplayRed(move);
-					Object[] result = {true, Team.WHITE, move};
+					Boolean result = true;
 					return result;
 				}
 			}
 			if (MoveTeam == Team.WHITE) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
 					this.DisplayRed(move);
-					Object[] result = {true, Team.BLACK, move};
+					Boolean result = true;
 					return result;
 				}
 			}
 		}
-		Object[] result = {false, null};
+		Boolean result = false;
+		return result;
+	}
+	
+	public Move echecMoove(List<Move> allMove) {
+		int[] BlackKingCoord = {this.FindTheKings().get(0)[0], this.FindTheKings().get(0)[1]};
+		int[] WhiteKingCoord = {this.FindTheKings().get(1)[0], this.FindTheKings().get(1)[1]};
+		for (Move move : allMove) {
+			Team MoveTeam = move.getTeam();
+			if (MoveTeam == Team.BLACK) {
+				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == WhiteKingCoord[0] && move.getDestinationCoordonate()[1] == WhiteKingCoord[1]) {
+					this.DisplayRed(move);
+					Move result = move;
+					return result;
+				}
+			}
+			if (MoveTeam == Team.WHITE) {
+				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
+					this.DisplayRed(move);
+					Move result = move;
+					return result;
+				}
+			}
+		}
+		Move result = null;
 		return result;
 	}
 	
@@ -371,17 +406,37 @@ public class EchiquierController {
 		
 	}
 	
-	/*// en cas d'echecs trouve les moves legal
-	public List<Move> EchecMove(List<Move> ListMove, Move move){
+	// -----------------trouve les mouvements possible en cas d'echec ----------------
+	
+	// trouve l'aggresseur
+	/*public Pieces FindAgg (List<Move> allMove) {
+		int[] KingCoord ;
+		Team KingTeam;
+		if (this.echec(allMove)[1] == Team.WHITE) {
+			KingCoord = this.FindTheKings().get(1);
+			KingTeam = Team.WHITE;
+		}
+		else {
+			KingCoord = this.FindTheKings().get(0);
+			KingTeam = Team.BLACK;
+		}
+		for (Move move : allMove) {
+			if (move.getDestinationCoordonate()[0] == KingCoord[0] && 
+					move.getDestinationCoordonate()[1] == KingCoord[1] && move.getPiece().GetTeam() != KingTeam) {
+				return move.getPiece();
+			}
+		}
+		return null;
+	}
+	
+	// trouve les mooves possibles
+	public List<Move> LegalEchecMove (Pieces piece){
 		List<Move> LegalMove = new ArrayList<Move>();
-		Type AttackingPiece = move.getType();
-		int[] CoordAttackingPiece = {move.getPiece().GetterX(),move.getPiece().GetterY()};
-		int[] CoordKing = move.getDestinationCoordonate();
-		
-		
-		
+		Type type = piece.getType();
+		if (type == type.KNIGHT || type == type.PAWN || type.) {
+			
+		}
 		
 		return LegalMove;
-		
 	}*/
 }

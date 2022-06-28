@@ -176,6 +176,10 @@ public class Pawn extends Pieces {
 			}
 		return FinalListe;
 	}
+	@Override
+	public void setAttackMove(Move move) {
+		
+	}
 	
 
 }

@@ -130,4 +130,10 @@ public class Rook extends Pieces {
 		
 	}
 
+	@Override
+	public void setAttackMove(Move move) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

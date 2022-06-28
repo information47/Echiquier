@@ -11,11 +11,25 @@ import fr.intech.echecs.model.chessboard.Move.NormalMove;
 import fr.intech.echecs.view.EchiquierController;
 
 public class King extends Pieces {
-	 
+
+	private boolean echec;
+	private List<Move> attackMove = new ArrayList<Move>();
 
 	public King(int x, int y, Team team, Type type) {
 		super(x, y, team, type);
-		// TODO Auto-generated constructor stub
+		this.echec = false;
+	}
+	@Override
+	public void setAttackMove(Move move) {
+		this.attackMove.add(move);
+	}
+	@Override
+	public void clearAttackMove() {
+		this.attackMove.clear();
+	}
+	@Override
+	public void getAttackMove() {
+		System.out.println(this.attackMove);
 	}
 
 	@Override

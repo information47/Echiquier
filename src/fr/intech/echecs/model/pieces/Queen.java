@@ -256,4 +256,10 @@ public class Queen extends Pieces {
 		
 	}
 
+	@Override
+	public void setAttackMove(Move move) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

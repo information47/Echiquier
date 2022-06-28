@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.intech.echecs.model.chessboard.Move;
+import fr.intech.echecs.model.chessboard.Move.AttackMove;
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.model.pieces.Team;
+import fr.intech.echecs.model.pieces.Type;
 import fr.intech.echecs.view.EchiquierController;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -123,15 +125,62 @@ public class Cell extends StackPane {
 				moveDisplayed = false;
 			} else {
 				// afficher les déplacements possibles
-				System.out.println(this.echiquier.echec(this.echiquier.allMove())[0]+" "+this.echiquier.echec(this.echiquier.allMove())[1]);
-				if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
-					this.echiquier.displayOrange(this.x, this.y);
+				this.echiquier.echec(this.echiquier.allMove());
+				if (this.pieceOnCell.getType() != Type.KING) {
+					if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
+						this.echiquier.displayOrange(this.x, this.y);
+					}
+					else {
+						for (Move move : this.getPiece().legal_move(echiquier)) {
+							int [] coordonnee = move.getDestinationCoordonate();
+							int[] select = {this.x, this.y};
+							this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+						}
+					}
 				}
 				else {
-					for (Move move : this.getPiece().legal_move(echiquier)) {
-						int [] coordonnee = move.getDestinationCoordonate();
-						int[] select = {this.x, this.y};
-						this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+					if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
+						this.echiquier.displayOrange(this.x, this.y);
+					}
+					else {
+						List<Move> allMove = this.echiquier.allMove();
+						List<Move> allAttackMove = new ArrayList<Move>();
+						for (Move move : allMove) {
+							if (move.getPiece().GetTeam() != this.pieceOnCell.GetTeam()) {
+								allAttackMove.add(move);
+							}
+						}
+						int compteur = 0;
+						for (Move move : this.pieceOnCell.legal_move(echiquier)) {
+							int index ;
+							int xlegal = move.getDestinationCoordonate()[0];
+							int ylegal = move.getDestinationCoordonate()[1];
+							index = 0;
+							int size = allAttackMove.size()-1;
+							while (index < size && xlegal != allAttackMove.get(index).getDestinationCoordonate()[0] 
+									|| ylegal != allAttackMove.get(index).getDestinationCoordonate()[1]
+									) {
+								if (index == size) {
+									break;
+								}
+								else {
+									index ++;
+								}
+								
+							}
+							if (index == allAttackMove.size()-1) {
+								int [] coordonnee = move.getDestinationCoordonate();
+								int[] select = {this.x, this.y};
+								this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+								compteur ++;
+							}
+						}
+						if (compteur == 0) {
+							this.echiquier.displayOrange(this.x, this.y);
+							if (this.echiquier.echec(this.echiquier.allMove()) == true) {
+								System.out.println("echec et mat");
+							}
+						}
 					}
 				}
 				moveDisplayed = true;
