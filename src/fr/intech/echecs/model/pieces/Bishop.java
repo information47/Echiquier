@@ -162,4 +162,10 @@ public class Bishop extends Pieces {
 		
 	}
 
+	@Override
+	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMove) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.model.pieces.Team;
+import fr.intech.echecs.model.pieces.Type;
 import fr.intech.echecs.view.EchiquierController;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
@@ -110,7 +111,7 @@ public class Cell extends StackPane {
 				// affiche les mouvements de la deuxieme piece
 				if (this.Attacked == true) {
 					Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
-					Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
+					Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]); // erreur a cette ligne lors de deplacement avec la dame noir
 					Pieces originalPiece = originalCell.getPiece();
 					this.echiquier.AttackMove(originalPiece, originalCell, newCell);
 					this.Attacked = false;
@@ -123,15 +124,19 @@ public class Cell extends StackPane {
 				moveDisplayed = false;
 			} else {
 				// afficher les déplacements possibles
-				System.out.println(this.echiquier.echec(this.echiquier.allMove())[0]+" "+this.echiquier.echec(this.echiquier.allMove())[1]);
-				if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
-					this.echiquier.displayOrange(this.x, this.y);
+				if (this.getPiece().getType() == Type.KING) {
+					
 				}
 				else {
-					for (Move move : this.getPiece().legal_move(echiquier)) {
-						int [] coordonnee = move.getDestinationCoordonate();
-						int[] select = {this.x, this.y};
-						this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+					if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
+						this.echiquier.displayOrange(this.x, this.y);
+					}
+					else {
+						for (Move move : this.getPiece().legal_move(echiquier)) {
+							int [] coordonnee = move.getDestinationCoordonate();
+							int[] select = {this.x, this.y};
+							this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+						}
 					}
 				}
 				moveDisplayed = true;
