@@ -27,7 +27,7 @@
                   <Image url="@../../../../ressources/logo_iChess.png" />
                </image>
             </ImageView>
-            <Button layoutX="347.0" layoutY="540.0" mnemonicParsing="false" onAction="#play" prefHeight="67.0" prefWidth="205.0" text="Jouer" />
+            <Button layoutX="347.0" layoutY="540.0" mnemonicParsing="false" onAction="#play" prefHeight="67.0" prefWidth="205.0" styleClass="noselect" text="Jouer" />
          </children>
       </AnchorPane>
    </top>
