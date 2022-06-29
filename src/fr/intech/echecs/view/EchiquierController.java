@@ -180,4 +180,19 @@ public class EchiquierController {
     	 window.setScene(tableViewScene);
     	 window.show();
 	}
+	
+	  public void settings(ActionEvent event) throws IOException {
+
+
+	        FXMLLoader loader = new FXMLLoader();
+          loader.setLocation(MainEchec.class.getResource("view/time.fxml"));
+	    	Parent root = (Parent) loader.load();
+	  
+	    	
+	    	Scene scene  = new Scene(root);
+	    	Stage stage = new Stage();
+	    	stage.setScene(scene);
+	    	stage.show();
+
+	     }
 }

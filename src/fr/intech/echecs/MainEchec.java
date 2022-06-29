@@ -2,11 +2,15 @@ package fr.intech.echecs;
 
 import java.io.IOException;
 
+import fr.intech.echecs.model.Player;
 import fr.intech.echecs.view.EchiquierController;
+import fr.intech.echecs.view.TimeController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainEchec extends Application {
@@ -24,7 +28,7 @@ public class MainEchec extends Application {
         initRootLayout();
         
         FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
+		loader.setLocation(MainEchec.class.getResource("Echiquier.fxml"));
 		echiquier = loader.getController();
         
         
@@ -32,6 +36,7 @@ public class MainEchec extends Application {
         ChessEventBus.registerListener(eventListener);
 
 	}
+	
 	public void initRootLayout() { //initialise la fenetre principale
         try {
             // Load root layout from fxml file.
@@ -48,6 +53,7 @@ public class MainEchec extends Application {
             e.printStackTrace();
         }
     }
+	
 	
    /* public void showEchiquier() { // montre l'echiquier dans la fenetre principale
         try {
