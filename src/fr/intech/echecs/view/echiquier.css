@@ -1,13 +1,14 @@
 .background {
-    -fx-background-color: #1d1d1d;
-    -fx-background-repeat: no-repeat; 
+    /* -fx-background-color: #1d1d1d; */
+    /* -fx-background-repeat: no-repeat;  */
     /* -fx-background-size: 1000 1000;  */
-    -fx-background-position: center center;
+    -fx-background-image: url("../../../../ressources/background7.jpg");
+    /* -fx-background-position: center center; */
 }
 .accueil-background {
     -fx-background-repeat: no-repeat; 
-    -fx-background-image: url('https://www.world-lolo.com/images/uploads/image.num1302208381.of.world-lolo.com.jpg');
-    -fx-background-position: center center;
+    -fx-background-image: url('../../../../ressources/background5.jpg');
+    /* -fx-background-position: 10% 10%; */
 }
 
 .label {
