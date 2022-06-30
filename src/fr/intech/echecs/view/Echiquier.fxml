@@ -37,7 +37,6 @@
             </GridPane>
          </children>
       </HBox>
-<<<<<<< HEAD
       <HBox alignment="CENTER_RIGHT" layoutX="5.0" layoutY="3.0" maxWidth="600.0" prefHeight="871.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1281.0" AnchorPane.topAnchor="0.0">
          <children>
             <TitledPane animated="false" expanded="false" prefWidth="312.0" styleClass="table-view" stylesheets="@echiquier.css" text="pièces prises">

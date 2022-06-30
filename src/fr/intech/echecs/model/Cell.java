@@ -144,6 +144,8 @@ public class Cell extends StackPane {
 		} else if(moveDisplayed == true) {
 			// déplace la pièce lorsque l'on clique sur les cases vertes
 			Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
+			System.out.println(this.selectedby[0]);
+			System.out.println(this.selectedby[1]);
 			Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 			Pieces originalPiece = originalCell.getPiece();
 			if(newCell.getChildren().size()<2) {
