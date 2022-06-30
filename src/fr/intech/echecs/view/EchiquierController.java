@@ -188,6 +188,7 @@ public class EchiquierController {
 		Cell cell = grid[x][y];
 		Rectangle couleur2 = new Rectangle(0, 0, 74, 74);
 		Cell originalCell = grid[selectedby[0]][selectedby[1]];
+		
 		if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
@@ -408,35 +409,30 @@ public class EchiquierController {
 	
 	// -----------------trouve les mouvements possible en cas d'echec ----------------
 	
-	// trouve l'aggresseur
-	/*public Pieces FindAgg (List<Move> allMove) {
-		int[] KingCoord ;
-		Team KingTeam;
-		if (this.echec(allMove)[1] == Team.WHITE) {
-			KingCoord = this.FindTheKings().get(1);
-			KingTeam = Team.WHITE;
-		}
-		else {
-			KingCoord = this.FindTheKings().get(0);
-			KingTeam = Team.BLACK;
-		}
-		for (Move move : allMove) {
-			if (move.getDestinationCoordonate()[0] == KingCoord[0] && 
-					move.getDestinationCoordonate()[1] == KingCoord[1] && move.getPiece().GetTeam() != KingTeam) {
-				return move.getPiece();
-			}
-		}
-		return null;
-	}
 	
 	// trouve les mooves possibles
 	public List<Move> LegalEchecMove (Pieces piece){
 		List<Move> LegalMove = new ArrayList<Move>();
 		Type type = piece.getType();
-		if (type == type.KNIGHT || type == type.PAWN || type.) {
+		List<Move> allMove = this.allMove();
+		int[] KingCoord = this.echecMoove(allMove).getDestinationCoordonate();
+		if (type == type.KNIGHT || type == type.PAWN ) {
+			for (Move move : allMove) {
+				Team AttackTeam = move.getTeam();
+				if (AttackTeam != piece.GetTeam() && move.getDestinationCoordonate()[0] == piece.GetterX()
+						&& move.getDestinationCoordonate()[1] == piece.GetterY() || move.getType() == type.KING ) {
+					LegalMove.add(move);
+				}
+			}
+		}
+		if (type == type.ROOK) {
 			
+			for (Move move : allMove) {
+				int index = 0;
+				
+			}
 		}
 		
 		return LegalMove;
-	}*/
+	}
 }

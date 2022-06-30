@@ -112,6 +112,7 @@ public class Cell extends StackPane {
 				// affiche les mouvements de la deuxieme piece
 				if (this.Attacked == true) {
 					Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
+					System.out.println("test");
 					Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 					Pieces originalPiece = originalCell.getPiece();
 					this.echiquier.AttackMove(originalPiece, originalCell, newCell);
@@ -122,10 +123,15 @@ public class Cell extends StackPane {
 				
 				//ne plus afficher les déplacement de la premiere piece
 				this.echiquier.displayBack(this.echiquier.GetGrid());
+				this.Attacked = false;
+				this.selectedby = null;
 				moveDisplayed = false;
 			} else {
 				// afficher les déplacements possibles
-				this.echiquier.echec(this.echiquier.allMove());
+				this.echiquier.echecBool(this.echiquier.allMove());
+				if (this.echiquier.echecMoove(this.echiquier.allMove()) != null) {
+					System.out.println(this.echiquier.echecMoove(this.echiquier.allMove()).getPiece());
+				}
 				if (this.pieceOnCell.getType() != Type.KING) {
 					if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
 						this.echiquier.displayOrange(this.x, this.y);
@@ -177,7 +183,7 @@ public class Cell extends StackPane {
 						}
 						if (compteur == 0) {
 							this.echiquier.displayOrange(this.x, this.y);
-							if (this.echiquier.echec(this.echiquier.allMove()) == true) {
+							if (this.echiquier.echecBool(this.echiquier.allMove()) == true) {
 								System.out.println("echec et mat");
 							}
 						}
