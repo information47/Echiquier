@@ -17,7 +17,7 @@ public class AcceuilController {
 	
      public void play(ActionEvent event) throws IOException  { // affiche l'echiquier.
  		
-    	 Parent tableViewParent = FXMLLoader.load(getClass().getResource("echiquier.fxml"));
+    /*	 Parent tableViewParent = FXMLLoader.load(getClass().getResource("echiquier.fxml"));
     	 
     	 Scene tableViewScene = new Scene(tableViewParent);
     	 
@@ -26,7 +26,18 @@ public class AcceuilController {
     	 window.setResizable(true);
     	 window.setScene(tableViewScene);
     	 window.show();
-    	 window.setMaximized(true);
+    	 window.setMaximized(true);  */
+
+	        FXMLLoader loader = new FXMLLoader();
+       loader.setLocation(MainEchec.class.getResource("view/time.fxml"));
+	    	Parent root = (Parent) loader.load();
+	  
+	    	
+	    	Scene scene  = new Scene(root);
+	    	Stage stage = new Stage();
+	    	stage.setScene(scene);
+	    	stage.show();
+
      } 
      
      public void regles(ActionEvent event) throws IOException { //affiche les régles.
