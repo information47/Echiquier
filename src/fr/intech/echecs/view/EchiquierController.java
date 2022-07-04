@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import fr.intech.echecs.MainEchec;
 import fr.intech.echecs.model.Cell;
 import fr.intech.echecs.model.Timer;
+import fr.intech.echecs.model.Timer1;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
 import fr.intech.echecs.model.pieces.Bishop;
@@ -87,7 +88,7 @@ public class EchiquierController {
     
     
     Timer time = new Timer("2:30:59");
-    
+    Timer1 time1 = new Timer1("2:30:59");
     @FXML
     private Text timer;
     @FXML
@@ -107,8 +108,8 @@ public class EchiquierController {
             new KeyFrame(Duration.seconds(1),
                     e -> {
                         
-                        time.oneSecondPassed();
-                        timer1.setText(time.getCurrentTime());
+                        time1.oneSecondPassed();
+                        timer1.setText(time1.getCurrentTime());
             }));
     
     
@@ -180,7 +181,8 @@ public class EchiquierController {
 
 	        timeline1.setCycleCount(Timeline.INDEFINITE);
 	        timeline1.play();
-		 
+	        a = 1 ;
+	    	
 	}
 
 	
@@ -376,7 +378,20 @@ public class EchiquierController {
 	
 	public void NormalMove(Pieces piece, Cell originalCell, Cell newCell) {
 		
-	
+		
+     if(a%2==0)
+     {
+    	 timeline.pause();
+			timeline1.play();
+    	 
+     }else {
+    	   timeline.play();
+			timeline1.pause();
+    	 
+     }
+		  
+		
+	  
 		piece.setX(newCell.GetX());
 		piece.setY(newCell.GetY());
 		
@@ -390,9 +405,8 @@ public class EchiquierController {
 		
 		}
 		
-		timeline.play();
-		  timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline1.pause();
+		
+		a++ ;
 	
 	}
 	
