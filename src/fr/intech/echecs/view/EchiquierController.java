@@ -141,8 +141,7 @@ public class EchiquierController {
 			}
 
 		}
-		addObject(new Queen(4, 5, Team.BLACK, Type.QUEEN));
-		addObject(new Queen(3, 2,Team.WHITE, Type.QUEEN));
+		
 		
 		addObject(new Rook(0, 0, Team.BLACK, Type.ROOK));
 		addObject(new Rook(7,0, Team.BLACK, Type.ROOK));

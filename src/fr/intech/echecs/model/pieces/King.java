@@ -33,11 +33,10 @@ public class King extends Pieces {
 	}
 
 	@Override
-	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMoves) {
+	public List<Move> legal_move(EchiquierController board) {
 		List<Move> FinalList = new ArrayList<Move>();  // la liste de tout les mouvements possible
 		int Xpossible;
 		int Ypossible;
-		
 		// diagonal haut
 		Xpossible = this.x-1;
 		Ypossible = this.y-1;
@@ -190,11 +189,11 @@ public class King extends Pieces {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
-	public List<Move> legal_move(EchiquierController board) {
+	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMove) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
