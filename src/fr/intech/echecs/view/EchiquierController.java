@@ -2,12 +2,18 @@ package fr.intech.echecs.view;
 
 
 
+import static javafx.animation.Animation.Status.RUNNING;
+
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+
 
 import fr.intech.echecs.MainEchec;
 import fr.intech.echecs.model.Cell;
+import fr.intech.echecs.model.Timer;
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.NormalMove;
 import fr.intech.echecs.model.pieces.Bishop;
@@ -19,20 +25,31 @@ import fr.intech.echecs.model.pieces.Queen;
 import fr.intech.echecs.model.pieces.Rook;
 import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.model.pieces.Type;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 
 public class EchiquierController {
+	 
+	
+	
 	private String gagnant = "gagnant";
 	@FXML
 	private GridPane echiquier;
@@ -45,6 +62,57 @@ public class EchiquierController {
 	@FXML
 	private GridPane gridPriseBas;
 
+	@FXML
+    private Label setplayer1;
+
+    @FXML
+    private Label setplayer2;
+
+    @FXML
+    private Label sethours;
+
+    @FXML
+    private Label setminutes;
+    @FXML
+    private Label sethours1;
+
+    @FXML
+    private Label setminutes1;
+    @FXML
+    private Label setsecond;
+
+    @FXML
+    private Label setsecond1;
+    
+    
+    Timer time = new Timer("2:30:59");
+    
+    @FXML
+    private Text timer;
+    @FXML
+    private Text timer1;
+   
+
+    Timeline timeline = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    e -> {
+                        
+                        time.oneSecondPassed();
+                        timer.setText(time.getCurrentTime());
+            }));
+
+    
+    Timeline timeline1 = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    e -> {
+                        
+                        time.oneSecondPassed();
+                        timer1.setText(time.getCurrentTime());
+            }));
+    
+    
+    
+    
 	@FXML
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -101,8 +169,22 @@ public class EchiquierController {
 		addObject(new Pawn(5,6,Team.WHITE, Type.PAWN));
 		addObject(new Pawn(6,6,Team.WHITE, Type.PAWN));
 		addObject(new Pawn(7,6,Team.WHITE, Type.PAWN));
+		
+		 timer.setText(time.getCurrentTime());
+
+	        timeline.setCycleCount(Timeline.INDEFINITE);
+	        timeline.pause();
+	        
+	        timer1.setText(time.getCurrentTime());
+
+	        timeline1.setCycleCount(Timeline.INDEFINITE);
+	        timeline1.play();
+		 
 	}
 
+	
+	
+	
 	public GridPane getEchiquier() {
 		return echiquier;
 	}
@@ -119,6 +201,7 @@ public class EchiquierController {
 	}
 	
 	public void incrementTours(){
+		
 		tours++;
 	}
     
@@ -193,12 +276,18 @@ public class EchiquierController {
 		Cell cell = grid[x][y];
 		Rectangle couleur2 = new Rectangle(0, 0, 74, 74);
 		Cell originalCell = grid[selectedby[0]][selectedby[1]];
+		
 		if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
+		
+			
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
 			originalCell.getChildren().remove(0);
 			originalCell.getChildren().add(0, couleurbloque);
+			
 		} else if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
+			
+			
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
 			originalCell.getChildren().remove(0);
@@ -223,13 +312,21 @@ public class EchiquierController {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
 	public void displayOrange(int x, int y) {
 		Cell originalCell = grid[x][y];
+		
 		if(grid[x][y].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
 			originalCell.getChildren().remove(0);
 			originalCell.getChildren().add(0, couleurbloque);
+			
 		} else if(grid[x][y].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
@@ -242,6 +339,7 @@ public class EchiquierController {
 			cell.getChildren().remove(0);
 			cell.getChildren().add(0, couleur);
 		}
+		
 		
 	}
 	
@@ -412,4 +510,15 @@ public class EchiquierController {
 			}
 		}
 	}
+	
+	
+   public void Myfunction (String player1 ,String player2 )
+	{
+		
+		  setplayer1.setText(player1);
+		  setplayer2.setText(player2);
+		  
+		  
+	}   
+
 }
