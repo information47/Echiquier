@@ -57,6 +57,7 @@ public class EchiquierController {
 	@FXML
 	private Button button1;
 	private int tours;
+	private int a;
 	@FXML
 	private GridPane gridPriseHaut;
 	@FXML
@@ -326,12 +327,15 @@ public class EchiquierController {
 			couleurbloque.setFill(Color.RED);
 			originalCell.getChildren().remove(0);
 			originalCell.getChildren().add(0, couleurbloque);
+		
+			
 			
 		} else if(grid[x][y].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
 			originalCell.getChildren().remove(0);
 			originalCell.getChildren().add(0, couleurbloque);
+			
 		}else {
 			Rectangle couleur = new Rectangle(0, 0, 74, 74);
 			Cell cell = grid[x][y];
@@ -371,13 +375,25 @@ public class EchiquierController {
 	}
 	
 	public void NormalMove(Pieces piece, Cell originalCell, Cell newCell) {
+		
+	
 		piece.setX(newCell.GetX());
 		piece.setY(newCell.GetY());
-		if (piece.getType() == Type.PAWN) {
-			piece.SetMoved(true);
-		}
+		
+		    
+		 
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
+		
+		if (piece.getType() == Type.PAWN ) {
+			piece.SetMoved(true);
+		
+		}
+		
+		timeline.play();
+		  timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline1.pause();
+	
 	}
 	
 	public void AttackMove(Pieces piece, Cell originalCell, Cell newCell) {

@@ -38,7 +38,18 @@ public class Timer {
         }
     }
     
-    
+    public void oneSecond(){
+        second--;
+        if(second == 00){
+            minute--;
+            second = 59;
+            if(minute == 00){
+                hour--;
+                minute = 0;
+               
+            }
+        }
+    }
 	
 	
 	
