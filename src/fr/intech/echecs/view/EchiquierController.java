@@ -508,6 +508,7 @@ public class EchiquierController {
 	}
 	
 	public Move echecMoove(List<Move> allMove) {
+
 		int[] BlackKingCoord = {this.FindTheKings().get(0)[0], this.FindTheKings().get(0)[1]};
 		int[] WhiteKingCoord = {this.FindTheKings().get(1)[0], this.FindTheKings().get(1)[1]};
 		for (Move move : allMove) {
@@ -518,12 +519,12 @@ public class EchiquierController {
 
 					Move result = move;
 					return result;
-
 				}
 			}
 			if (MoveTeam == Team.WHITE) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
 					this.DisplayRed(move);
+
 					Move result = move;
 					return result;
 				}
