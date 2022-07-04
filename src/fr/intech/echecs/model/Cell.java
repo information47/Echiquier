@@ -3,8 +3,11 @@ package fr.intech.echecs.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
+
 import fr.intech.echecs.model.chessboard.Move;
 import fr.intech.echecs.model.chessboard.Move.AttackMove;
+import fr.intech.echecs.model.chessboard.Move.NormalMove;
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.model.pieces.Type;
@@ -112,7 +115,6 @@ public class Cell extends StackPane {
 				// affiche les mouvements de la deuxieme piece
 				if (this.Attacked == true) {
 					Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
-					System.out.println("test");
 					Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 					Pieces originalPiece = originalCell.getPiece();
 					this.echiquier.AttackMove(originalPiece, originalCell, newCell);
@@ -193,6 +195,60 @@ public class Cell extends StackPane {
 								System.out.println("echec et mat");
 							}
 						}
+						// rock 
+						boolean RockBasGauche = true;
+						boolean RockBasDroit = true;
+						boolean RockHautGauche = true;
+						boolean RockHautDroit = true;
+						
+						for (Move move : allAttackMove) {
+							if (move.getDestinationCoordonate()[1] == 7 && move.getDestinationCoordonate()[0] == 0 || move.getDestinationCoordonate()[0] == 1 || move.getDestinationCoordonate()[0] == 2) {
+								RockBasGauche = false;
+							}
+							if (move.getDestinationCoordonate()[1] == 7 && move.getDestinationCoordonate()[0] == 7 || move.getDestinationCoordonate()[0] == 6 || move.getDestinationCoordonate()[0] == 5 || move.getDestinationCoordonate()[0] == 4) {
+								RockBasDroit = false;
+							}
+							if (move.getDestinationCoordonate()[1] == 0 && move.getDestinationCoordonate()[0] == 0 || move.getDestinationCoordonate()[0] == 1 || move.getDestinationCoordonate()[0] == 2) {
+								RockHautGauche = false;
+							}
+							if (move.getDestinationCoordonate()[1] == 0 && move.getDestinationCoordonate()[0] == 7 || move.getDestinationCoordonate()[0] == 6 || move.getDestinationCoordonate()[0] == 5 || move.getDestinationCoordonate()[0] == 4) {
+								RockHautDroit = false;
+							}
+							
+						}
+						
+						if (pieceOnCell.GetTeam() == Team.WHITE ) {
+							if (this.echiquier.getCell(0, 7).getPiece().getType() == Type.ROOK && this.echiquier.getCell(1, 7).getPiece() == null && this.echiquier.getCell(2, 7).getPiece() == null && RockBasGauche == true ) {
+								int[] coord = {1,7};
+								int[] select = {this.x, this.y};
+								Move Rock = new NormalMove(echiquier, pieceOnCell, coord );
+								this.echiquier.displayGreen(coord[0], coord[1], select, Rock);
+								
+								}
+							if (this.echiquier.getCell(7, 7).getPiece().getType() == Type.ROOK && this.echiquier.getCell(6, 7).getPiece() == null && this.echiquier.getCell(5, 7).getPiece() == null && this.echiquier.getCell(4, 7).getPiece() == null && RockBasDroit == true) {
+								int[] coord = {6,7};
+								int[] select = {this.x, this.y};
+								Move Rock = new NormalMove(echiquier, pieceOnCell, coord );
+								this.echiquier.displayGreen(coord[0], coord[1], select, Rock);
+							}
+						}
+						else {
+							
+							if (this.echiquier.getCell(0, 0).getPiece().getType() == Type.ROOK && this.echiquier.getCell(1, 0).getPiece() == null && this.echiquier.getCell(2, 0).getPiece() == null && RockHautGauche == true ) {
+								int[] coord = {1,0};
+								int[] select = {this.x, this.y};
+								Move Rock = new NormalMove(echiquier, pieceOnCell, coord );
+								this.echiquier.displayGreen(coord[0], coord[1], select, Rock);
+								
+								}
+							if (this.echiquier.getCell(7, 0).getPiece().getType() == Type.ROOK && this.echiquier.getCell(6, 0).getPiece() == null && this.echiquier.getCell(5, 0).getPiece() == null && this.echiquier.getCell(4, 0).getPiece() == null && RockHautDroit == true) {
+								int[] coord = {6,0};
+								int[] select = {this.x, this.y};
+								Move Rock = new NormalMove(echiquier, pieceOnCell, coord );
+								this.echiquier.displayGreen(coord[0], coord[1], select, Rock);
+							}
+							
+						}
 					}
 				}
 				moveDisplayed = true;
@@ -202,7 +258,46 @@ public class Cell extends StackPane {
 			Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
 			Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 			Pieces originalPiece = originalCell.getPiece();
-			if(newCell.getChildren().size()<2) {
+			if (originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.WHITE) {
+				this.echiquier.SetRookW();
+				
+			}
+			if (originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.BLACK) {
+				this.echiquier.SetRookB();
+			}
+			// rock blanc
+			if (this.echiquier.getRookW() == 1 && newCell.GetX() < 2 ) {
+				Cell RockCell = this.echiquier.getCell(2, 7);
+				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
+				Cell RockRook = this.echiquier.getCell(3, 7);
+				this.echiquier.NormalMove(this.echiquier.getCell(0, 7).getPiece(), this.echiquier.getCell(0, 7), RockRook);
+			}
+
+			if (this.echiquier.getRookW() == 1 && newCell.GetX() > 2) {
+				Cell RockCell = this.echiquier.getCell(6, 7);
+				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
+				Cell RockRook = this.echiquier.getCell(5, 7);
+				this.echiquier.NormalMove(this.echiquier.getCell(7, 7).getPiece(), this.echiquier.getCell(7, 7), RockRook);
+
+			}
+			//rock noir
+			
+			if (this.echiquier.getRookB() == 1 && newCell.GetX() < 2 ) {
+				Cell RockCell = this.echiquier.getCell(1, 0);
+				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
+				Cell RockRook = this.echiquier.getCell(2, 0);
+				this.echiquier.NormalMove(this.echiquier.getCell(0, 0).getPiece(), this.echiquier.getCell(0, 0), RockRook);
+			}
+
+			if (this.echiquier.getRookB() == 1 && newCell.GetX() > 2 ) {
+				Cell RockCell = this.echiquier.getCell(6, 0);
+				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
+				Cell RockRook = this.echiquier.getCell(5, 0);
+				this.echiquier.NormalMove(this.echiquier.getCell(7, 0).getPiece(), this.echiquier.getCell(7, 0), RockRook);
+			}
+			
+			// mouvement normaux 
+			else if(newCell.getChildren().size()<2) {
 				this.echiquier.NormalMove(originalPiece, originalCell, newCell);
 			} else {
 				this.echiquier.AttackMove(originalPiece, originalCell, newCell);

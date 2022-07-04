@@ -42,6 +42,8 @@ public class EchiquierController {
 	@FXML
 	private Button button1;
 	private int tours;
+	private int rookW;
+	private int rookB;
 
 	@FXML
 	/**
@@ -49,6 +51,8 @@ public class EchiquierController {
 	 * after the fxml file has been loaded.
 	 */ 
 	private void initialize() {
+		rookW = 0;
+		rookB = 0;
 		tours = 1;
 		grid = new Cell[8][8];
 		for (int i = 0; i <= 7; i++) {
@@ -115,6 +119,21 @@ public class EchiquierController {
 	
 	public void incrementTours(){
 		tours++;
+	}
+	
+	public int getRookW() {
+		return this.rookW;
+	}
+	public void SetRookW() {
+		this.rookW++;
+	}
+	
+	public int getRookB() {
+		return this.rookB;
+	}
+	
+	public void SetRookB() {
+		this.rookB++;
 	}
     
 
@@ -625,4 +644,5 @@ public class EchiquierController {
 		
 		return LegalMove;
 	}
+	
 }
