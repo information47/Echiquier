@@ -238,7 +238,6 @@ public class Cell extends StackPane {
 								this.echiquier.displayGreen(coord[0], coord[1], select, Rock);
 							}
 							
-
 						}
 					}
 				}
@@ -249,22 +248,22 @@ public class Cell extends StackPane {
 			Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
 			Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 			Pieces originalPiece = originalCell.getPiece();
-			if (originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.WHITE && newCell.GetX() == 1 || newCell.GetX() == 6 && newCell.GetY() == 0 ) {
+			if (originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.WHITE && newCell.GetX() == 1 || newCell.GetX() == 6 && newCell.GetY() == 7 ) {
 				this.echiquier.SetRookW();
 				
 			}
-			else if (originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.BLACK && newCell.GetX() == 1 || newCell.GetX() == 6 && newCell.GetY() == 7) {
+			else if (originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.BLACK && newCell.GetX() == 1 || newCell.GetX() == 6 && newCell.GetY() == 0) {
 				this.echiquier.SetRookB();
 			}
 			// rock blanc
-			if (this.echiquier.getRookW() == 1 && newCell.GetX() < 2 ) {
+			if (this.echiquier.getRookW() == 1 && newCell.GetX() < 2 && originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.WHITE) {
 				Cell RockCell = this.echiquier.getCell(2, 7);
 				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
 				Cell RockRook = this.echiquier.getCell(2, 7);
 				this.echiquier.NormalMove(this.echiquier.getCell(0, 7).getPiece(), this.echiquier.getCell(0, 7), RockRook);
 			}
 
-			if (this.echiquier.getRookW() == 1 && newCell.GetX() > 2) {
+			if (this.echiquier.getRookW() == 1 && newCell.GetX() > 2 && originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.WHITE) {
 				Cell RockCell = this.echiquier.getCell(6, 7);
 				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
 				Cell RockRook = this.echiquier.getCell(5, 7);
@@ -273,14 +272,14 @@ public class Cell extends StackPane {
 			}
 			//rock noir
 			
-			if (this.echiquier.getRookB() == 1 && newCell.GetX() < 2 ) {
+			if (this.echiquier.getRookB() == 1 && newCell.GetX() < 2 && originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.BLACK ) {
 				Cell RockCell = this.echiquier.getCell(1, 0);
 				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
 				Cell RockRook = this.echiquier.getCell(2, 0);
 				this.echiquier.NormalMove(this.echiquier.getCell(0, 0).getPiece(), this.echiquier.getCell(0, 0), RockRook);
 			}
 
-			if (this.echiquier.getRookB() == 1 && newCell.GetX() > 2 ) {
+			if (this.echiquier.getRookB() == 1 && newCell.GetX() > 2 && originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.BLACK) {
 				Cell RockCell = this.echiquier.getCell(6, 0);
 				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
 				Cell RockRook = this.echiquier.getCell(5, 0);
