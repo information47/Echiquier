@@ -123,18 +123,23 @@ public class Cell extends StackPane {
 				
 				//ne plus afficher les déplacement de la premiere piece
 				this.echiquier.displayBack(this.echiquier.GetGrid());
-				this.Attacked = false;
-				this.selectedby = null;
 				moveDisplayed = false;
 			} else {
 				// afficher les déplacements possibles
 				this.echiquier.echecBool(this.echiquier.allMove());
-				if (this.echiquier.echecMoove(this.echiquier.allMove()) != null) {
-					System.out.println(this.echiquier.echecMoove(this.echiquier.allMove()).getPiece());
-				}
 				if (this.pieceOnCell.getType() != Type.KING) {
+					// si la piece ne peut pas se déplacer
 					if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
 						this.echiquier.displayOrange(this.x, this.y);
+					}
+					// si le roi est en echec
+					if (this.echiquier.echecBool(this.echiquier.allMove()) == true) {
+						List<Move> legalMove = this.echiquier.LegalEchecMove(this.echiquier.echecMoove(this.echiquier.allMove()).getPiece(), this.getPiece());
+						for (Move move : legalMove) {
+							int [] coordonnee = move.getDestinationCoordonate();
+							int[] select = {this.x, this.y};
+							this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+						}
 					}
 					else {
 						for (Move move : this.getPiece().legal_move(echiquier)) {
@@ -156,6 +161,7 @@ public class Cell extends StackPane {
 								allAttackMove.add(move);
 							}
 						}
+						// affiche les déplacements du roi 
 						int compteur = 0;
 						for (Move move : this.pieceOnCell.legal_move(echiquier)) {
 							int index ;
@@ -183,7 +189,7 @@ public class Cell extends StackPane {
 						}
 						if (compteur == 0) {
 							this.echiquier.displayOrange(this.x, this.y);
-							if (this.echiquier.echecBool(this.echiquier.allMove()) == true) {
+							if (this.echiquier.echecBool(this.echiquier.allMove()) == true && this.echiquier.echecMoove(allMove) == null) {
 								System.out.println("echec et mat");
 							}
 						}

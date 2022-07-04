@@ -410,14 +410,17 @@ public class EchiquierController {
 	// -----------------trouve les mouvements possible en cas d'echec ----------------
 	
 	
+	
+	
 	// trouve les mooves possibles
-	public List<Move> LegalEchecMove (Pieces piece){
+	public List<Move> LegalEchecMove (Pieces piece, Pieces DefPiece){
 		List<Move> LegalMove = new ArrayList<Move>();
 		Type type = piece.getType();
 		List<Move> allMove = this.allMove();
+		List<Move> PieceMove = DefPiece.legal_move(this);
 		int[] KingCoord = this.echecMoove(allMove).getDestinationCoordonate();
 		if (type == type.KNIGHT || type == type.PAWN ) {
-			for (Move move : allMove) {
+			for (Move move : PieceMove) {
 				Team AttackTeam = move.getTeam();
 				if (AttackTeam != piece.GetTeam() && move.getDestinationCoordonate()[0] == piece.GetterX()
 						&& move.getDestinationCoordonate()[1] == piece.GetterY() || move.getType() == type.KING ) {
@@ -427,11 +430,198 @@ public class EchiquierController {
 		}
 		if (type == type.ROOK) {
 			
-			for (Move move : allMove) {
-				int index = 0;
+			for (Move move : PieceMove) {
+				if (piece.GetterY() < KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
+					int index = piece.GetterY();
+					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
+						index++;
+						
+					}
+					if (index == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterY() > KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
+					int index = piece.GetterY();
+					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
+						index--;
+						
+					}
+					if (index == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterX() > KingCoord[0] && move.getDestinationCoordonate()[1] == KingCoord[1]) {
+					int index = piece.GetterX();
+					while (index < KingCoord[0] && index != move.getDestinationCoordonate()[0]) {
+						index--;
+						
+					}
+					if (index == move.getDestinationCoordonate()[0]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterX() < KingCoord[0] && move.getDestinationCoordonate()[1] == KingCoord[1]) {
+					int index = piece.GetterX();
+					while (index < KingCoord[0] && index != move.getDestinationCoordonate()[0]) {
+						index++;
+						
+					}
+					if (index == move.getDestinationCoordonate()[0]) {
+						LegalMove.add(move);
+					}
+				}
 				
 			}
 		}
+		if (type == type.BISHOP) {
+			for (Move move : PieceMove) {
+				// haut gauche
+				if (piece.GetterX() < KingCoord[0] && piece.GetterY() < KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX++;
+						indexY++;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// haut droit
+				if (piece.GetterX() > KingCoord[0] && piece.GetterY() < KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX--;
+						indexY++;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// bas gauche
+				if (piece.GetterX() < KingCoord[0] && piece.GetterY() > KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX++;
+						indexY--;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// bas droit
+				if (piece.GetterX() > KingCoord[0] && piece.GetterY() > KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX--;
+						indexY--;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+			}
+		}
+		if (type == type.QUEEN) {
+			for (Move move : PieceMove) {
+				
+				if (piece.GetterY() < KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
+					int index = piece.GetterY();
+					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
+						index++;
+						
+					}
+					if (index == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterY() > KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
+					int index = piece.GetterY();
+					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
+						index--;
+						
+					}
+					if (index == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterX() > KingCoord[0] && move.getDestinationCoordonate()[1] == KingCoord[1]) {
+					int index = piece.GetterX();
+					while (index < KingCoord[0] && index != move.getDestinationCoordonate()[0]) {
+						index--;
+						
+					}
+					if (index == move.getDestinationCoordonate()[0]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterX() < KingCoord[0] && move.getDestinationCoordonate()[1] == KingCoord[1]) {
+					int index = piece.GetterX();
+					while (index < KingCoord[0] && index != move.getDestinationCoordonate()[0]) {
+						index++;
+						
+					}
+					if (index == move.getDestinationCoordonate()[0]) {
+						LegalMove.add(move);
+					}
+				}
+				
+				// haut gauche
+				if (piece.GetterX() < KingCoord[0] && piece.GetterY() < KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX++;
+						indexY++;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// haut droit
+				if (piece.GetterX() > KingCoord[0] && piece.GetterY() < KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX--;
+						indexY++;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// bas gauche
+				if (piece.GetterX() < KingCoord[0] && piece.GetterY() > KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX++;
+						indexY--;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// bas droit
+				if (piece.GetterX() > KingCoord[0] && piece.GetterY() > KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX--;
+						indexY--;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				
+			}
+		}
+
 		
 		return LegalMove;
 	}
