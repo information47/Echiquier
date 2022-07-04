@@ -131,15 +131,16 @@ public class Rook extends Pieces {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMove) {
-		// TODO Auto-generated method stub
-		return null;
-=======
+
 	public void setAttackMove(Move move) {
 		// TODO Auto-generated method stub
 		
->>>>>>> echec_fini
+	}
+
+	@Override
+	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMove) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
