@@ -5,6 +5,7 @@ import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
 import fr.intech.echecs.MainEchec;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,15 +14,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 
-public class TimeController {
+public class TimeController{
 	
-	 
+	private static Stage primaryStage;
+
 
 	    @FXML
 	    private TextField player1;
@@ -80,15 +83,20 @@ public class TimeController {
 	    	 FXMLLoader loader = new FXMLLoader();
 	    	loader.setLocation(MainEchec.class.getResource("view/Echiquier.fxml"));
 		    	Parent root = (Parent) loader.load();
+
 		     EchiquierController controller = loader.getController();
 		    controller.Myfunction(player1.getText(), player2.getText());
 		    	
 	         Scene tableViewScene = new Scene(root);
 
+
 	         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
 	         window.setResizable(false);
 	         window.setScene(tableViewScene);
+	           window.getIcons().add(new Image("./ressources/logo_iChess.png"));
+	   		window.setTitle("iChess");
+
 	         window.show();
 	    
 	      /*  FXMLLoader loader = new FXMLLoader();
