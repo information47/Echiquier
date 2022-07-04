@@ -3,7 +3,11 @@ package fr.intech.echecs.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
+
 import fr.intech.echecs.model.chessboard.Move;
+import fr.intech.echecs.model.chessboard.Move.AttackMove;
+import fr.intech.echecs.model.chessboard.Move.NormalMove;
 import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.model.pieces.Type;
@@ -124,18 +128,117 @@ public class Cell extends StackPane {
 				moveDisplayed = false;
 			} else {
 				// afficher les déplacements possibles
-				if (this.getPiece().getType() == Type.KING) {
-					
-				}
-				else {
+				this.echiquier.echecBool(this.echiquier.allMove());
+				if (this.pieceOnCell.getType() != Type.KING) {
+					// si la piece ne peut pas se déplacer
 					if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
 						this.echiquier.displayOrange(this.x, this.y);
+					}
+					// si le roi est en echec
+					if (this.echiquier.echecBool(this.echiquier.allMove()) == true) {
+						List<Move> legalMove = this.echiquier.LegalEchecMove(this.echiquier.echecMoove(this.echiquier.allMove()).getPiece(), this.getPiece());
+						for (Move move : legalMove) {
+							int [] coordonnee = move.getDestinationCoordonate();
+							int[] select = {this.x, this.y};
+							this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+						}
 					}
 					else {
 						for (Move move : this.getPiece().legal_move(echiquier)) {
 							int [] coordonnee = move.getDestinationCoordonate();
 							int[] select = {this.x, this.y};
 							this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+						}
+					}
+				}
+				else {
+					if (this.getPiece().legal_move(echiquier).size() == 0 && this.getPiece() != null) {
+						this.echiquier.displayOrange(this.x, this.y);
+					}
+					else {
+						List<Move> allMove = this.echiquier.allMove();
+						List<Move> allAttackMove = new ArrayList<Move>();
+						for (Move move : allMove) {
+							if (move.getPiece().GetTeam() != this.pieceOnCell.GetTeam()) {
+								allAttackMove.add(move);
+							}
+						}
+						// affiche les déplacements du roi 
+						int compteur = 0;
+						for (Move move : this.pieceOnCell.legal_move(echiquier)) {
+							int index ;
+							int xlegal = move.getDestinationCoordonate()[0];
+							int ylegal = move.getDestinationCoordonate()[1];
+							index = 0;
+							int size = allAttackMove.size()-1;
+							while (index < size && xlegal != allAttackMove.get(index).getDestinationCoordonate()[0] 
+									|| ylegal != allAttackMove.get(index).getDestinationCoordonate()[1]
+									) {
+								if (index == size) {
+									break;
+								}
+								else {
+									index ++;
+								}
+								
+							}
+							if (index == allAttackMove.size()-1) {
+								int [] coordonnee = move.getDestinationCoordonate();
+								int[] select = {this.x, this.y};
+								if (this.echiquier.echecMoove(allMove) != null) {
+									if (this.echiquier.echecMoove(allMove).getPiece().getType() == Type.ROOK || this.echiquier.echecMoove(allMove).getPiece().getType() == Type.QUEEN || this.echiquier.echecMoove(allMove).getPiece().getType() == Type.BISHOP) {
+										if (coordonnee[0] != this.echiquier.echecMoove(allMove).getPiece().GetterX() && this.echiquier.echecMoove(allMove).getPiece().GetterY() != coordonnee[1]) {
+											this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+										}
+									}
+								}
+								else {
+									this.echiquier.displayGreen(coordonnee[0], coordonnee[1], select, move);
+								}
+								compteur ++;
+							}
+						}
+						if (compteur == 0) {
+							this.echiquier.displayOrange(this.x, this.y);
+							if (this.echiquier.echecBool(this.echiquier.allMove()) == true && this.echiquier.echecMoove(allMove) == null) {
+								System.out.println("echec et mat");
+							}
+						}
+						// rock 
+						
+						
+						if (pieceOnCell.GetTeam() == Team.WHITE ) {
+							if (this.echiquier.getCell(0, 7).getPiece().getType() == Type.ROOK && this.echiquier.getCell(1, 7).getPiece() == null && this.echiquier.getCell(2, 7).getPiece() == null ) {
+								int[] coord = {1,7};
+								int[] select = {this.x, this.y};
+								Move Rock = new NormalMove(echiquier, pieceOnCell, coord );
+								this.echiquier.displayGreen(coord[0], coord[1], select, Rock);
+								
+								}
+							if (this.echiquier.getCell(7, 7).getPiece().getType() == Type.ROOK && this.echiquier.getCell(6, 7).getPiece() == null && this.echiquier.getCell(5, 7).getPiece() == null && this.echiquier.getCell(4, 7).getPiece() == null ) {
+								int[] coord = {6,7};
+								int[] select = {this.x, this.y};
+								Move Rock = new NormalMove(echiquier, pieceOnCell, coord );
+								this.echiquier.displayGreen(coord[0], coord[1], select, Rock);
+							}
+						}
+						else {
+							
+							if (this.echiquier.getCell(0, 0).getPiece().getType() == Type.ROOK && this.echiquier.getCell(1, 0).getPiece() == null && this.echiquier.getCell(2, 0).getPiece() == null ) {
+								int[] coord = {1,0};
+								int[] select = {this.x, this.y};
+								Move Rock = new NormalMove(echiquier, pieceOnCell, coord );
+								this.echiquier.displayGreen(coord[0], coord[1], select, Rock);
+								
+								}
+							if (this.echiquier.getCell(7, 0).getPiece().getType() == Type.ROOK && this.echiquier.getCell(6, 0).getPiece() == null && this.echiquier.getCell(5, 0).getPiece() == null && this.echiquier.getCell(4, 0).getPiece() == null) {
+								int[] coord = {6,0};
+								int[] select = {this.x, this.y};
+								Move Rock = new NormalMove(echiquier, pieceOnCell, coord );
+								this.echiquier.displayGreen(coord[0], coord[1], select, Rock);
+							}
+							
+
 						}
 					}
 				}
@@ -146,7 +249,46 @@ public class Cell extends StackPane {
 			Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
 			Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 			Pieces originalPiece = originalCell.getPiece();
-			if(newCell.getChildren().size()<2) {
+			if (originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.WHITE && newCell.GetX() == 1 || newCell.GetX() == 6 && newCell.GetY() == 0 ) {
+				this.echiquier.SetRookW();
+				
+			}
+			else if (originalPiece.getType() == Type.KING && originalPiece.GetTeam() == Team.BLACK && newCell.GetX() == 1 || newCell.GetX() == 6 && newCell.GetY() == 7) {
+				this.echiquier.SetRookB();
+			}
+			// rock blanc
+			if (this.echiquier.getRookW() == 1 && newCell.GetX() < 2 ) {
+				Cell RockCell = this.echiquier.getCell(2, 7);
+				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
+				Cell RockRook = this.echiquier.getCell(2, 7);
+				this.echiquier.NormalMove(this.echiquier.getCell(0, 7).getPiece(), this.echiquier.getCell(0, 7), RockRook);
+			}
+
+			if (this.echiquier.getRookW() == 1 && newCell.GetX() > 2) {
+				Cell RockCell = this.echiquier.getCell(6, 7);
+				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
+				Cell RockRook = this.echiquier.getCell(5, 7);
+				this.echiquier.NormalMove(this.echiquier.getCell(7, 7).getPiece(), this.echiquier.getCell(7, 7), RockRook);
+
+			}
+			//rock noir
+			
+			if (this.echiquier.getRookB() == 1 && newCell.GetX() < 2 ) {
+				Cell RockCell = this.echiquier.getCell(1, 0);
+				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
+				Cell RockRook = this.echiquier.getCell(2, 0);
+				this.echiquier.NormalMove(this.echiquier.getCell(0, 0).getPiece(), this.echiquier.getCell(0, 0), RockRook);
+			}
+
+			if (this.echiquier.getRookB() == 1 && newCell.GetX() > 2 ) {
+				Cell RockCell = this.echiquier.getCell(6, 0);
+				this.echiquier.NormalMove(originalPiece, originalCell, RockCell);
+				Cell RockRook = this.echiquier.getCell(5, 0);
+				this.echiquier.NormalMove(this.echiquier.getCell(7, 0).getPiece(), this.echiquier.getCell(7, 0), RockRook);
+			}
+			
+			// mouvement normaux 
+			else if(newCell.getChildren().size()<2) {
 				this.echiquier.NormalMove(originalPiece, originalCell, newCell);
 			} else {
 				this.echiquier.AttackMove(originalPiece, originalCell, newCell);

@@ -57,6 +57,7 @@ public class EchiquierController {
 	@FXML
 	private Button button1;
 	private int tours;
+
 	private int a;
 	@FXML
 	private GridPane gridPriseHaut;
@@ -68,6 +69,10 @@ public class EchiquierController {
 
     @FXML
     private Label setplayer2;
+
+	private int rookW;
+	private int rookB;
+
 
     @FXML
     private Label sethours;
@@ -120,6 +125,8 @@ public class EchiquierController {
 	 * after the fxml file has been loaded.
 	 */ 
 	private void initialize() {
+		rookW = 0;
+		rookB = 0;
 		tours = 1;
 		grid = new Cell[8][8];
 		for (int i = 0; i <= 7; i++) {
@@ -204,6 +211,21 @@ public class EchiquierController {
 	public void incrementTours(){
 		
 		tours++;
+	}
+	
+	public int getRookW() {
+		return this.rookW;
+	}
+	public void SetRookW() {
+		this.rookW++;
+	}
+	
+	public int getRookB() {
+		return this.rookB;
+	}
+	
+	public void SetRookB() {
+		this.rookB++;
 	}
     
 
@@ -449,8 +471,19 @@ public class EchiquierController {
 		return MoveList;
 	}
 	
+	// recolte tout les attacks Moves sur le plateau
+	public List<Move> allAttackMove(List<Move> allMove) {
+		List<Move> MoveList = new ArrayList<Move>();
+		for (Move move : allMove) {
+			if (move instanceof Move.AttackMove) {
+				MoveList.add(move);
+			}
+		}
+		return MoveList;
+	}
+	
 	// verifie si il y a echec
-	public Move echec(List<Move> allMove) {
+	public Boolean echecBool(List<Move> allMove) {
 		int[] BlackKingCoord = {this.FindTheKings().get(0)[0], this.FindTheKings().get(0)[1]};
 		int[] WhiteKingCoord = {this.FindTheKings().get(1)[0], this.FindTheKings().get(1)[1]};
 		for (Move move : allMove) {
@@ -458,17 +491,46 @@ public class EchiquierController {
 			if (MoveTeam == Team.BLACK) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == WhiteKingCoord[0] && move.getDestinationCoordonate()[1] == WhiteKingCoord[1]) {
 					this.DisplayRed(move);
-					return move;
+					Boolean result = true;
+					return result;
 				}
 			}
 			if (MoveTeam == Team.WHITE) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
 					this.DisplayRed(move);
-					return move;
+					Boolean result = true;
+					return result;
 				}
 			}
 		}
-		return null;
+		Boolean result = false;
+		return result;
+	}
+	
+	public Move echecMoove(List<Move> allMove) {
+		int[] BlackKingCoord = {this.FindTheKings().get(0)[0], this.FindTheKings().get(0)[1]};
+		int[] WhiteKingCoord = {this.FindTheKings().get(1)[0], this.FindTheKings().get(1)[1]};
+		for (Move move : allMove) {
+			Team MoveTeam = move.getTeam();
+			if (MoveTeam == Team.BLACK) {
+				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == WhiteKingCoord[0] && move.getDestinationCoordonate()[1] == WhiteKingCoord[1]) {
+					this.DisplayRed(move);
+
+					Move result = move;
+					return result;
+
+				}
+			}
+			if (MoveTeam == Team.WHITE) {
+				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
+					this.DisplayRed(move);
+					Move result = move;
+					return result;
+				}
+			}
+		}
+		Move result = null;
+		return result;
 	}
 	
 	// met la case du roi et la piece qui le met en echecs en rouge
@@ -488,6 +550,7 @@ public class EchiquierController {
 		
 	}
 	
+
 	// en cas d'echecs trouve les moves legal
 	public List<Move> EchecMove(List<Move> ListMove, Move move){
 		List<Move> LegalMove = new ArrayList<Move>();
@@ -536,5 +599,226 @@ public class EchiquierController {
 		  
 		  
 	}   
+
+
+	// -----------------trouve les mouvements possible en cas d'echec ----------------
+	
+	
+	
+	
+	// trouve les mooves possibles
+	public List<Move> LegalEchecMove (Pieces piece, Pieces DefPiece){
+		List<Move> LegalMove = new ArrayList<Move>();
+		Type type = piece.getType();
+		List<Move> allMove = this.allMove();
+		List<Move> PieceMove = DefPiece.legal_move(this);
+		int[] KingCoord = this.echecMoove(allMove).getDestinationCoordonate();
+		if (type == type.KNIGHT || type == type.PAWN ) {
+			for (Move move : PieceMove) {
+				Team AttackTeam = move.getTeam();
+				if (AttackTeam != piece.GetTeam() && move.getDestinationCoordonate()[0] == piece.GetterX()
+						&& move.getDestinationCoordonate()[1] == piece.GetterY() || move.getType() == type.KING ) {
+					LegalMove.add(move);
+				}
+			}
+		}
+		if (type == type.ROOK) {
+			
+			for (Move move : PieceMove) {
+				if (piece.GetterY() < KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
+					int index = piece.GetterY();
+					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
+						index++;
+						
+					}
+					if (index == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterY() > KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
+					int index = piece.GetterY();
+					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
+						index--;
+						
+					}
+					if (index == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterX() > KingCoord[0] && move.getDestinationCoordonate()[1] == KingCoord[1]) {
+					int index = piece.GetterX();
+					while (index < KingCoord[0] && index != move.getDestinationCoordonate()[0]) {
+						index--;
+						
+					}
+					if (index == move.getDestinationCoordonate()[0]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterX() < KingCoord[0] && move.getDestinationCoordonate()[1] == KingCoord[1]) {
+					int index = piece.GetterX();
+					while (index < KingCoord[0] && index != move.getDestinationCoordonate()[0]) {
+						index++;
+						
+					}
+					if (index == move.getDestinationCoordonate()[0]) {
+						LegalMove.add(move);
+					}
+				}
+				
+			}
+		}
+		if (type == type.BISHOP) {
+			for (Move move : PieceMove) {
+				// haut gauche
+				if (piece.GetterX() < KingCoord[0] && piece.GetterY() < KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX++;
+						indexY++;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// haut droit
+				if (piece.GetterX() > KingCoord[0] && piece.GetterY() < KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX--;
+						indexY++;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// bas gauche
+				if (piece.GetterX() < KingCoord[0] && piece.GetterY() > KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX++;
+						indexY--;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// bas droit
+				if (piece.GetterX() > KingCoord[0] && piece.GetterY() > KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX--;
+						indexY--;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+			}
+		}
+		if (type == type.QUEEN) {
+			for (Move move : PieceMove) {
+				
+				if (piece.GetterY() < KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
+					int index = piece.GetterY();
+					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
+						index++;
+						
+					}
+					if (index == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterY() > KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
+					int index = piece.GetterY();
+					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
+						index--;
+						
+					}
+					if (index == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterX() > KingCoord[0] && move.getDestinationCoordonate()[1] == KingCoord[1]) {
+					int index = piece.GetterX();
+					while (index < KingCoord[0] && index != move.getDestinationCoordonate()[0]) {
+						index--;
+						
+					}
+					if (index == move.getDestinationCoordonate()[0]) {
+						LegalMove.add(move);
+					}
+				}
+				if (piece.GetterX() < KingCoord[0] && move.getDestinationCoordonate()[1] == KingCoord[1]) {
+					int index = piece.GetterX();
+					while (index < KingCoord[0] && index != move.getDestinationCoordonate()[0]) {
+						index++;
+						
+					}
+					if (index == move.getDestinationCoordonate()[0]) {
+						LegalMove.add(move);
+					}
+				}
+				
+				// haut gauche
+				if (piece.GetterX() < KingCoord[0] && piece.GetterY() < KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX++;
+						indexY++;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// haut droit
+				if (piece.GetterX() > KingCoord[0] && piece.GetterY() < KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX--;
+						indexY++;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// bas gauche
+				if (piece.GetterX() < KingCoord[0] && piece.GetterY() > KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX++;
+						indexY--;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				// bas droit
+				if (piece.GetterX() > KingCoord[0] && piece.GetterY() > KingCoord[1]) {
+					int indexX = piece.GetterX();
+					int indexY = piece.GetterY();
+					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						indexX--;
+						indexY--;
+					}
+					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
+						LegalMove.add(move);
+					}
+				}
+				
+			}
+		}
+
+		
+		return LegalMove;
+	}
+	
 
 }
