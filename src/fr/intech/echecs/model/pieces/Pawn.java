@@ -177,9 +177,14 @@ public class Pawn extends Pieces {
 		return FinalListe;
 	}
 	@Override
+<<<<<<< HEAD
 	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMove) {
 		// TODO Auto-generated method stub
 		return null;
+=======
+	public void setAttackMove(Move move) {
+		
+>>>>>>> echec_fini
 	}
 	
 

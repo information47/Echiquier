@@ -35,6 +35,8 @@ public abstract class Pieces extends ImageView {
 		
 	};
 	
+	public abstract void setAttackMove(Move move);
+	
 	public int GetterX() {
 		return this.x;
 	}
@@ -64,6 +66,14 @@ public abstract class Pieces extends ImageView {
 			}
 		}
 		return true;
+	}
+	public void clearAttackMove() {
+		// TODO Auto-generated method stub
+		
+	}
+	public void getAttackMove() {
+		// TODO Auto-generated method stub
+		
 	};
 
 }
