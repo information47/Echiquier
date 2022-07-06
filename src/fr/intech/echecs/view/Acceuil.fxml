@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="Acceuil" prefHeight="684.0" prefWidth="900.0" styleClass="background" stylesheets="@echiquier.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.intech.echecs.view.AcceuilController">
+<BorderPane fx:id="Acceuil" prefHeight="684.0" prefWidth="900.0" styleClass="accueil-background" stylesheets="@echiquier.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.intech.echecs.view.AcceuilController">
    <bottom>
       <ButtonBar prefHeight="40.0" prefWidth="775.0" BorderPane.alignment="CENTER">
          <buttons>
@@ -27,7 +27,7 @@
                   <Image url="@../../../../ressources/logo_iChess.png" />
                </image>
             </ImageView>
-            <Button layoutX="347.0" layoutY="540.0" mnemonicParsing="false" onAction="#play" prefHeight="67.0" prefWidth="205.0" text="Jouer" />
+            <Button layoutX="347.0" layoutY="540.0" mnemonicParsing="false" onAction="#play" prefHeight="67.0" prefWidth="205.0" styleClass="noselect" text="Jouer" />
          </children>
       </AnchorPane>
    </top>

@@ -11,19 +11,32 @@ import fr.intech.echecs.model.chessboard.Move.NormalMove;
 import fr.intech.echecs.view.EchiquierController;
 
 public class King extends Pieces {
-	 
+
+	private boolean echec;
+	private List<Move> attackMove = new ArrayList<Move>();
 
 	public King(int x, int y, Team team, Type type) {
 		super(x, y, team, type);
-		// TODO Auto-generated constructor stub
+		this.echec = false;
+	}
+	@Override
+	public void setAttackMove(Move move) {
+		this.attackMove.add(move);
+	}
+	@Override
+	public void clearAttackMove() {
+		this.attackMove.clear();
+	}
+	@Override
+	public void getAttackMove() {
+		System.out.println(this.attackMove);
 	}
 
 	@Override
-	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMoves) {
+	public List<Move> legal_move(EchiquierController board) {
 		List<Move> FinalList = new ArrayList<Move>();  // la liste de tout les mouvements possible
 		int Xpossible;
 		int Ypossible;
-		
 		// diagonal haut
 		Xpossible = this.x-1;
 		Ypossible = this.y-1;
@@ -176,11 +189,11 @@ public class King extends Pieces {
 		// TODO Auto-generated method stub
 		
 	}
-
 	@Override
-	public List<Move> legal_move(EchiquierController board) {
+	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMove) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

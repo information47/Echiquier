@@ -1,5 +1,14 @@
 .background {
-    -fx-background-color: #1d1d1d;
+    /* -fx-background-color: #1d1d1d; */
+    /* -fx-background-repeat: no-repeat;  */
+    /* -fx-background-size: 1000 1000;  */
+    -fx-background-image: url("../../../../ressources/background7.jpg");
+    /* -fx-background-position: center center; */
+}
+.accueil-background {
+    -fx-background-repeat: no-repeat; 
+    -fx-background-image: url('../../../../ressources/background5.jpg');
+    /* -fx-background-position: 10% 10%; */
 }
 
 .label {

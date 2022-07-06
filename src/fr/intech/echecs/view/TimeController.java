@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class TimeController {
@@ -87,8 +88,11 @@ public class TimeController {
 
 	         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
-	         window.setResizable(false);
+	         //window.setResizable(false);
 	         window.setScene(tableViewScene);
+	         window.setMaximized(true);
+	         window.getIcons().add(new Image("./ressources/logo_iChess.png"));
+		   		window.setTitle("iChess");
 	         window.show();
 	    
 	      /*  FXMLLoader loader = new FXMLLoader();
