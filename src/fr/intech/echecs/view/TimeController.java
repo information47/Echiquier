@@ -88,7 +88,9 @@ public class TimeController {
 
 	         Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
 
-	         //window.setResizable(false);
+	         window.setResizable(false);
+	         window.getIcons().add(new Image("./ressources/logo_iChess.png"));
+		   		window.setTitle("iChess");
 	         window.setScene(tableViewScene);
 	         window.setMaximized(true);
 	         window.getIcons().add(new Image("./ressources/logo_iChess.png"));
