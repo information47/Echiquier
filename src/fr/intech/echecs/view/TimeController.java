@@ -93,8 +93,6 @@ public class TimeController {
 		   		window.setTitle("iChess");
 	         window.setScene(tableViewScene);
 	         window.setMaximized(true);
-	         window.getIcons().add(new Image("./ressources/logo_iChess.png"));
-		   		window.setTitle("iChess");
 	         window.show();
 	    
 	      /*  FXMLLoader loader = new FXMLLoader();

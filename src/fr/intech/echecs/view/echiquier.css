@@ -10,6 +10,9 @@
     -fx-background-image: url('../../../../ressources/background5.jpg');
     /* -fx-background-position: 10% 10%; */
 }
+.text_player {
+    -fx-color: #1d1d1d;
+}
 
 .label {
     -fx-font-size: 11pt;
