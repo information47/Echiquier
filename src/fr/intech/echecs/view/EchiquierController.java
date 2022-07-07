@@ -27,6 +27,7 @@ import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.model.pieces.Type;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,6 +37,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -92,6 +95,10 @@ public class EchiquierController {
     private Text timer;
     @FXML
     private Text timer1;
+    @FXML
+	private TableView<String> Historique;
+	private TableColumn<Cell, String> HistoPiece;
+	private TableColumn<Cell, String> HistoMoove;
    
 
     Timeline timeline = new Timeline(
@@ -182,6 +189,13 @@ public class EchiquierController {
 	        timeline1.play();
 		 
 	}
+	@FXML
+	private void histo() {
+    	// Initialize the person table with the two columns.
+        HistoPiece.setCellValueFactory(cellData -> cellData.getValue().nompiece());
+        HistoMoove.setCellValueFactory(cellData -> cellData.getValue().coordonees());
+    }
+	
 
 	
 	
@@ -536,5 +550,14 @@ public class EchiquierController {
 		  
 		  
 	}   
+   public ObservableList<String> DisplayHistoPiece(ObservableList<String> HistoPiece) {
+		return HistoPiece;
+		
+	}
+	
+	public ObservableList<String> DisplayHistoMoove(ObservableList<String> HistoMoove) {
+		return HistoMoove;
+		
+	}
 
 }

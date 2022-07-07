@@ -8,6 +8,10 @@ import fr.intech.echecs.model.pieces.Pieces;
 import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.model.pieces.Type;
 import fr.intech.echecs.view.EchiquierController;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.StringPropertyBase;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -22,6 +26,8 @@ public class Cell extends StackPane {
 	private EchiquierController echiquier;
 	private int[] selectedby;
 	private Boolean Attacked;
+	private StringProperty coordonees;
+	private StringProperty nompiece;
 	
 	public Cell (int x, int y, Pieces pieceOnCell, EchiquierController echiquier, int[] selectedby) {
 		this.x = x;
@@ -58,7 +64,32 @@ public class Cell extends StackPane {
             	} 
         });
 	}
+	public ObservableList<String> HistoPiece = FXCollections.observableArrayList();
+	public ObservableList<String> HistoMoove = FXCollections.observableArrayList();
 	
+	
+	public String getnompiece() {
+		return  nompiece.get();
+	}
+	
+	public void setnompiece(String nompiece) {
+		((StringPropertyBase) this.nompiece).set(nompiece);
+	}
+	public StringProperty nompieceProperty() {
+		return (StringProperty) nompiece;
+	}
+
+	public String getcoordonees() {
+		return coordonees.get();
+	}
+	
+	public StringProperty nompiece() {
+		return nompiece;
+	}
+	
+	public StringProperty coordonees() {
+		return coordonees;
+	}
 	public void SetpieceOnCell(Pieces piece) {
 		this.pieceOnCell = piece;
 	}
@@ -146,6 +177,8 @@ public class Cell extends StackPane {
 			Cell newCell = this.echiquier.getCell(selectTab[0], selectTab[1]);
 			Cell originalCell = this.echiquier.getCell(this.selectedby[0], this.selectedby[1]);
 			Pieces originalPiece = originalCell.getPiece();
+			HistoPiece.add(originalPiece.getType()+" "+ originalPiece.GetTeam());
+			HistoMoove.add(selectTab[0]+" "+selectTab[1]);
 			if(newCell.getChildren().size()<2) {
 				this.echiquier.NormalMove(originalPiece, originalCell, newCell);
 			} else {
