@@ -317,8 +317,29 @@ public class EchiquierController {
 			originalCell.getChildren().add(0, couleurbloque);
 		} else {
 		if (move instanceof NormalMove) {
-			couleur.setFill(Color.LIMEGREEN);
-			cell.setAttacked(false);
+			if (move.getPiece().getType() == Type.KING && move.getPiece().GetRock() == true) {
+				if (move.getDestinationCoordonate()[0] == 1 && move.getDestinationCoordonate()[1] == 0 ) {
+					couleur.setFill(Color.MEDIUMPURPLE);
+					cell.setAttacked(false);
+				}
+				if (move.getDestinationCoordonate()[0] == 5 && move.getDestinationCoordonate()[1] == 0 ) {
+					couleur.setFill(Color.MEDIUMPURPLE);
+					cell.setAttacked(false);
+				}
+				if (move.getDestinationCoordonate()[0] == 1 && move.getDestinationCoordonate()[1] == 7 ) {
+					couleur.setFill(Color.MEDIUMPURPLE);
+					cell.setAttacked(false);
+				}
+				if (move.getDestinationCoordonate()[0] == 5 && move.getDestinationCoordonate()[1] == 7 ) {
+					couleur.setFill(Color.MEDIUMPURPLE);
+					cell.setAttacked(false);
+				}
+			}
+			else {
+				couleur.setFill(Color.LIMEGREEN);
+				cell.setAttacked(false);
+			}
+			
 		}
 		else {
 			couleur.setFill(Color.RED);

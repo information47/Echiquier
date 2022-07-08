@@ -13,13 +13,24 @@ import fr.intech.echecs.view.EchiquierController;
 public class King extends Pieces {
 
 
-
+	private boolean rock;
 	private List<Move> attackMove = new ArrayList<Move>();
 
 	public King(int x, int y, Team team, Type type) {
 		super(x, y, team, type);
+		rock = false;
 
 	}
+	
+	@Override
+	public boolean GetRock() {
+		return this.rock;
+	}
+	@Override
+	public void setRock(boolean rock) {
+		this.rock = rock;
+	}
+	
 	@Override
 	public void setAttackMove(Move move) {
 		this.attackMove.add(move);

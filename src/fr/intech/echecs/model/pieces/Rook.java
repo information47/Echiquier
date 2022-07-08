@@ -143,4 +143,16 @@ public class Rook extends Pieces {
 
 	}
 
+	@Override
+	public boolean GetRock() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setRock(boolean rock) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

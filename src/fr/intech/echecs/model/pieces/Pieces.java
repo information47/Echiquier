@@ -26,6 +26,10 @@ public abstract class Pieces extends ImageView {
 	}
 	public abstract void SetMoved(boolean moved) ;
 	
+	public abstract boolean GetRock();
+	
+	public abstract void setRock(boolean rock);
+	
 	public abstract List<Move> legal_move (EchiquierController board);
 	
 	public abstract List<Move> KingLegal_Move (EchiquierController board, List<Move> allMove );
