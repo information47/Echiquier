@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class AcceuilController {
@@ -35,6 +36,8 @@ public class AcceuilController {
 	    	
 	    	Scene scene  = new Scene(root);
 	    	Stage stage = new Stage();
+	    	stage.getIcons().add(new Image("./ressources/logo_iChess.png"));
+		   	stage.setTitle("iChess");
 	    	stage.setScene(scene);
 	    	stage.show();
 

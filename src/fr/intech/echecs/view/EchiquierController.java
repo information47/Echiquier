@@ -290,7 +290,7 @@ public class EchiquierController {
     	 
     	 Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
     	 
-    	 window.setResizable(false);
+    	 //window.setResizable(false);
     	 window.setScene(tableViewScene);
     	 window.show();
 	}
