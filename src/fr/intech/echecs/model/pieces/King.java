@@ -12,12 +12,10 @@ import fr.intech.echecs.view.EchiquierController;
 
 public class King extends Pieces {
 
-	private boolean echec;
 	private List<Move> attackMove = new ArrayList<Move>();
 
 	public King(int x, int y, Team team, Type type) {
 		super(x, y, team, type);
-		this.echec = false;
 	}
 	@Override
 	public void setAttackMove(Move move) {

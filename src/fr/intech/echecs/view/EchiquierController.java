@@ -684,13 +684,20 @@ public class EchiquierController {
 		}
 		if (type == type.BISHOP) {
 			for (Move move : PieceMove) {
+				int moveX = move.getDestinationCoordonate()[0];
+				int moveY = move.getDestinationCoordonate()[1];
 				// haut gauche
 				if (piece.GetterX() < KingCoord[0] && piece.GetterY() < KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
 					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX++;
-						indexY++;
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX++;
+							indexY++;
+						}
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -700,9 +707,14 @@ public class EchiquierController {
 				if (piece.GetterX() > KingCoord[0] && piece.GetterY() < KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX--;
-						indexY++;
+					while ( indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX--;
+							indexY++;
+						}
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -712,9 +724,14 @@ public class EchiquierController {
 				if (piece.GetterX() < KingCoord[0] && piece.GetterY() > KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX++;
-						indexY--;
+					while ( indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX++;
+							indexY--;
+						}
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -724,9 +741,14 @@ public class EchiquierController {
 				if (piece.GetterX() > KingCoord[0] && piece.GetterY() > KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX--;
-						indexY--;
+					while ( indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX--;
+							indexY--;
+						}
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -735,8 +757,10 @@ public class EchiquierController {
 			}
 		}
 		if (type == type.QUEEN) {
+			
 			for (Move move : PieceMove) {
-				
+				int moveX = move.getDestinationCoordonate()[0];
+				int moveY = move.getDestinationCoordonate()[1];
 				if (piece.GetterY() < KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
 					int index = piece.GetterY();
 					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
@@ -783,8 +807,14 @@ public class EchiquierController {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
 					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX++;
-						indexY++;
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX++;
+							indexY++;
+						}
+						
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -794,9 +824,15 @@ public class EchiquierController {
 				if (piece.GetterX() > KingCoord[0] && piece.GetterY() < KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX--;
-						indexY++;
+					while ( indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX--;
+							indexY++;
+						}
+						
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -807,8 +843,14 @@ public class EchiquierController {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
 					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX++;
-						indexY--;
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX++;
+							indexY--;
+						}
+						
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -818,9 +860,15 @@ public class EchiquierController {
 				if (piece.GetterX() > KingCoord[0] && piece.GetterY() > KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX--;
-						indexY--;
+					while (indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX--;
+							indexY--;
+						}
+						
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
