@@ -421,7 +421,7 @@ public class EchiquierController {
 	public void NormalMove(Pieces piece, Cell originalCell, Cell newCell) {
 		
 		
-     if(a%2==0)
+     if(piece.GetTeam()== Team.BLACK)
      {
     	 timeline.pause();
 			timeline1.play();
@@ -448,13 +448,13 @@ public class EchiquierController {
 		}
 		
 		
-		a++ ;
+		
 	
 	}
 	
 	public void AttackMove(Pieces piece, Cell originalCell, Cell newCell) {
 		
-		  if(a%2==0)
+		  if(piece.GetTeam()== Team.BLACK)
 		     {
 		    	 timeline.pause();
 					timeline1.play();
@@ -472,7 +472,7 @@ public class EchiquierController {
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
 		
-		a++ ;
+		
 	}
 	
 	// ---------------------- detection echec -----------------------//
