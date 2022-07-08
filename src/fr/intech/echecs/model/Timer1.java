@@ -30,13 +30,14 @@ public class Timer1 {
 
 	    public void oneSecondPassed(){
 	        second--;
-	        if(second == 0){
+	        if(second == -1){
 	            minute--;
 	            second = 59;
 	            if(minute == -1){
 	                hour--;
 	                minute = 59;
 	                second = 59;
+	            
 	               
 	            }
 	        }

@@ -27,7 +27,7 @@ public class Timer {
 
     public void oneSecondPassed(){
         second--;
-        if(second == 0){
+        if(second == -1){
             minute--;
             second = 59;
             if(minute == -1){

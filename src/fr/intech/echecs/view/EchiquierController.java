@@ -91,8 +91,8 @@ public class EchiquierController {
     private Label setsecond1;
     
     
-    Timer time = new Timer("2:30:10");
-    Timer1 time1 = new Timer1("2:30:10");
+    Timer time = new Timer("2:30:00");
+    Timer1 time1 = new Timer1("2:30:00");
     @FXML
     private Text timer;
     @FXML
