@@ -284,6 +284,7 @@ public class EchiquierController {
 	
 	}
 	public void afficherEnd(ActionEvent event) throws IOException {
+		
  Parent tableViewParent = FXMLLoader.load(getClass().getResource("end.fxml"));
     	 
     	 Scene tableViewScene = new Scene(tableViewParent);

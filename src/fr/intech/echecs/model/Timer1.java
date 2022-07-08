@@ -22,6 +22,9 @@ public class Timer1 {
 	    }
 
 	    public String getCurrentTime(){
+	    	
+	    	
+	    	
 	        return hour + ":" + minute + ":" + second;
 	    }
 
