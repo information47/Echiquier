@@ -2,16 +2,21 @@ package fr.intech.echecs.view;
 
 
 
+import static javafx.animation.Animation.Status.RUNNING;
+
 import java.io.IOException;
-import java.sql.Array;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.ResourceBundle;
+
 
 import fr.intech.echecs.MainEchec;
 import fr.intech.echecs.model.Cell;
+import fr.intech.echecs.model.Timer;
+import fr.intech.echecs.model.Timer1;
 import fr.intech.echecs.model.chessboard.Move;
-import fr.intech.echecs.model.chessboard.Move.*;
+import fr.intech.echecs.model.chessboard.Move.NormalMove;
 import fr.intech.echecs.model.pieces.Bishop;
 import fr.intech.echecs.model.pieces.King;
 import fr.intech.echecs.model.pieces.Knight;
@@ -21,20 +26,31 @@ import fr.intech.echecs.model.pieces.Queen;
 import fr.intech.echecs.model.pieces.Rook;
 import fr.intech.echecs.model.pieces.Team;
 import fr.intech.echecs.model.pieces.Type;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 
 public class EchiquierController {
+	 
+	
+	
 	private String gagnant = "gagnant";
 	@FXML
 	private GridPane echiquier;
@@ -45,6 +61,64 @@ public class EchiquierController {
 	private int rookW;
 	private int rookB;
 
+	private int a;
+	@FXML
+	private GridPane gridPriseHaut;
+	@FXML
+	private GridPane gridPriseBas;
+
+	@FXML
+    private Label setplayer1;
+
+    @FXML
+    private Label setplayer2;
+
+
+    @FXML
+    private Label sethours;
+
+    @FXML
+    private Label setminutes;
+    @FXML
+    private Label sethours1;
+
+    @FXML
+    private Label setminutes1;
+    @FXML
+    private Label setsecond;
+
+    @FXML
+    private Label setsecond1;
+    
+    
+    Timer time = new Timer("2:30:59");
+    Timer1 time1 = new Timer1("2:30:59");
+    @FXML
+    private Text timer;
+    @FXML
+    private Text timer1;
+   
+
+    Timeline timeline = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    e -> {
+                        
+                        time.oneSecondPassed();
+                        timer.setText(time.getCurrentTime());
+            }));
+
+    
+    Timeline timeline1 = new Timeline(
+            new KeyFrame(Duration.seconds(1),
+                    e -> {
+                        
+                        time1.oneSecondPassed();
+                        timer1.setText(time1.getCurrentTime());
+            }));
+    
+    
+    
+    
 	@FXML
 	/**
 	 * Initializes the controller class. This method is automatically called
@@ -67,6 +141,8 @@ public class EchiquierController {
 			}
 
 		}
+		
+		
 		addObject(new Rook(0, 0, Team.BLACK, Type.ROOK));
 		addObject(new Rook(7,0, Team.BLACK, Type.ROOK));
 		addObject(new Knight(1,0, Team.BLACK, Type.KNIGHT));
@@ -100,8 +176,23 @@ public class EchiquierController {
 		addObject(new Pawn(5,6,Team.WHITE, Type.PAWN));
 		addObject(new Pawn(6,6,Team.WHITE, Type.PAWN));
 		addObject(new Pawn(7,6,Team.WHITE, Type.PAWN));
+		
+		 timer.setText(time.getCurrentTime());
+
+	        timeline.setCycleCount(Timeline.INDEFINITE);
+	        timeline.pause();
+	        
+	        timer1.setText(time.getCurrentTime());
+
+	        timeline1.setCycleCount(Timeline.INDEFINITE);
+	        timeline1.play();
+	        a = 1 ;
+	    	
 	}
 
+	
+	
+	
 	public GridPane getEchiquier() {
 		return echiquier;
 	}
@@ -118,6 +209,7 @@ public class EchiquierController {
 	}
 	
 	public void incrementTours(){
+		
 		tours++;
 	}
 	
@@ -197,7 +289,7 @@ public class EchiquierController {
     	 
     	 Stage window = (Stage) (((Node) event.getSource()).getScene().getWindow());
     	 
-    	 window.setResizable(false);
+    	 //window.setResizable(false);
     	 window.setScene(tableViewScene);
     	 window.show();
 	}
@@ -209,11 +301,16 @@ public class EchiquierController {
 		Cell originalCell = grid[selectedby[0]][selectedby[1]];
 		
 		if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
+		
+			
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
 			originalCell.getChildren().remove(0);
 			originalCell.getChildren().add(0, couleurbloque);
+			
 		} else if(grid[selectedby[0]][selectedby[1]].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
+			
+			
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
 			originalCell.getChildren().remove(0);
@@ -238,18 +335,29 @@ public class EchiquierController {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
 	public void displayOrange(int x, int y) {
 		Cell originalCell = grid[x][y];
+		
 		if(grid[x][y].getPiece().GetTeam() == Team.BLACK && tours%2 == 1) {
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
 			originalCell.getChildren().remove(0);
 			originalCell.getChildren().add(0, couleurbloque);
+		
+			
+			
 		} else if(grid[x][y].getPiece().GetTeam() == Team.WHITE && tours%2 == 0) {
 			Rectangle couleurbloque = new Rectangle(0, 0, 74, 74);
 			couleurbloque.setFill(Color.RED);
 			originalCell.getChildren().remove(0);
 			originalCell.getChildren().add(0, couleurbloque);
+			
 		}else {
 			Rectangle couleur = new Rectangle(0, 0, 74, 74);
 			Cell cell = grid[x][y];
@@ -257,6 +365,7 @@ public class EchiquierController {
 			cell.getChildren().remove(0);
 			cell.getChildren().add(0, couleur);
 		}
+		
 		
 	}
 	
@@ -288,18 +397,43 @@ public class EchiquierController {
 	}
 	
 	public void NormalMove(Pieces piece, Cell originalCell, Cell newCell) {
+		
+		
+     if(a%2==0)
+     {
+    	 timeline.pause();
+			timeline1.play();
+    	 
+     }else {
+    	   timeline.play();
+			timeline1.pause();
+    	 
+     }
+		  
+		
+	  
 		piece.setX(newCell.GetX());
 		piece.setY(newCell.GetY());
-		if (piece.getType() == Type.PAWN) {
-			piece.SetMoved(true);
-		}
+		
+		    
+		 
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
+		
+		if (piece.getType() == Type.PAWN ) {
+			piece.SetMoved(true);
+		
+		}
+		
+		
+		a++ ;
+	
 	}
 	
 	public void AttackMove(Pieces piece, Cell originalCell, Cell newCell) {
 		piece.setX(newCell.GetX());
 		piece.setY(newCell.GetY());
+		eaten(newCell.getPiece());
 		newCell.SetpieceOnCell(piece);
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
@@ -386,6 +520,7 @@ public class EchiquierController {
 	}
 	
 	public Move echecMoove(List<Move> allMove) {
+
 		int[] BlackKingCoord = {this.FindTheKings().get(0)[0], this.FindTheKings().get(0)[1]};
 		int[] WhiteKingCoord = {this.FindTheKings().get(1)[0], this.FindTheKings().get(1)[1]};
 		for (Move move : allMove) {
@@ -393,6 +528,7 @@ public class EchiquierController {
 			if (MoveTeam == Team.BLACK) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == WhiteKingCoord[0] && move.getDestinationCoordonate()[1] == WhiteKingCoord[1]) {
 					this.DisplayRed(move);
+
 					Move result = move;
 					return result;
 				}
@@ -400,6 +536,7 @@ public class EchiquierController {
 			if (MoveTeam == Team.WHITE) {
 				if (move instanceof Move.AttackMove && move.getDestinationCoordonate()[0] == BlackKingCoord[0] && move.getDestinationCoordonate()[1] == BlackKingCoord[1]) {
 					this.DisplayRed(move);
+
 					Move result = move;
 					return result;
 				}
@@ -426,6 +563,59 @@ public class EchiquierController {
 		
 	}
 	
+	// -----------------trouve les mouvements possible en cas d'echec ----------------
+
+
+	// en cas d'echecs trouve les moves legal
+	public List<Move> EchecMove(List<Move> ListMove, Move move){
+		List<Move> LegalMove = new ArrayList<Move>();
+		Type AttackingPiece = move.getType();
+		int[] CoordAttackingPiece = {move.getPiece().GetterX(),move.getPiece().GetterY()};
+		int[] CoordKing = move.getDestinationCoordonate();
+		// ajoute tout les moves qui élimine l'attaquant
+		for (Move testedMove : ListMove) {
+			if (testedMove instanceof Move.AttackMove && testedMove.getDestinationCoordonate()[0] == CoordAttackingPiece[0] 
+					&& testedMove.getDestinationCoordonate()[1] == CoordAttackingPiece[1]) {
+				LegalMove.add(testedMove);
+			}
+			
+		}
+		
+		
+		return LegalMove;
+		
+	}
+	public void eaten(Pieces piece) {
+		if (piece.GetTeam() == Team.BLACK) {
+			List<Node> childrensBlack = gridPriseBas.getChildren();
+			int length = childrensBlack.size();
+			if (length < 8) {
+				gridPriseBas.add(piece, length, 0);
+			} else {
+				gridPriseBas.add(piece, length-8, 1);
+			}
+		} else {
+			List<Node> childrensWhite = gridPriseHaut.getChildren();
+			int length = childrensWhite.size();
+			if (length < 8) {
+				gridPriseHaut.add(piece, length, 0);
+			} else {
+				gridPriseHaut.add(piece, length-8, 1);
+			}
+		}
+	}
+	
+	
+   public void Myfunction (String player1 ,String player2 )
+	{
+		
+		  setplayer1.setText(player1);
+		  setplayer2.setText(player2);
+		  
+		  
+	}   
+
+
 	// -----------------trouve les mouvements possible en cas d'echec ----------------
 	
 	
@@ -495,13 +685,20 @@ public class EchiquierController {
 		}
 		if (type == type.BISHOP) {
 			for (Move move : PieceMove) {
+				int moveX = move.getDestinationCoordonate()[0];
+				int moveY = move.getDestinationCoordonate()[1];
 				// haut gauche
 				if (piece.GetterX() < KingCoord[0] && piece.GetterY() < KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
 					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX++;
-						indexY++;
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX++;
+							indexY++;
+						}
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -511,9 +708,14 @@ public class EchiquierController {
 				if (piece.GetterX() > KingCoord[0] && piece.GetterY() < KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX--;
-						indexY++;
+					while ( indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX--;
+							indexY++;
+						}
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -523,9 +725,14 @@ public class EchiquierController {
 				if (piece.GetterX() < KingCoord[0] && piece.GetterY() > KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX++;
-						indexY--;
+					while ( indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX++;
+							indexY--;
+						}
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -535,9 +742,14 @@ public class EchiquierController {
 				if (piece.GetterX() > KingCoord[0] && piece.GetterY() > KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX--;
-						indexY--;
+					while ( indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX--;
+							indexY--;
+						}
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -546,8 +758,10 @@ public class EchiquierController {
 			}
 		}
 		if (type == type.QUEEN) {
+			
 			for (Move move : PieceMove) {
-				
+				int moveX = move.getDestinationCoordonate()[0];
+				int moveY = move.getDestinationCoordonate()[1];
 				if (piece.GetterY() < KingCoord[1] && move.getDestinationCoordonate()[0] == KingCoord[0]) {
 					int index = piece.GetterY();
 					while (index < KingCoord[1] && index != move.getDestinationCoordonate()[1]) {
@@ -594,8 +808,14 @@ public class EchiquierController {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
 					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX++;
-						indexY++;
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX++;
+							indexY++;
+						}
+						
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -605,9 +825,15 @@ public class EchiquierController {
 				if (piece.GetterX() > KingCoord[0] && piece.GetterY() < KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX--;
-						indexY++;
+					while ( indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX--;
+							indexY++;
+						}
+						
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -618,8 +844,14 @@ public class EchiquierController {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
 					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX++;
-						indexY--;
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX++;
+							indexY--;
+						}
+						
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -629,9 +861,15 @@ public class EchiquierController {
 				if (piece.GetterX() > KingCoord[0] && piece.GetterY() > KingCoord[1]) {
 					int indexX = piece.GetterX();
 					int indexY = piece.GetterY();
-					while (indexX < KingCoord[0] && indexY < KingCoord[1] && indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
-						indexX--;
-						indexY--;
+					while (indexX != move.getDestinationCoordonate()[0] || indexY != move.getDestinationCoordonate()[1]) {
+						if (indexX < 0 || indexX > 7 || indexY < 0 || indexY > 7) {
+							break;
+						}
+						else {
+							indexX--;
+							indexY--;
+						}
+						
 					}
 					if (indexX == move.getDestinationCoordonate()[0] && indexY == move.getDestinationCoordonate()[1]) {
 						LegalMove.add(move);
@@ -644,5 +882,4 @@ public class EchiquierController {
 		
 		return LegalMove;
 	}
-	
 }

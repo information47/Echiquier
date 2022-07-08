@@ -12,12 +12,13 @@ import fr.intech.echecs.view.EchiquierController;
 
 public class King extends Pieces {
 
-	private boolean echec;
+
+
 	private List<Move> attackMove = new ArrayList<Move>();
 
 	public King(int x, int y, Team team, Type type) {
 		super(x, y, team, type);
-		this.echec = false;
+
 	}
 	@Override
 	public void setAttackMove(Move move) {
@@ -189,5 +190,11 @@ public class King extends Pieces {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public List<Move> KingLegal_Move(EchiquierController board, List<Move> allMove) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
