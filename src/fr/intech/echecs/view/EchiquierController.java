@@ -91,8 +91,8 @@ public class EchiquierController {
     private Label setsecond1;
     
     
-    Timer time = new Timer("2:30:59");
-    Timer1 time1 = new Timer1("2:30:59");
+    Timer time = new Timer("2:30:10");
+    Timer1 time1 = new Timer1("2:30:10");
     @FXML
     private Text timer;
     @FXML
@@ -283,6 +283,7 @@ public class EchiquierController {
 	
 	}
 	public void afficherEnd(ActionEvent event) throws IOException {
+		
  Parent tableViewParent = FXMLLoader.load(getClass().getResource("end.fxml"));
     	 
     	 Scene tableViewScene = new Scene(tableViewParent);
@@ -452,12 +453,26 @@ public class EchiquierController {
 	}
 	
 	public void AttackMove(Pieces piece, Cell originalCell, Cell newCell) {
+		
+		  if(a%2==0)
+		     {
+		    	 timeline.pause();
+					timeline1.play();
+		    	 
+		     }else {
+		    	   timeline.play();
+					timeline1.pause();
+		    	 
+		     }
+		  
 		piece.setX(newCell.GetX());
 		piece.setY(newCell.GetY());
 		eaten(newCell.getPiece());
 		newCell.SetpieceOnCell(piece);
 		addObject(piece);
 		originalCell.SetpieceOnCell(null);
+		
+		a++ ;
 	}
 	
 	// ---------------------- detection echec -----------------------//

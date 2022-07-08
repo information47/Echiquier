@@ -22,33 +22,26 @@ public class Timer1 {
 	    }
 
 	    public String getCurrentTime(){
+	    	
+	    	
+	    	
 	        return hour + ":" + minute + ":" + second;
 	    }
 
 	    public void oneSecondPassed(){
 	        second--;
-	        if(second == 00){
+	        if(second == 0){
 	            minute--;
 	            second = 59;
-	            if(minute == 00){
+	            if(minute == -1){
 	                hour--;
-	                minute = 0;
+	                minute = 59;
+	                second = 59;
 	               
 	            }
 	        }
 	    }
 	    
-	    public void oneSecond(){
-	        second--;
-	        if(second == 00){
-	            minute--;
-	            second = 59;
-	            if(minute == 00){
-	                hour--;
-	                minute = 0;
-	               
-	            }
-	        }
-	    }
+	  
 		
 }
